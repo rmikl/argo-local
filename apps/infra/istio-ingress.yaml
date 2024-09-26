@@ -5,19 +5,16 @@ metadata:
   namespace: argocd  
 spec:
   project: infra
-  source:
-    chart: gateway
+  sources:
+  - chart: gateway
     repoURL: https://istio-release.storage.googleapis.com/charts  
-    targetRevision: 1.23.0  
-#  - chart: gateway
-#    repoURL: https://istio-release.storage.googleapis.com/charts  
-#    targetRevision: 1.23.0  
-#    helm:
-#      valueFiles: 
-#      - $values/apps/infra/values/istio-ingress-values.yaml
-#  - repoURL: https://github.com/rmikl/argo-cd
-#    targetRevision: HEAD
-#    ref: values
+    targetRevision: 1.23.2
+    helm:
+      valueFiles: 
+      - $values/apps/infra/values/istio-ingress-values.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
   destination:
     server: https://kubernetes.default.svc  
     namespace: istio-system
