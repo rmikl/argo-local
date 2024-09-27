@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
+    pod-security.kubernetes.io/enforce: privileged
   creationTimestamp: null
   name: argocd
 spec: {}
@@ -13,6 +14,7 @@ kind: Namespace
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
+    pod-security.kubernetes.io/enforce: privileged
   creationTimestamp: null
   name: cluster-operators
 spec: {}
