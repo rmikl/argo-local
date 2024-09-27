@@ -13,11 +13,14 @@ roleBinding:
   name: kubectl-sa-binding
   namespace: cluster-operators
 
-# Pod
+cronjob:
+  name: kubectl-pod-cronjob
+  schedule: "*/1 * * * *" 
+
 pod:
   name: kubectl-pod
   namespace: cluster-operators
-  image: rmikl/kubectl:1.0.625
+  image: rmikl/kubectl:b9423032dbdadc16e0a3e837d864a59379e97986
   command:
     - /bin/sh
     - -c
