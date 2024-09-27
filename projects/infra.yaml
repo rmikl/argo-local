@@ -29,6 +29,8 @@ spec:
     namespace: 'istio-system'
   - server: https://kubernetes.default.svc
     namespace: 'kube-system'
+  - server: https://kubernetes.default.svc
+    namespace: 'metallb'
 
 
   clusterResourceWhitelist:
