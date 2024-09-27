@@ -23,7 +23,7 @@ spec:
       prune: true
       selfHeal: true
   ignoreDifferences:
-    - group: metallb.io
-      kind: IPAddressPool
-      jsonPointers:
-        - /spec/addresses
+  - group: metallb.io
+    kind: IPAddressPool
+    jqPathExpressions:
+    - .spec.addresses
