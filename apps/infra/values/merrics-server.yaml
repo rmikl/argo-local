@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  namespace: argocd  # Replace with your Argo CD namespace if different
+spec:
+  project: infra  # You can use a different project if desired
+  source:
+    repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    chart: metrics-server
+    targetRevision: 3.12.1  # Replace with the desired chart version
+  destination:
+    server: https://kubernetes.default.svc  # Represents the in-cluster Kubernetes API
+    namespace: kube-system  # Namespace where metrics-server will be deployed
+  syncPolicy:
+    automated:
+      prune: true      # Allows Argo CD to delete resources not defined in the chart
+      selfHeal: true   # Enables Argo CD to automatically correct drift
