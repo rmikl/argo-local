@@ -1,10 +1,10 @@
 ipAddressPool:
   name: router-orange
-  namespace: metallb
+  namespace: metallb-system
   addresses: []
 
 l2Advertisement:
   name: l2-adv-orange
-  namespace: metallb
+  namespace: metallb-system
   ipAddressPools:
     - router-orange
