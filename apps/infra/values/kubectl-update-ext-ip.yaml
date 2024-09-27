@@ -1,0 +1,35 @@
+# ServiceAccount
+serviceAccount:
+  name: kubectl-sa
+  namespace: cluster-operators
+
+# Role
+role:
+  name: kubectl-sa-role
+  namespace: cluster-operators
+
+# RoleBinding
+roleBinding:
+  name: kubectl-sa-binding
+  namespace: cluster-operators
+
+# Pod
+pod:
+  name: kubectl-pod
+  namespace: cluster-operators
+  image: rmikl/kubectl:1.0.625
+  command:
+    - /bin/sh
+    - -c
+    - /update_metallb_address_pool.sh
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "128Mi"
+    requests:
+      cpu: "250m"
+      memory: "64Mi"
+  env:
+    INTERVAL_TIME: "10"
+    POOL_NAME: "router-orange"
+    POOL_NAMESPACE: "metallb-system"
