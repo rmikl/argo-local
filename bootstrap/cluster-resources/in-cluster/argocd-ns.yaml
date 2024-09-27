@@ -4,6 +4,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
     pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
   creationTimestamp: null
   name: argocd
 spec: {}
@@ -15,6 +17,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
     pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
   creationTimestamp: null
   name: cluster-operators
 spec: {}
@@ -36,6 +40,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
     pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
   creationTimestamp: null
   name: metallb
 spec: {}
