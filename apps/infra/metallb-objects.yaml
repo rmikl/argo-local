@@ -6,7 +6,7 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy.git
+  - repoURL: https://github.com/rmikl/helm_predeploy
     targetRevision: master
     path: custom-charts/metallb-objects
     helm:
