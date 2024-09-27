@@ -43,7 +43,7 @@ metadata:
     pod-security.kubernetes.io/audit: privileged
     pod-security.kubernetes.io/warn: privileged
   creationTimestamp: null
-  name: metallb
+  name: metallb-system
 spec: {}
 status: {}
 
