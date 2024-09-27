@@ -6,7 +6,7 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy.git
+  - repoURL: https://github.com/rmikl/helm_predeploy
     targetRevision: feature/added-metallb-objects-chart
     path: custom-charts/kubectl-update-ext-ip
     helm:
