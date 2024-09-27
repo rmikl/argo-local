@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb-objects
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: feature/added-metallb-objects-chart
+    path: custom-charts/metallb-objects
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/metallb-objects.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: metallb-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+    - group: metallb.io
+      kind: IPAddressPool
+      jsonPointers:
+        - /spec/addresses
