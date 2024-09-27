@@ -6,13 +6,13 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: feature/added-metallb-objects-chart
     path: custom-charts/kubectl-update-ext-ip
     helm:
       valueFiles:
       - $values/apps/infra/values/kubectl-update-ext-ip.yaml
-  - repoURL: https://github.com/rmikl/argo-local
+  - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
   destination:
