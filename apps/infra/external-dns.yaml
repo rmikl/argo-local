@@ -9,12 +9,12 @@ spec:
   - repoURL: https://charts.bitnami.com/bitnami
     chart: external-dns
     targetRevision: 8.3.5
-    helm:
-      valueFiles:
-      - $values/apps/infra/values/external-dns.yaml
-  - repoURL: https://github.com/rmikl/argo-cd
-    targetRevision: HEAD
-    ref: values
+ #   helm:
+##    valueFiles:
+#    - $values/apps/infra/values/external-dns.yaml
+ # - repoURL: https://github.com/rmikl/argo-cd
+ #   targetRevision: HEAD
+ #   ref: values
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: cluster-operators
