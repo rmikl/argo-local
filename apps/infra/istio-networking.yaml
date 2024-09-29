@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-networking
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: feature/added-cluster-issuer-for-cloudflare
+    path: custom-charts/istio-networking
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/istio-networking.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cluster-operators
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

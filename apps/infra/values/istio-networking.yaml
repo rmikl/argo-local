@@ -1,0 +1,36 @@
+gateway:
+  enabled: true
+  name: main-gateway
+  selector:
+    istio: ingress
+  port:
+    number: 443
+    name: https
+    protocol: HTTPS
+  hosts:
+  - argo.rmikl.pl
+
+  tls:
+    enabled: true
+    mode: SIMPLE
+    credentialName: "rmikl.pl"
+    minProtocolVersion: TLSV1_2
+    maxProtocolVersion: TLSV1_3
+
+virtualServices:
+  - name: argo
+    namespace: argocd
+    host: "argo.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: argocd-server.argocd.svc.cluster.local
+    servicePort: 80
+
+clusterIssuer:
+  enabled: true
+  cloudflare:
+    enabled: true
+
+certificate:
+  enabled: true
+  domain: rmikl.pl
+  namespacesToCopy: "cluster-operators, argocd, istio-system"
