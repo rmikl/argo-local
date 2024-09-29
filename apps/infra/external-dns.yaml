@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
       - $values/apps/infra/values/external-dns.yaml
-  - repoURL: https://github.com/rmikl/argo-cd
+  - repoURL: https://github.com/rmikl/argo-local
     targetRevision: HEAD
     ref: values
   destination:
