@@ -3,12 +3,16 @@ gateway:
   name: main-gateway
   selector:
     istio: ingress
-  port:
+  httpsPort:
     number: 443
     name: https
     protocol: HTTPS
+  httpPort:
+    number: 80
+    name: http
+    protocol: HTTP
   hosts:
-  - argo.rmikl.pl
+    - argo.rmikl.pl
 
   tls:
     enabled: true
