@@ -1,17 +1,4 @@
-#provider: 
-#  name: cloudflare
-
-#env:
-#- name: CF_API_TOKEN
-#  valueFrom:
-#    secretKeyRef:
-#      name: cloudflare-api-key
-#      key: apiKey
-
-
 provider: cloudflare
-
-policy: sync 
 
 env:
   - name: CF_API_TOKEN
@@ -20,20 +7,20 @@ env:
         name: cloudflare-api-key
         key: apiKey
 
-#domainFilters:
-#  - rmikl.pl
-#
-#namespaced: false
-#
-#sources:
-#- service
-#- ingress
-#- istio-gateway
-#- istio-virtualservice
-#
-#policy: sync
-#registry: txt
-#
-#rbac:
-#  create: true
-#  serviceAccountName: external-dns
+domainFilters:
+  - rmikl.pl
+
+namespaced: false
+
+sources:
+- service
+- ingress
+- istio-gateway
+- istio-virtualservice
+
+policy: sync
+registry: txt
+
+rbac:
+  create: true
+  serviceAccountName: external-dns
