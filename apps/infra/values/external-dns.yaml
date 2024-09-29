@@ -9,8 +9,7 @@
 #      key: apiKey
 
 
-provider:
-  name: cloudflare
+provider: cloudflare
 
 policy: sync 
 
