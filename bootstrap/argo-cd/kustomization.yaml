@@ -15,6 +15,8 @@ configMapGenerator:
   name: argocd-cmd-params-cm
   literals:
   - 'server.insecure=true'
+  - 'server.repo.server.strict.tls=false'
+  - 'server.repo.server.plaintext=true'
 kind: Kustomization
 namespace: argocd
 resources:
