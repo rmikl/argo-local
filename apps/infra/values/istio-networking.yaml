@@ -33,6 +33,8 @@ clusterIssuer:
   enabled: true
   cloudflare:
     enabled: true
+  azureDNS:
+    enabled: false  # Explicitly disable Azure DNS
 
 certificate:
   enabled: true
