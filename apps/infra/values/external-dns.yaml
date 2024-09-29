@@ -1,21 +1,21 @@
 provider: cloudflare
 
-env:
-- name: CF_API_TOKEN
-  valueFrom:
-    secretKeyRef:
-      name: cloudflare-api
-      key: apiToken
-- name: CF_API_KEY
-  valueFrom:
-    secretKeyRef:
-      name: cloudflare-api
-      key: apiKey
-- name: CF_API_EMAIL
-  valueFrom:
-    secretKeyRef:
-      name: cloudflare-api
-      key: email
+#env:
+#- name: CF_API_TOKEN
+#  valueFrom:
+#    secretKeyRef:
+#      name: cloudflare-api
+#      key: apiToken
+#- name: CF_API_KEY
+#  valueFrom:
+#    secretKeyRef:
+#      name: cloudflare-api
+#      key: apiKey
+#- name: CF_API_EMAIL
+#  valueFrom:
+#    secretKeyRef:
+#      name: cloudflare-api
+#      key: email
 
 
 domainFilters:
