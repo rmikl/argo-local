@@ -5,7 +5,7 @@ env:
   valueFrom:
     secretKeyRef:
       name: cloudflare-api-key
-      key: CF_API_TOKEN
+      key: apiKey
 
 domainFilters:
   - rmikl.pl
