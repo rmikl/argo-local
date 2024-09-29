@@ -4,8 +4,19 @@ env:
 - name: CF_API_TOKEN
   valueFrom:
     secretKeyRef:
-      name: cloudflare-api-key
+      name: cloudflare-api
+      key: apiToken
+- name: CF_API_KEY
+  valueFrom:
+    secretKeyRef:
+      name: cloudflare-api
       key: apiKey
+- name: CF_EMAIL
+  valueFrom:
+    secretKeyRef:
+      name: cloudflare-api
+      key: email
+
 
 domainFilters:
   - rmikl.pl
@@ -13,10 +24,7 @@ domainFilters:
 namespaced: false
 
 sources:
-- service
-- ingress
 - istio-gateway
-- istio-virtualservice
 
 policy: sync
 registry: txt
