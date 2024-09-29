@@ -1,11 +1,11 @@
 provider: cloudflare
 
 env:
-  - name: CF_API_TOKEN
-    valueFrom:
-      secretKeyRef:
-        name: cloudflare-api-key
-        key: apiKey
+- name: CF_API_TOKEN
+  valueFrom:
+    secretKeyRef:
+      name: cloudflare-api-key
+      key: CF_API_TOKEN
 
 domainFilters:
   - rmikl.pl
