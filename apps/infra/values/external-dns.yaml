@@ -8,6 +8,19 @@
 #      name: cloudflare-api-key
 #      key: apiKey
 
+
+provider:
+  name: cloudflare
+
+policy: sync 
+
+env:
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-api-key
+        key: apiKey
+
 #domainFilters:
 #  - rmikl.pl
 #
