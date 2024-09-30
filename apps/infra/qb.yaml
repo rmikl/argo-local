@@ -8,7 +8,7 @@ spec:
   sources:
   - repoURL: https://k8s-home-lab.github.io/helm-charts/
     targetRevision: 14.1.0
-    path: qbittorrent
+    chart: qbittorrent
     helm:
       valueFiles:
       - $values/apps/infra/values/qb.yaml
