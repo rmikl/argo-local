@@ -1,0 +1,41 @@
+persistence:
+  # Configuration Data Persistence
+  config:
+    enabled: true
+    storageClass: dlink       # Use the 'dling' storage class
+    accessMode: ReadWriteMany  # Common access mode; adjust if needed
+    size: 1Gi                   # Adjust size based on requirements
+
+  # Media Files Persistence
+  media:
+    enabled: true
+    mountPath: /media
+    storageClass: dlink
+    accessMode: ReadWriteMany
+    size: 10Gi                  # Adjust size based on expected media storage
+
+  # Downloads Persistence
+  downloads:
+    enabled: true
+    mountPath: /downloads
+    storageClass: dlink
+    accessMode:  ReadWriteMany
+    size: 10Gi   
+ingress:
+  main:
+    enabled: false
+
+service:
+  main:
+    # Set the service type to ClusterIP
+    type: ClusterIP
+    ports:
+      http:
+        # Expose port 80 instead of the default 8080
+        port: 80
+
+# Image Configuration
+image:
+  repository: ghcr.io/onedr0p/qbittorrent
+  tag: # You can specify a tag here or leave it blank to use chart.appVersion
+  pullPolicy: IfNotPresent

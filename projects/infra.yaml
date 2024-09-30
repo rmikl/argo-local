@@ -21,6 +21,7 @@ spec:
   - https://kubernetes-sigs.github.io/metrics-server/
   - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
   - https://github.com/jellyfin/jellyfin-helm.git
+  - https://k8s-home-lab.github.io/helm-charts/
 
   destinations:
   - server: https://kubernetes.default.svc

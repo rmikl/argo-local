@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: qb
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: https://k8s-home-lab.github.io/helm-charts/
+    targetRevision: 14.1.0
+    path: qbittorrent
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/qb.yaml
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cluster-operators
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
