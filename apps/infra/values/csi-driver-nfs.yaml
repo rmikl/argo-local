@@ -1,15 +1,15 @@
-#storageClass:
-#  create: true
-#  name: dlink
-#  annotations:
-#    storageclass.kubernetes.io/is-default-class: "true"
-#  parameters:
-#    server: 192.168.1.22
-#    share: /mnt/HD/HD_a2
-#    subDir: /
-#    mountPermissions: "0"
-#  reclaimPolicy: Delete
-#  volumeBindingMode: Immediate
-#  mountOptions:
-#  - nolock
-#
+storageClass:
+  create: true
+  name: dlink
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  parameters:
+    server: 192.168.1.22
+    share: /mnt/HD/HD_a2
+    subDir: /
+    mountPermissions: "0"
+  reclaimPolicy: Delete
+  volumeBindingMode: Immediate
+  mountOptions:
+  - nolock
+
