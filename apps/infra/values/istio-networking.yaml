@@ -28,6 +28,12 @@ virtualServices:
     gateway: "cluster-operators/main-gateway"
     serviceName: argocd-server.argocd.svc.cluster.local
     servicePort: 80
+  - name: mama
+    namespace: cluster-operators
+    host: "mama.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: mama-chadcn.sites.svc.cluster.local
+    servicePort: 80
 
 clusterIssuer:
   enabled: true
