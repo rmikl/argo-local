@@ -6,9 +6,9 @@ metadata:
 spec:
   project: infra
   source:
-    repoURL: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
-    chart: secrets-store-csi-driver
-    targetRevision: 1.4.5
+    repoURL: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+    chart: csi-driver-nfs
+    targetRevision: 4.9.0
   destination:
     server: https://kubernetes.default.svc
     namespace: cluster-operators

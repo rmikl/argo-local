@@ -19,7 +19,7 @@ spec:
   - https://grafana.github.io/helm-charts
   - https://metallb.github.io/metallb
   - https://kubernetes-sigs.github.io/metrics-server/
-  - https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+  - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
 
 
   destinations:
