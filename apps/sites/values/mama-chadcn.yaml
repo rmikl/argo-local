@@ -6,10 +6,10 @@ deployment:
 image:
   gitSync:
     repository: rmikl/docker_puller
-    tag: 0.1.0
+    tag: 1.0.627
   frontApp:
-    repository: rmikl/node
-    tag: 0.1.0
+    repository: rmikl/node_shadcn
+    tag: 1.0.627
 
 gitSync:
   repoUrl: "https://github.com/rmikl/frontapp_card.git"
