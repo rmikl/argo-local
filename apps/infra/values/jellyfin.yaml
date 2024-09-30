@@ -7,6 +7,12 @@ persistence:
     accessMode: ReadWriteMany
     size: 10Gi
     storageClass: dlink
+  config:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
+    mountPath: /jelly_config
 
 service:
   type: ClusterIP   
