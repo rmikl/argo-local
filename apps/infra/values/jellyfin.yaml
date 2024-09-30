@@ -1,35 +1,35 @@
-#ingress:
-#  enabled: false
-#
-#persistence: 
-#  media:
-#    enabled: true
-#    accessMode: ReadWriteMany
-#    size: 10Gi
-#    storageClass: dlink
-#  config:
-#    enabled: true
-#    accessMode: ReadWriteMany
-#    size: 10Gi
-#    storageClass: dlink
-#    mountPath: /jelly_config
-#    
-#service:
-#  type: ClusterIP   
-#  port: 80         
-#  clusterIP: ""
-#
-#replicaCount: 1
-#
-#image:
-#  repository: jellyfin/jellyfin
-#  tag: latest
-#  pullPolicy: IfNotPresent
-#
-#resources:
-#  limits:
-#    cpu: 500m
-#    memory: 512Mi
-#  requests:
-#    cpu: 250m
-#    memory: 256Mi
+ingress:
+  enabled: false
+
+persistence: 
+  media:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
+  config:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
+    mountPath: /jelly_config
+    
+service:
+  type: NodePort   
+  port: 80         
+  nodePort: 32080
+
+replicaCount: 1
+
+image:
+  repository: jellyfin/jellyfin
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
