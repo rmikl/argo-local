@@ -13,7 +13,7 @@
 #    size: 10Gi
 #    storageClass: dlink
 #    mountPath: /jelly_config
-#
+
 #service:
 #  type: ClusterIP   
 #  port: 80         
