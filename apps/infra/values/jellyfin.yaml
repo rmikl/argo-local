@@ -1,17 +1,18 @@
 ingress:
   enabled: false
 
-#persistence: 
-#  media:
-#    enabled: true
-#    accessMode: ReadWriteMany
-#    size: 10Gi
-#    storageClass: dlink
-#  config:
-#    enabled: true
-#    accessMode: ReadWriteMany
-#    size: 10Gi
-#    storageClass: dlink
+persistence: 
+  media:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
+  config:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
+    subpath: jelly_config
     
 service:
   type: NodePort   
