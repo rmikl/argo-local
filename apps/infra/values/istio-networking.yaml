@@ -14,6 +14,7 @@ gateway:
   hosts:
     - argo.rmikl.pl
     - mama.rmikl.pl
+    - jelly.rmikl.pl
 
   tls:
     enabled: true
@@ -34,6 +35,12 @@ virtualServices:
     host: "mama.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
     serviceName: mama-chadcn.sites.svc.cluster.local
+    servicePort: 80
+  - name: jelly
+    namespace: cluster-operators
+    host: "jelly.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: jellyfin.cluster-operators.svc.cluster.local
     servicePort: 80
 
 clusterIssuer:
