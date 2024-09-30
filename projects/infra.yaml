@@ -19,8 +19,7 @@ spec:
   - https://grafana.github.io/helm-charts
   - https://metallb.github.io/metallb
   - https://kubernetes-sigs.github.io/metrics-server/
-  - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
-
+  - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
 
   destinations:
   - server: https://kubernetes.default.svc
