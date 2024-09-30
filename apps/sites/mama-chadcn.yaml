@@ -7,7 +7,7 @@ spec:
   project: sites
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: feature/adding-pipelines-and-files  
+    targetRevision: master 
     path: custom-charts/chadcn-frontend-app
     helm:
       valueFiles:
