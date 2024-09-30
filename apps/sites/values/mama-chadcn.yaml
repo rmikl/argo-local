@@ -1,0 +1,28 @@
+replicaCount: 1
+
+deployment:
+  name: mama-chadcn
+
+image:
+  gitSync:
+    repository: rmikl/docker_puller
+    tag: 0.1.0
+  frontApp:
+    repository: rmikl/node
+    tag: 0.1.0
+
+gitSync:
+  repoUrl: "https://github.com/rmikl/frontapp_card.git"
+  branch: "master"
+  repoPath: repo
+  sleepTime: "10"
+
+frontApp:
+  workingDir: /app
+  containerPort: 3000
+service:
+  name: mama-chadcn
+  port: 80
+  targetPort: 3000
+  type: ClusterIP
+  namespace: sites

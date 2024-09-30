@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mama-chadcn
+  namespace: argocd
+spec:
+  project: sites
+  sources:
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: feature/adding-pipelines-and-files  
+    path: custom-charts/chadcn-frontend-app
+    helm:
+      valueFiles:
+      - $values/apps/sites/values/mama-chadcn.yaml
+  - repoURL: https://github.com/rmikl/argo-cd
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc 
+    namespace: sites 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
