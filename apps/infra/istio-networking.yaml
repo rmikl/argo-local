@@ -7,7 +7,7 @@ spec:
   project: infra
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: feature/added-cluster-issuer-for-cloudflare
+    targetRevision: master
     path: custom-charts/istio-networking
     helm:
       valueFiles:
