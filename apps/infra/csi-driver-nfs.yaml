@@ -5,10 +5,16 @@ metadata:
   namespace: argocd  
 spec:
   project: infra
-  source:
-    chart: csi-driver-nfs
+  sources:
+  - chart: csi-driver-nfs
     repoURL: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
     targetRevision: v4.9.0
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/csi-driver-nfs.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
   destination:
     server: https://kubernetes.default.svc  
     namespace: cluster-operators
