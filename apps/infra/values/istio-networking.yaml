@@ -15,6 +15,7 @@ gateway:
     - argo.rmikl.pl
     - mama.rmikl.pl
     - jelly.rmikl.pl
+    - qbt.rmikl.pl
 
   tls:
     enabled: true
@@ -41,6 +42,12 @@ virtualServices:
     host: "jelly.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
     serviceName: jellyfin.cluster-operators.svc.cluster.local
+    servicePort: 80
+  - name: qbt
+    namespace: cluster-operators
+    host: "qbt.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: qbt.cluster-operators.svc.cluster.local
     servicePort: 80
 
 clusterIssuer:
