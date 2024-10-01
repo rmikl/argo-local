@@ -18,6 +18,8 @@ persistence:
     storageClass: dlink
     accessMode: ReadWriteOnce
     size: 1Gi
+    subPath: "qbittorrent_config"  # Added subPath for config
+
   downloads:
     enabled: true
     storageClass: dlink
@@ -25,8 +27,8 @@ persistence:
     size: 10Gi
 
 env:
-  PUID: 1000
-  PGID: 1000
-  TZ: Etc/UTC
-  WEBUI_PORT: 8080
-  TORRENTING_PORT: 6881
+  PUID: "1000"
+  PGID: "1000"
+  TZ: "Etc/UTC"
+  WEBUI_PORT: "8080"
+  TORRENTING_PORT: "6881"
