@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: qb
+  name: qbt
   namespace: argocd
 spec:
   project: infra
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: feature/added-pvc-issuer
-    path: custom-charts/istio-networking
+    path: custom-charts/qbt
     helm:
       valueFiles:
       - $values/apps/infra/values/qbt.yaml
