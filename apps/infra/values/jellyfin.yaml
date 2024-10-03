@@ -24,7 +24,7 @@ replicaCount: 0
 image:
   repository: jellyfin/jellyfin
   tag: latest
-  pullPolicy: IfNotPresentm
+  pullPolicy: IfNotPresent
 
 resources:
   limits:
