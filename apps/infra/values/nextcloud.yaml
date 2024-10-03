@@ -28,7 +28,7 @@ nextcloud:
   extraVolumes:
     - name: db-volume
       persistentVolumeClaim:
-        claimName: nextcloud-pvc
+        claimName: nextcloud-nextcloud
 
   extraVolumeMounts:
     - name: db-volume
