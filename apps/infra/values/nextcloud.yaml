@@ -56,22 +56,6 @@ persistence:
     accessMode: ReadWriteMany
     size: 8Gi  
 
-livenessProbe:
-  enabled: true
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
-  successThreshold: 1
-
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
-  successThreshold: 1
-
 rbac:
   enabled: true
   serviceaccount:
