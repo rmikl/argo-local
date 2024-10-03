@@ -20,10 +20,10 @@ nextcloud:
     passwordKey: password
   update: 0
 
-  #containerPort: 80
-  #datadir: /var/www/html/data
-  #persistence:
-  #  subPath: "k8s-tools-config/nextcloud_config/data"  
+  containerPort: 80
+  datadir: /var/www/html/data
+  persistence:
+    subPath: "k8s-tools-config/nextcloud_config/data"  
 #
   #extraVolumes:
   #  - name: db-volume
@@ -43,19 +43,19 @@ service:
   type: ClusterIP
   port: 8080
 
-#persistence:
-#  enabled: true
-#  annotations: {}
-#  storageClass: "dlink" 
-#  accessMode: ReadWriteMany  
-#  size: 8Gi
-#  nextcloudData:
-#    enabled: true
-#    subPath: "k8s-tools-config/nextcloud_config/data"
-#    annotations: {}
-#    accessMode: ReadWriteMany
-#    size: 8Gi  
-#
+persistence:
+  enabled: true
+  annotations: {}
+  storageClass: "dlink" 
+  accessMode: ReadWriteMany  
+  size: 8Gi
+  nextcloudData:
+    enabled: true
+    subPath: "k8s-tools-config/nextcloud_config/data"
+    annotations: {}
+    accessMode: ReadWriteMany
+    size: 8Gi  
+
 rbac:
   enabled: true
   serviceaccount:
