@@ -1,7 +1,7 @@
 image:
   repository: nextcloud
   flavor: apache
-  tag: latest
+  tag: stable-apache
   pullPolicy: IfNotPresent
 
 replicaCount: 1
