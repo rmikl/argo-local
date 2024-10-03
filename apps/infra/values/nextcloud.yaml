@@ -19,7 +19,7 @@ nextcloud:
     usernameKey: username
     passwordKey: password
   update: 0
-
+  
   containerPort: 80
   datadir: /var/www/html/data
   persistence:
