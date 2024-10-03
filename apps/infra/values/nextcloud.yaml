@@ -53,8 +53,8 @@ persistence:
   accessMode: ReadWriteMany  
   size: 8Gi
   nextcloudData:
-    enabled: false
-    subPath: "k8s-tools-config/nextcloud_config/config"
+    enabled: true
+    subPath: "k8s-tools-config/nextcloud_config/data"
     annotations: {}
     accessMode: ReadWriteMany
     size: 8Gi  
