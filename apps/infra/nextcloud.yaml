@@ -6,7 +6,7 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://nextcloud.github.io/helm/
+  - repoURL: https://nextcloud.github.io/helm
     chart: nextcloud
     targetRevision: 6.1.0
     helm:

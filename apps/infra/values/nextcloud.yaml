@@ -19,24 +19,18 @@ nextcloud:
     usernameKey: username
     passwordKey: password
   update: 0
-  
+
   containerPort: 80
   datadir: /var/www/html/data
   persistence:
     subPath: "k8s-tools-config/nextcloud_config/data"  
 
   extraVolumes:
-    - name: config-volume
-      persistentVolumeClaim:
-        claimName: nextcloud-pvc
     - name: db-volume
       persistentVolumeClaim:
         claimName: nextcloud-pvc
 
   extraVolumeMounts:
-    - name: config-volume
-      mountPath: /var/www/html/config
-      subPath: k8s-tools-config/nextcloud_config/config
     - name: db-volume
       mountPath: /var/lib/mysql
       subPath: k8s-tools-config/nextcloud_config/db
