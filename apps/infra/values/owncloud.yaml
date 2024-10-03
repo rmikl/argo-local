@@ -1,5 +1,5 @@
 
-replicaCount: 1
+replicaCount: 0
 
 owncloudHost: oc.rmikl.pl
 owncloudUsername: admin
@@ -10,10 +10,8 @@ mariadb:
   enabled: true
   architecture: standalone
   auth:
-    rootPassword: ""
     database: bitnami_owncloud
     username: bn_owncloud
-    password: ""
   primary:
     persistence:
       enabled: true
