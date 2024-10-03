@@ -12,7 +12,7 @@ persistence:
     accessMode: ReadWriteMany
     size: 10Gi
     storageClass: dlink
-    subpath: jelly_config
+    subPath: k8s-tools-config/jellyfin_config
     
 service:
   type: NodePort   
@@ -24,7 +24,7 @@ replicaCount: 0
 image:
   repository: jellyfin/jellyfin
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: IfNotPresentm
 
 resources:
   limits:

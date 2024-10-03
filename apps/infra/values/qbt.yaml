@@ -18,7 +18,7 @@ persistence:
     storageClass: dlink
     accessMode: ReadWriteOnce
     size: 1Gi
-    subPath: "qbittorrent_config"  # Added subPath for config
+    subPath: "k8s-tools-config/qbittorrent_config"
 
   downloads:
     enabled: true
