@@ -19,27 +19,12 @@ nextcloud:
     usernameKey: username
     passwordKey: password
   update: 0
-
   containerPort: 80
   datadir: /var/www/html/data
-  persistence:
-    subPath: "k8s-tools-config/nextcloud_config/data"  
 
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
-  successThreshold: 1
+  #persistence:
+  #  subPath: "k8s-tools-config/nextcloud_config/data"  
 
-startupProbe:
-  enabled: false
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 30
-  successThreshold: 1
 #
   #extraVolumes:
   #  - name: db-volume
