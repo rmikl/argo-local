@@ -6,19 +6,13 @@ image:
 
 replicaCount: 0
 
-ingress:
-  enabled: false
-
 nextcloud:
-  host: nextcloud.rmikl.pl
+  host: ncloud.rmikl.pl
   existingSecret:
     enabled: true
     secretName: nextcloud
     usernameKey: username
     passwordKey: password
-  update: 0
-  containerPort: 80
-  datadir: /var/www/html/data
 
 internalDatabase:
   enabled: true
@@ -33,6 +27,7 @@ persistence:
   storageClassName: "dlink" 
   accessMode: ReadWriteMany  
   size: 8Gi
+  subPath: k8s-tools-config/nextcloud_config
 
 rbac:
   enabled: true
