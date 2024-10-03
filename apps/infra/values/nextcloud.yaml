@@ -36,9 +36,10 @@ rbac:
     name: nextcloud-serviceaccount
 
 startupProbe:
-  enabled: true
-  initialDelaySeconds: 300
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 300
-  successThreshold: 1
+  enabled: false
+
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: false
