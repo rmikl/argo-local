@@ -6,8 +6,8 @@
 #spec:
 #  project: infra
 #  sources:
-#  - repoURL: https://nextcloud.github.io/helm
-#    chart: nextcloud
+#  - repoURL: 
+#    chart: ownlcloud
 #    targetRevision: 6.1.0
 #    helm:
 #      valueFiles:

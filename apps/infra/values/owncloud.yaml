@@ -1,0 +1,45 @@
+image:
+  repository: nextcloud
+  flavor: apache
+  tag: stable-apache
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+nextcloud:
+  host: ncloud.rmikl.pl
+  existingSecret:
+    enabled: true
+    secretName: nextcloud
+    usernameKey: username
+    passwordKey: password
+
+internalDatabase:
+  enabled: true
+  name: nextcloud
+
+service:
+  type: ClusterIP
+  port: 8080
+
+persistence:
+  enabled: true
+  storageClassName: "dlink" 
+  accessMode: ReadWriteMany  
+  size: 8Gi
+  subPath: k8s-tools-config/nextcloud_config
+
+rbac:
+  enabled: true
+  serviceaccount:
+    create: true
+    name: nextcloud-serviceaccount
+
+startupProbe:
+  enabled: false
+
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: false
