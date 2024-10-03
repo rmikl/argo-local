@@ -11,8 +11,6 @@ ingress:
 
 nextcloud:
   host: nextcloud.rmikl.pl
-  username: admin
-  password: changeme
   existingSecret:
     enabled: true
     secretName: nextcloud
@@ -21,20 +19,6 @@ nextcloud:
   update: 0
   containerPort: 80
   datadir: /var/www/html/data
-
-  #persistence:
-  #  subPath: "k8s-tools-config/nextcloud_config/data"  
-
-#
-  #extraVolumes:
-  #  - name: db-volume
-  #    persistentVolumeClaim:
-  #      claimName: nextcloud-nextcloud
-#
-  #extraVolumeMounts:
-  #  - name: db-volume
-  #    mountPath: /var/lib/mysql
-  #    subPath: k8s-tools-config/nextcloud_config/db
 
 internalDatabase:
   enabled: true
@@ -46,14 +30,12 @@ service:
 
 persistence:
   enabled: true
-  annotations: {}
-  storageClass: "dlink" 
+  storageClassName: "dlink" 
   accessMode: ReadWriteMany  
   size: 8Gi
   nextcloudData:
     enabled: true
     subPath: "k8s-tools-config/nextcloud_config/data"
-    annotations: {}
     accessMode: ReadWriteMany
     size: 8Gi  
 
