@@ -4,7 +4,7 @@ image:
   tag: stable-apache
   pullPolicy: IfNotPresent
 
-replicaCount: 0
+replicaCount: 1
 
 ingress:
   enabled: false
