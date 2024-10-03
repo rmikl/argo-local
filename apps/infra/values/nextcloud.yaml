@@ -15,7 +15,7 @@ nextcloud:
   password: changeme
   existingSecret:
     enabled: true
-    secretName: nextcloud-secret
+    secretName: nextcloud
     usernameKey: username
     passwordKey: password
   update: 0
