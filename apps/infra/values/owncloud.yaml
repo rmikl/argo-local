@@ -9,7 +9,7 @@ image:
 
 owncloudHost: oc.rmikl.pl
 owncloudUsername: admin
-existingSecret: nextcloud
+existingSecret: owncloud
 allowEmptyPassword: false
 
 mariadb:
