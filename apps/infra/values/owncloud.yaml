@@ -1,45 +1,37 @@
-image:
-  repository: nextcloud
-  flavor: apache
-  tag: stable-apache
-  pullPolicy: IfNotPresent
 
 replicaCount: 1
 
-nextcloud:
-  host: ncloud.rmikl.pl
-  existingSecret:
-    enabled: true
-    secretName: nextcloud
-    usernameKey: username
-    passwordKey: password
+owncloudHost: oc.rmikl.pl
+owncloudUsername: admin
+existingSecret: nextcloud
+allowEmptyPassword: false
 
-internalDatabase:
+mariadb:
   enabled: true
-  name: nextcloud
-
-service:
-  type: ClusterIP
-  port: 8080
+  architecture: standalone
+  auth:
+    rootPassword: ""
+    database: bitnami_owncloud
+    username: bn_owncloud
+    password: ""
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "dlink"
+      accessModes:
+        - ReadWriteMany
+      hostPath: "k8s-tools-config/owncloud_config/db"
 
 persistence:
   enabled: true
-  storageClassName: "dlink" 
-  accessMode: ReadWriteMany  
+  storageClass: dlink
+  accessModes:
+    - ReadWriteMany
   size: 8Gi
-  subPath: k8s-tools-config/nextcloud_config
+  hostPath: "k8s-tools-config/owncloud_data/data"
 
-rbac:
-  enabled: true
-  serviceaccount:
-    create: true
-    name: nextcloud-serviceaccount
-
-startupProbe:
-  enabled: false
-
-readinessProbe:
-  enabled: false
-
-livenessProbe:
-  enabled: false
+service:
+  type: ClusterIP
+  ports:
+    http: 8080
+ 
