@@ -1,6 +1,12 @@
 
 replicaCount: 1
 
+image:
+  registry: docker.io
+  repository: bitnami/owncloud-archived
+  tag: 10.9.1-debian-10-r27
+  pullPolicy: IfNotPresent
+
 owncloudHost: oc.rmikl.pl
 owncloudUsername: admin
 existingSecret: nextcloud
