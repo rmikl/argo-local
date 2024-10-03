@@ -33,11 +33,6 @@ persistence:
   storageClassName: "dlink" 
   accessMode: ReadWriteMany  
   size: 8Gi
-  nextcloudData:
-    enabled: true
-    subPath: "k8s-tools-config/nextcloud_config/data"
-    accessMode: ReadWriteMany
-    size: 8Gi  
 
 rbac:
   enabled: true
