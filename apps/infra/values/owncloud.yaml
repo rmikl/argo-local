@@ -19,7 +19,7 @@ mariadb:
       enabled: true
       storageClass: "dlink"
       accessModes:
-        - ReadWriteMany
+        - ReadWriteOnce
       hostPath: "k8s-tools-config/owncloud_config/db"
 
 persistence:
