@@ -1,42 +1,42 @@
-
-replicaCount: 1
-
-image:
-  registry: docker.io
-  repository: bitnami/owncloud-archived
-  tag: 10.9.1-debian-10-r27
-  pullPolicy: IfNotPresent
-
-owncloudHost: oc.rmikl.pl
-owncloudUsername: admin
-existingSecret: owncloud
-allowEmptyPassword: false
-
-mariadb:
-  enabled: true
-  architecture: standalone
-  auth:
-    database: bitnami_owncloud
-    username: bn_owncloud
-  primary:
-    persistence:
-      enabled: true
-      storageClass: "dlink"
-      accessModes:
-        - ReadWriteMany
-      hostPath: "k8s-tools-config/owncloud_config/db"
-  
-
-persistence:
-  enabled: true
-  storageClass: dlink
-  accessModes:
-    - ReadWriteMany
-  size: 8Gi
-  hostPath: "k8s-tools-config/owncloud_data/data"
-
-service:
-  type: ClusterIP
-  ports:
-    http: 8080
- 
+#
+#replicaCount: 1
+#
+#image:
+#  registry: docker.io
+#  repository: bitnami/owncloud-archived
+#  tag: 10.9.1-debian-10-r27
+#  pullPolicy: IfNotPresent
+#
+#owncloudHost: oc.rmikl.pl
+#owncloudUsername: admin
+#existingSecret: owncloud
+#allowEmptyPassword: false
+#
+#mariadb:
+#  enabled: true
+#  architecture: standalone
+#  auth:
+#    database: bitnami_owncloud
+#    username: bn_owncloud
+#  primary:
+#    persistence:
+#      enabled: true
+#      storageClass: "dlink"
+#      accessModes:
+#        - ReadWriteMany
+#      hostPath: "k8s-tools-config/owncloud_config/db"
+#  
+#
+#persistence:
+#  enabled: true
+#  storageClass: dlink
+#  accessModes:
+#    - ReadWriteMany
+#  size: 8Gi
+#  hostPath: "k8s-tools-config/owncloud_data/data"
+#
+#service:
+#  type: ClusterIP
+#  ports:
+#    http: 8080
+# 
