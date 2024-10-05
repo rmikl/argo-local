@@ -3,10 +3,10 @@ ingress:
 
 persistence:
   media:
-    enabled: false            # Disable automatic creation of media PVC
+    existingClaim: dlink
   config:
-    enabled: false     
-
+    subPath: k8s-tools-config/jellyfin_config
+ 
 service:
   type: NodePort   
   port: 80         
@@ -26,16 +26,3 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
-
-
-extraVolumeMounts:
-  - name: media
-    mountPath: /media
-  - name: media
-    mountPath: /config
-    subPath: k8s-tools-config/jellyfin_config
-
-extraVolumes:
-  - name: media
-    persistentVolumeClaim:
-      claimName: dlink
