@@ -1,34 +1,44 @@
+ingress:
+  enabled: false
+
+persistence: 
+  media:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 100Gi            # Increased size as needed
+    storageClass: dlink
+  config:
+    enabled: false        # Disable separate config PVC
+
+service:
+  type: NodePort   
+  port: 80         
+  nodePort: 32080
+
 replicaCount: 1
 
 image:
-  repository: lscr.io/linuxserver/qbittorrent
+  repository: jellyfin/jellyfin
   tag: latest
+  pullPolicy: IfNotPresent
 
-service:
-  type: NodePort
-  webuiPort: 8080
-  torrentingPort: 6881
-  nodePort:
-    webui: 30080
-    torrent: 30681
+resources:
+  limits:
+    cpu: 1500m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 256Mi
 
-persistence:
-  config:
-    enabled: true
-    storageClass: dlink
-    accessMode: ReadWriteOnce
-    size: 1Gi
-    subPath: "k8s-tools-config/qbittorrent_config"
+# Add these sections
+extraVolumeMounts:
+  - name: media
+    mountPath: /media
+  - name: media
+    mountPath: /config
+    subPath: k8s-tools-config/jellyfin_config
 
-  downloads:
-    enabled: true
-    storageClass: dlink
-    accessMode: ReadWriteOnce
-    size: 10Gi
-
-env:
-  PUID: "1000"
-  PGID: "1000"
-  TZ: "Etc/UTC"
-  WEBUI_PORT: "8080"
-  TORRENTING_PORT: "6881"
+extraVolumes:
+  - name: media
+    persistentVolumeClaim:
+      claimName: jellyfin-media 
