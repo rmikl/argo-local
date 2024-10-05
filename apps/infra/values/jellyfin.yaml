@@ -4,10 +4,10 @@ ingress:
 persistence:
   media:
     enabled: true
-    existingClaim: dlink
+    existingClaim: dlink-jellyfin-media
   config:
     enabled: true
-    existingClaim: dlink
+    existingClaim: dlink-jellyfin-config
     subPath: k8s-tools-config/jellyfin_config
  
 service:
