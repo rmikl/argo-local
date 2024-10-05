@@ -12,4 +12,7 @@ storageClass:
   volumeBindingMode: Immediate
   mountOptions:
   - nolock
-
+  - soft
+  - rsize=65536
+  - wsize=65536 
+  - timeo=50
