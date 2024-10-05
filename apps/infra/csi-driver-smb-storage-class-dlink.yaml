@@ -8,7 +8,7 @@ spec:
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: feature/storage-driver-smb
-    path: k8s-objects/storage-class-dlink.yaml
+    path: k8s-objects
   destination:
     server: https://kubernetes.default.svc  
     namespace: cluster-operators
