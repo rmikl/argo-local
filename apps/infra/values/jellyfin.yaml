@@ -1,26 +1,11 @@
 ingress:
   enabled: false
-persistence: 
+
+persistence:
   media:
-    enabled: true
-    accessMode: ReadWriteMany
-    size: 10Gi            # Ensure this matches existing PVC to avoid resize issues
-    storageClass: dlink
+    enabled: false            # Disable automatic creation of media PVC
   config:
-    enabled: false        # Disable separate config PVC
-
-# Add these sections
-extraVolumeMounts:
-  - name: media
-    mountPath: /media
-  - name: media
-    mountPath: /config
-    subPath: k8s-tools-config/jellyfin_config
-
-extraVolumes:
-  - name: media
-    persistentVolumeClaim:
-      claimName: jellyfin-media    # Ensure this matches the media PVC name
+    enabled: false     
 
 service:
   type: NodePort   
@@ -42,3 +27,15 @@ resources:
     cpu: 250m
     memory: 256Mi
 
+
+extraVolumeMounts:
+  - name: media
+    mountPath: /media
+  - name: media
+    mountPath: /config
+    subPath: k8s-tools-config/jellyfin_config
+
+extraVolumes:
+  - name: media
+    persistentVolumeClaim:
+      claimName: dlink
