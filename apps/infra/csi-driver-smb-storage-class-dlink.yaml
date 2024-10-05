@@ -7,7 +7,7 @@ spec:
   project: infra
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: feature/storage-driver-smb
+    targetRevision: master
     path: k8s-objects
   destination:
     server: https://kubernetes.default.svc  
