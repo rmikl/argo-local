@@ -5,15 +5,11 @@ persistence:
   media:
     enabled: true
     accessMode: ReadWriteMany
-    size: 10Gi
+    size: 100Gi            # Increased size as needed
     storageClass: dlink
   config:
-    enabled: true
-    accessMode: ReadWriteMany
-    size: 10Gi
-    storageClass: dlink
-    subPath: k8s-tools-config/jellyfin_config
-    
+    enabled: false        # Disable separate config PVC
+
 service:
   type: NodePort   
   port: 80         
@@ -33,3 +29,16 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
+
+# Add these sections
+extraVolumeMounts:
+  - name: media
+    mountPath: /media
+  - name: media
+    mountPath: /config
+    subPath: k8s-tools-config/jellyfin_config
+
+extraVolumes:
+  - name: media
+    persistentVolumeClaim:
+      claimName: jellyfin-media 
