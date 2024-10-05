@@ -20,6 +20,7 @@ spec:
   - https://metallb.github.io/metallb
   - https://kubernetes-sigs.github.io/metrics-server/
   - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+  - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
   - https://github.com/jellyfin/jellyfin-helm.git
   - https://k8s-home-lab.github.io/helm-charts/
   - https://charts.bitnami.com/bitnami
