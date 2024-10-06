@@ -25,9 +25,14 @@ service:
 persistence:
   enabled: true
   storageClass: "dlink" 
-  accessMode: ReadWriteMany  
+  accessMode: ReadWriteMany 
+  subPath: k8s-tools-config/nexcloud_config 
   size: 8Gi
-
+  nextcloudData: 
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 8Gi
+    
 mariadb:
   enabled: true
   auth:
