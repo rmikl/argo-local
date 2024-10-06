@@ -1,5 +1,4 @@
-replicaCount: 0
-
+replicaCount: 1
 image:
   repository: lscr.io/linuxserver/qbittorrent
   tag: latest
@@ -16,19 +15,19 @@ persistence:
   config:
     enabled: true
     storageClass: dlink
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     size: 1Gi
     subPath: "k8s-tools-config/qbittorrent_config"
 
   downloads:
     enabled: true
     storageClass: dlink
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     size: 10Gi
 
 env:
-  PUID: "1001"
-  PGID: "1001"
+  PUID: "1000"
+  PGID: "1000"
   TZ: "Etc/UTC"
   WEBUI_PORT: "8080"
   TORRENTING_PORT: "6881"
