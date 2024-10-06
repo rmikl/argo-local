@@ -33,7 +33,7 @@ persistence:
     storageClass: "dlink"
     accessMode: ReadWriteMany
     size: 8Gi
-    subPath: "/"
+    subPath: ""
     
 mariadb:
   enabled: true

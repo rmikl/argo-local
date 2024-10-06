@@ -6,9 +6,9 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://nextcloud.github.io/helm
-    chart: nextcloud
-    targetRevision: 6.1.0
+  - repoURL: https://github.com/rmikl/nextcloud_helm.git
+    targetRevision: bugfix/fix-ternary-function-in-deployment-pipeline
+    path: charts/nextcloud
     helm:
       valueFiles:
       - $values/apps/infra/values/nextcloud.yaml
