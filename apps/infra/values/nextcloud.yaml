@@ -38,7 +38,13 @@ persistence:
     accessMode: ReadWriteMany
     size: 8Gi
     subPath: ""
-    
+
+externalDatabase:
+  existingSecret: 
+    secretName: nextcloud-credentials
+    usernameKey: mariadb-user
+    passwordKey: mariadb-password 
+
 mariadb:
   enabled: true
   auth:
