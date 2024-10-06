@@ -8,8 +8,7 @@ replicaCount: 0
 
 nextcloud:
   host: ncloud.rmikl.pl
-  persistence:
-    subPath: ""
+
 
   existingSecret:
     enabled: true
@@ -36,7 +35,6 @@ persistence:
     storageClass: "dlink"
     accessMode: ReadWriteMany
     size: 8Gi
-    subPath: ""
     
 mariadb:
   enabled: true
