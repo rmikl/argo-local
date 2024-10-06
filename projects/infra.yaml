@@ -24,6 +24,7 @@ spec:
   - https://github.com/jellyfin/jellyfin-helm.git
   - https://k8s-home-lab.github.io/helm-charts/
   - https://charts.bitnami.com/bitnami
+  - https://nextcloud.github.io/helm
   
   destinations:
   - server: https://kubernetes.default.svc
