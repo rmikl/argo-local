@@ -8,6 +8,9 @@ replicaCount: 0
 
 nextcloud:
   host: ncloud.rmikl.pl
+  persistence:
+    subPath: ""
+
   existingSecret:
     enabled: true
     secretName: nextcloud-credentials
