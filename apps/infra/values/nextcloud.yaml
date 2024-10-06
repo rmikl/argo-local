@@ -24,7 +24,7 @@ service:
 
 persistence:
   enabled: true
-  storageClassName: "dlink" 
+  storageClass: "dlink" 
   accessMode: ReadWriteMany  
   size: 8Gi
 
