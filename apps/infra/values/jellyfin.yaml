@@ -1,21 +1,25 @@
 ingress:
   enabled: false
 
-persistence:
+persistence: 
   media:
     enabled: true
-    existingClaim: dlink-jellyfin-media
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
   config:
     enabled: true
-    existingClaim: dlink-jellyfin-config
-    subPath: jellyfin_config
- 
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: dlink
+    subPath: k8s-tools-config/jellyfin_config
+    
 service:
   type: NodePort   
   port: 80         
   nodePort: 32080
 
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: jellyfin/jellyfin
