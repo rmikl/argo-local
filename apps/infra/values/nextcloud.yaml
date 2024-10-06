@@ -34,6 +34,12 @@ mariadb:
     existingSecret: nextcloud-credentials
     usernameKey: username
     passwordKey: password
+  persistence:
+    enabled: true
+    storageClass: "dlink"
+    accessMode: ReadWriteOnce
+    size: 8Gi
+    subPath: k8s-tools-config/nexcloud_config/mariadb
   
 rbac:
   enabled: true
