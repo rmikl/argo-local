@@ -28,13 +28,13 @@ service:
 
 persistence:
   enabled: true
-  storageClass: "dlink" 
+  storageClass: "dlink-ncloud" 
   accessMode: ReadWriteMany 
   subPath: k8s-tools-config/nexcloud_config 
   size: 8Gi
   nextcloudData: 
     enabled: true
-    storageClass: "dlink"
+    storageClass: "dlink-ncloud"
     accessMode: ReadWriteMany
     size: 8Gi
     subPath: ""
