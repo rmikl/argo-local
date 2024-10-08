@@ -86,8 +86,6 @@ redis:
   replica: 
     enabled: false
 
-
-
 configs:
   php-custom.ini: |-
     opcache.enable=1
