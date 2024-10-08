@@ -28,7 +28,7 @@ service:
 
 persistence:
   enabled: true
-  storageClass: "dlink-ncloud" 
+  storageClass: "dlink" 
   accessMode: ReadWriteMany 
   subPath: "nextcloud"
   size: 8Gi
