@@ -9,7 +9,7 @@ replicaCount: 1
 nextcloud:
   host: ncloud.rmikl.pl
   persistence:
-    subPathPrefix: "k8s-tools-config/nexcloud_config"
+    subPathPrefix: "k8s-tools-config/nexctloud_config"
     subPath: ""
 
   existingSecret:
