@@ -45,6 +45,7 @@ externalDatabase:
     usernameKey: mariadb-user
     passwordKey: mariadb-password 
 
+
 mariadb:
   enabled: true
   auth:
