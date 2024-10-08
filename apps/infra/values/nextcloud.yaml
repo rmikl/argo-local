@@ -54,7 +54,7 @@ mariadb:
   primary:
     persistence:
       enabled: true
-      storageClass: "dlink-ncloud"
+      storageClass: "dlink"
       accessMode: ReadWriteOnce
       size: 8Gi
       subPath: k8s-tools-config/nexcloud_config/mariadb
