@@ -8,10 +8,10 @@ replicaCount: 1
 
 nextcloud:
   host: ncloud.rmikl.pl
-  persistence:
-    subPathPrefix: "k8s-tools-config/nextcloud_config"
-    subPath: ""
-
+  #persistence:
+  #  subPathPrefix: "k8s-tools-config/nexcloud_config"
+  #  subPath: ""
+#
   existingSecret:
     enabled: true
     secretName: nextcloud-credentials
@@ -32,6 +32,12 @@ persistence:
   accessMode: ReadWriteMany 
   subPath: k8s-tools-config/nextcloud_config 
   size: 8Gi
+  nextcloudData: 
+    enabled: true
+    storageClass: "dlink-ncloud"
+    accessMode: ReadWriteMany
+    size: 8Gi
+    subPath: ""
 
 externalDatabase:
   existingSecret: 
