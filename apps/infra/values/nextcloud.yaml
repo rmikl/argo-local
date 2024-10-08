@@ -37,7 +37,7 @@ persistence:
     storageClass: "dlink-ncloud"
     accessMode: ReadWriteMany
     size: 8Gi
-    subPath: ""
+    subPath: "/"
 
 externalDatabase:
   existingSecret: 
