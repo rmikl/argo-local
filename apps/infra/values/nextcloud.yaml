@@ -30,15 +30,8 @@ persistence:
   enabled: true
   storageClass: "dlink-ncloud" 
   accessMode: ReadWriteMany 
-  subPath: k8s-tools-config/nextcloud_config/data
   size: 8Gi
-  #nextcloudData: 
-  #  enabled: true
-  #  storageClass: "dlink-ncloud"
-  #  accessMode: ReadWriteMany
-  #  size: 8Gi
-  #  subPath: k8s-tools-config/nextcloud_config/data
-
+  
 externalDatabase:
   existingSecret: 
     secretName: nextcloud-credentials
@@ -54,10 +47,10 @@ mariadb:
   primary:
     persistence:
       enabled: true
-      storageClass: "dlink"
+      storageClass: "dlink-db"
       accessMode: ReadWriteOnce
       size: 8Gi
-      subPath: k8s-tools-config/nextcloud_config/mariadb
+      subPath: nextcloud_config/mariadb
   
 rbac:
   enabled: true
