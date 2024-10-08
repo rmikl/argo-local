@@ -73,6 +73,20 @@ securityContext:
 
 redis:
   enabled: true
+  auth:
+    existingSecret: nextcloud-credentials
+    usernameKey: username
+    passwordKey: password
+  global:
+    storageClass: "dlink-db"
+  master:
+    persistence:
+      enabled: true
+      storageClass: "dlink-db"
+  replica: 
+    enabled: false
+
+
 
 configs:
   php-custom.ini: |-
