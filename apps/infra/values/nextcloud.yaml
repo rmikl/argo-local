@@ -70,3 +70,25 @@ securityContext:
   runAsUser: 0
   runAsGroup: 0
   fsGroup: 0
+
+redis:
+  enabled: true
+
+configs:
+  php-custom.ini: |-
+    opcache.enable=1
+    opcache.enable_cli=1
+    opcache.memory_consumption=128
+    opcache.interned_strings_buffer=8
+    opcache.max_accelerated_files=10000
+    opcache.validate_timestamps=1
+    opcache.revalidate_freq=60
+    memory_limit=512M
+    realpath_cache_size=4096K
+    realpath_cache_ttl=600
+    apc.enable_cli=1
+    apc.shm_size=64M
+    upload_max_filesize=16G
+    post_max_size=16G
+    session.gc_maxlifetime=1440
+    session.cookie_lifetime=0
