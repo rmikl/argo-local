@@ -45,7 +45,6 @@ podAnnotations: {}
 
 podSecurityContext: {}
 
-
 securityContext: 
   enabled: true
   fsGroup: 33 
