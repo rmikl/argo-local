@@ -67,8 +67,8 @@ startupProbe:
   enabled: false
 
 securityContext:
-  runAsUser: 33
-  runAsGroup: 33
+  #runAsUser: 33
+  #runAsGroup: 33
   fsGroup: 33
 
 redis:
