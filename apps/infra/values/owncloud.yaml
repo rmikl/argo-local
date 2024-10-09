@@ -44,10 +44,8 @@ podAnnotations: {}
 
 podSecurityContext: 
   fsGroup: 33 
-  enabled: true
 
 securityContext:
-  enabled: true 
   runAsUser: 0    # Use the UID of the application user
   runAsGroup: 0
 service:
