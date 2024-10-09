@@ -21,7 +21,7 @@ hostAliases:
 
 replicaCount: 1  # Single replica as per your requirement
 
-owncloudSkipInstall: true
+owncloudSkipInstall: false
 owncloudHost: ""
 owncloudUsername: user
 owncloudPassword: ""  # Leave empty, using existingSecret instead
