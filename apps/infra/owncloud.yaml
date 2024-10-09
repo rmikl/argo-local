@@ -8,6 +8,7 @@ spec:
   sources:
   - repoURL: https://github.com/vnc-biz/owncloud.git
     targetRevision: main
+    path: .
     helm:
       valueFiles:
       - $values/apps/infra/values/owncloud.yaml
