@@ -45,7 +45,10 @@ podAnnotations: {}
 
 podSecurityContext: {}
 
-securityContext: {}
+
+securityContext: 
+  enabled: true
+  fsGroup: 33 
 
 service:
   type: ClusterIP
