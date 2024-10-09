@@ -18,10 +18,10 @@ externalDatabase:
 
 persistence:
   enabled: true
+  storageClassName: dlink-ssd
   owncloud:
     accessMode: ReadWriteMany
     size: 8Gi
-    storageClassName: dlink-ssd
 
 redis:
   enabled: false
