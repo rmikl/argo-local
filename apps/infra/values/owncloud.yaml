@@ -74,13 +74,13 @@ podSecurityContext:
   enabled: true
   fsGroup: 0
   runAsUser: 0
-  #runAsNonRoot: false
+  runAsNonRoot: false
   runAsGroup: 0
 
 containerSecurityContext:
   enabled: true
   runAsUser: 0
-  #runAsNonRoot: true
+  runAsNonRoot: true
 
 livenessProbe:
   enabled: false
