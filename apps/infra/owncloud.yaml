@@ -9,12 +9,12 @@ spec:
   - repoURL: https://charts.bitnami.com/bitnami
     chart: owncloud
     targetRevision: 12.2.11
-#    helm:
-#      valueFiles:
-#      - $values/apps/infra/values/owncloud.yaml
-#  - repoURL: https://github.com/rmikl/argo-local.git
-#    targetRevision: HEAD
-#    ref: values
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/owncloud.yaml
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: cluster-operators

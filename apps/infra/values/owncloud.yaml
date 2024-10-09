@@ -72,15 +72,15 @@ resources: {}
 
 podSecurityContext:
   enabled: true
-  fsGroup: 1001
+  fsGroup: 0
   runAsUser: 0
-  runAsNonRoot: false
+  #runAsNonRoot: false
   runAsGroup: 0
 
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001
-  runAsNonRoot: true
+  runAsUser: 0
+  #runAsNonRoot: true
 
 livenessProbe:
   enabled: false
