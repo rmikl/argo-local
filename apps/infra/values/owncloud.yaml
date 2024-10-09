@@ -80,7 +80,7 @@ containerSecurityContext:
   runAsNonRoot: true
 
 livenessProbe:
-  enabled: true
+  enabled: false
   path: /status.php
   initialDelaySeconds: 120
   periodSeconds: 10
@@ -89,7 +89,7 @@ livenessProbe:
   successThreshold: 1
 
 readinessProbe:
-  enabled: true
+  enabled: false
   path: /status.php
   initialDelaySeconds: 30
   periodSeconds: 5
