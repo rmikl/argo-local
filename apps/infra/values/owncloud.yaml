@@ -7,8 +7,8 @@ global:
 ### ownCloud parameters
 image:
   registry: docker.io
-  repository: bitnami/owncloud
-  tag: 10.11.0-debian-11-r31
+  repository: bitnami/owncloud-archived
+  tag: 10.9.1-debian-10-r27
   digest: ""
   pullPolicy: IfNotPresent
   pullSecrets: []
@@ -115,6 +115,10 @@ podLabels: {}
 
 ## Database parameters
 mariadb:
+  image:
+    registry: docker.io
+    repository: bitnami/mariadb
+    tag: 11.5.2-debian-12-r3
   enabled: true
   architecture: standalone
   auth:
