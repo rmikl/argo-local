@@ -25,7 +25,7 @@ spec:
   - https://k8s-home-lab.github.io/helm-charts/
   - https://charts.bitnami.com/bitnami
   - https://nextcloud.github.io/helm/
-  - https://github.com/rmikl/nextcloud_helm.git
+  - https://github.com/rmikl/owncloud_helm.git
   - https://owncloud-docker.github.io/helm-charts
   - https://github.com/vnc-biz/owncloud.git
   

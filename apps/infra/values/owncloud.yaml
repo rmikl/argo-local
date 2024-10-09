@@ -22,7 +22,6 @@ persistence:
     accessMode: ReadWriteMany
     size: 8Gi
     storageClassName: dlink-ssd
-    nfs: {}
 
 redis:
   enabled: false
