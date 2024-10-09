@@ -1,255 +1,84 @@
-## Global parameters
-global:
-  imageRegistry: ""
-  imagePullSecrets: []
-  storageClass: ""  # Leave empty to not override storageClass globally
+replicaCount: 1
 
-### ownCloud parameters
-image:
-  registry: docker.io
-  repository: bitnami/owncloud-archived
-  tag: 10.9.1-debian-10-r27
-  digest: ""
-  pullPolicy: IfNotPresent
-  pullSecrets: []
-  debug: false
+owncloud:
+  domain: ocloud.rmikl.pl
+  username: owncloud
+  password: owncloud
 
-hostAliases:
-  - ip: "127.0.0.1"
-    hostnames:
-      - "status.localhost"
-
-replicaCount: 1  # Single replica as per your requirement
-
-owncloudSkipInstall: false
-owncloudHost: ""
-owncloudUsername: user
-owncloudPassword: ""  # Leave empty, using existingSecret instead
-owncloudEmail: user@example.com
-allowEmptyPassword: false
-command: []
-args: []
-commonAnnotations: {}
-commonLabels: {}
-updateStrategy:
-  type: Recreate  # Ensure proper updates when using RWO PVCs
-
-extraEnvVars: []
-extraEnvVarsCM: ""
-extraEnvVarsSecret: ""
-extraVolumes: []
-extraVolumeMounts: []
-initContainers: []
-sidecars: []
-tolerations: []
-priorityClassName: ""
-schedulerName: ""
-topologySpreadConstraints: []
-
-existingSecret: "owncloud-credentials"  # Use your existing secret for credentials
-
-smtpHost: ""
-smtpPort: ""
-smtpUser: ""
-smtpPassword: ""
-smtpProtocol: ""
-
-containerPorts:
-  http: 8080
-  https: 8443
-
-sessionAffinity: "None"
-
-podAffinityPreset: ""
-podAntiAffinityPreset: soft
-nodeAffinityPreset:
-  type: ""
-  key: ""
-  values: []
-affinity: {}
-nodeSelector: {}
-resources: {}
-
-podSecurityContext:
-  enabled: true
-  fsGroup: 2000
-  runAsNonRoot: true
-  runAsUser: 1000
-
-containerSecurityContext:
-  enabled: true
-  fsGroup: 2000
-  runAsNonRoot: true
-  runAsUser: 1000
-
-livenessProbe:
-  enabled: false
-  path: /status.php
-  initialDelaySeconds: 120
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 6
-  successThreshold: 1
-
-readinessProbe:
-  enabled: false
-  path: /status.php
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  timeoutSeconds: 3
-  failureThreshold: 6
-  successThreshold: 1
-
-startupProbe:
-  enabled: false
-  path: /status.php
-  initialDelaySeconds: 0
-  periodSeconds: 10
-  timeoutSeconds: 3
-  failureThreshold: 60
-  successThreshold: 1
-
-customLivenessProbe: {}
-customReadinessProbe: {}
-customStartupProbe: {}
-lifecycleHooks: {}
-podAnnotations: {}
-podLabels: {}
-
-## Database parameters
 mariadb:
-  image:
-    registry: docker.io
-    repository: bitnami/mariadb
-    tag: 11.5.2-debian-12-r3
-  enabled: true
-  architecture: standalone
-  auth:
-    existingSecret: "owncloud-credentials"  # Use your existing secret for MariaDB credentials
-    rootPassword: ""  # Leave empty, using existingSecret instead
-    database: bitnami_owncloud
-    username: bn_owncloud
-    password: ""  # Leave empty, using existingSecret instead
-  primary:
-    persistence:
-      enabled: true
-      storageClass: "dlink-ssd"  # Set storage class to dlinkdb
-      accessModes:
-        - ReadWriteOnce
-      size: 8Gi
-      hostPath: ""
-      existingClaim: ""
+  enabled: false
 
 externalDatabase:
+  type: ""
   host: ""
   port: 3306
-  user: bn_owncloud
-  password: ""
-  database: bitnami_owncloud
-  existingSecret: ""
+  name: owncloud
+  user: owncloud
+  password: owncloud
 
-## Persistence parameters
 persistence:
   enabled: true
-  storageClass: "dlink-ssd"  # Set storage class to dlinkdb
-  accessModes:
-    - ReadWriteMany
-  size: 20Gi  # Adjust size as needed
-  existingClaim: ""
-  hostPath: ""
-  annotations: {}
+  owncloud:
+    accessMode: ReadWriteMany
+    size: 8Gi
+    storageClassName: dlink-ssd
+    nfs: {}
 
-## Volume Permissions parameters
-volumePermissions:
-  enabled: false
-  image:
-    registry: docker.io
-    repository: bitnami/bitnami-shell
-    tag: 11-debian-11-r64
-    digest: ""
-    pullPolicy: IfNotPresent
-    pullSecrets: []
-  resources:
-    limits: {}
-    requests: {}
-
-## Traffic Exposure Parameters
-service:
-  type: ClusterIP  # Set service type to ClusterIP
-  ports:
-    http: 8080
-    https: 8443
-  clusterIP: ""
-  loadBalancerSourceRanges: []
-  loadBalancerIP: ""
-  nodePorts:
-    http: ""
-    https: ""
-  externalTrafficPolicy: Cluster
-  extraPorts: []
-  annotations: {}
-  sessionAffinity: None
-  sessionAffinityConfig: {}
-
-## Ingress parameters
-ingress:
-  enabled: false  # Disable ingress as you'll create it yourself
-  apiVersion: ""
-  hostname: ocloud.rmikl.pl
-  path: /
-  pathType: ImplementationSpecific
-  annotations: {}
-  tls: false
-  extraHosts: []
-  extraPaths: []
-  extraTls: []
-  secrets: []
-  ingressClassName: ""
-  extraRules: []
-
-## Metrics parameters
-metrics:
-  enabled: false
-
-## Certificate injection parameters
-certificates:
-  customCertificate:
-    certificateSecret: ""
-    chainSecret:
-      name: ""
-      key: ""
-    certificateLocation: /etc/ssl/certs/ssl-cert-snakeoil.pem
-    keyLocation: /etc/ssl/private/ssl-cert-snakeoil.key
-    chainLocation: /etc/ssl/certs/mychain.pem
-  customCAs: []
-  command: []
-  args: []
-  extraEnvVars: []
-  extraEnvVarsCM: ""
-  extraEnvVarsSecret: ""
-  image:
-    registry: docker.io
-    repository: bitnami/bitnami-shell
-    tag: 11-debian-11-r64
-    digest: ""
-    pullPolicy: IfNotPresent
-    pullSecrets: []
-
-## NetworkPolicy parameters
-networkPolicy:
-  enabled: false
-
-## Redis parameters (Optional)
 redis:
-  enabled: true  # Enable Redis
-  architecture: standalone
-  auth:
-    enabled: false
-  master:
-    persistence:
-      enabled: true
-      storageClass: "dlink-ssd"  # Use the same storage class
-      size: 2Gi  # Adjust size as needed
+  enabled: false
 
-## Configure ownCloud to use Redis
-owncloudConfigureRedis: true  # Enable ownCloud Redis configuration
+image:
+  repository: docker.io/owncloud/server
+  pullPolicy: IfNotPresent
+  tag: 10.6
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts: []
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+extraEnv:
+  - name: OWNCLOUD_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: owncloud-credentials
+        key: db-username
+  - name: OWNCLOUD_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: owncloud-credentials
+        key: owncloud-password

@@ -27,6 +27,7 @@ spec:
   - https://nextcloud.github.io/helm/
   - https://github.com/rmikl/nextcloud_helm.git
   - https://owncloud-docker.github.io/helm-charts
+  - https://github.com/vnc-biz/owncloud.git
   
   destinations:
   - server: https://kubernetes.default.svc

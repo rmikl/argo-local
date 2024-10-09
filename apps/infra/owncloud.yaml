@@ -6,9 +6,9 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://charts.bitnami.com/bitnami
-    chart: owncloud
-    targetRevision: 12.2.11
+  - repoURL: https://github.com/vnc-biz/owncloud.git
+    path: /
+    targetRevision: main
     helm:
       valueFiles:
       - $values/apps/infra/values/owncloud.yaml
