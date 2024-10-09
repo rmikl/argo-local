@@ -26,6 +26,7 @@ spec:
   - https://charts.bitnami.com/bitnami
   - https://nextcloud.github.io/helm/
   - https://github.com/rmikl/nextcloud_helm.git
+  - https://owncloud-docker.github.io/helm-charts
   
   destinations:
   - server: https://kubernetes.default.svc

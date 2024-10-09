@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: owncloud
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: https://owncloud-docker.github.io/helm-charts
+    chart: owncloud
+    targetRevision: v0.8.0
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/owncloud.yaml
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cluster-operators
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

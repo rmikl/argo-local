@@ -1,0 +1,97 @@
+image:
+  repository: docker.io/owncloud/server
+  tag: ""  # Use default appVersion
+  pullPolicy: IfNotPresent
+
+persistence:
+  enabled: true
+  owncloud:
+    accessMode: ReadWriteOnce
+    size: 20Gi
+    storageClassName: "dlinkdb"
+    annotations:
+      "helm.sh/resource-policy": keep
+
+replicas: 1
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext:
+  readOnlyRootFilesystem: false
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  labels: {}
+  tls: []
+
+owncloud:
+  adminUsername: "owncloud"
+  adminPassword: "{{ .Values.existingSecret.adminPassword }}"
+  db:
+    type: "mysql"
+    host: "owncloud-mariadb"
+    name: "owncloud"
+    username: "{{ .Values.existingSecret.dbUsername }}"
+    password: "{{ .Values.existingSecret.dbPassword }}"
+  volume:
+    root: "/mnt/data"
+    apps: "/mnt/data/apps"
+    config: "/mnt/data/config"
+    files: "/mnt/data/files"
+    sessions: "/mnt/data/sessions"
+  protocol: "http"
+  domain: "your-domain.com"
+  subUrl: "/"
+  # Enable Redis if needed
+  redis:
+    enabled: true
+    host: "redis"
+    port: "6379"
+
+existingSecret:
+  adminPassword:
+    secretName: "owncloud-credentials"
+    secretKey: "admin-password"
+  dbUsername:
+    secretName: "owncloud-credentials"
+    secretKey: "db-username"
+  dbPassword:
+    secretName: "owncloud-credentials"
+    secretKey: "db-password"
+
+mariadb:
+  enabled: true
+  auth:
+    rootPassword: "{{ .Values.existingSecret.mariadbRootPassword }}"
+    username: "{{ .Values.existingSecret.dbUsername }}"
+    password: "{{ .Values.existingSecret.dbPassword }}"
+    database: "owncloud"
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "dlink-ssd"
+      size: 8Gi
+
+# Redis deployment (if you choose to enable it)
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: true
+      storageClass: "dlinkdb"
+      size: 2Gi
