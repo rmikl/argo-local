@@ -73,6 +73,9 @@ resources: {}
 podSecurityContext:
   enabled: true
   fsGroup: 1001
+  runAsUser: 0
+  runAsNonRoot: false
+  runAsGroup: 0
 
 containerSecurityContext:
   enabled: true
