@@ -21,7 +21,7 @@ hostAliases:
 
 replicaCount: 1  # Single replica as per your requirement
 
-owncloudSkipInstall: false
+owncloudSkipInstall: true
 owncloudHost: ""
 owncloudUsername: user
 owncloudPassword: ""  # Leave empty, using existingSecret instead
@@ -153,7 +153,7 @@ persistence:
   enabled: true
   storageClass: "dlink-ssd"  # Set storage class to dlinkdb
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   size: 20Gi  # Adjust size as needed
   existingClaim: ""
   hostPath: ""
