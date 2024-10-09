@@ -66,10 +66,10 @@ readinessProbe:
 startupProbe:
   enabled: false
 
-#securityContext:
-  #runAsUser: 0
-  #runAsGroup: 0
-  #fsGroup: 0
+securityContext:
+  runAsUser: 33
+  runAsGroup: 33
+  fsGroup: 33
 
 redis:
   enabled: true
