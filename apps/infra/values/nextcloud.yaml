@@ -15,4 +15,10 @@ persistence:
     storageClass: "dlink-ssd"
     accessMode: ReadWriteMany
     size: 8Gi
-#
+
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: false
+
