@@ -1,20 +1,20 @@
-#nextcloud:
-#  persistance:
-#    enabled: true
-#    storageClass: "dlink-ssd"
-#    size: "10Gi"
-#    accessMode: "ReadWriteMany"
-
-persistence:
-  enabled: true
-  storageClass: "dlink-ssd" 
-  accessMode: ReadWriteMany 
-  #subPath: k8s-tools-config/nexcloud_config 
-  size: 8Gi
-  nextcloudData: 
+nextcloud:
+  persistance:
     enabled: true
     storageClass: "dlink-ssd"
-    accessMode: ReadWriteMany
-    size: 8Gi
-    subPath: "/"
-    
+    size: "10Gi"
+    accessMode: "ReadWriteMany"
+
+#persistence:
+#  enabled: true
+#  storageClass: "dlink-ssd" 
+#  accessMode: ReadWriteMany 
+#  #subPath: k8s-tools-config/nexcloud_config 
+#  size: 8Gi
+#  nextcloudData: 
+#    enabled: true
+#    storageClass: "dlink-ssd"
+#    accessMode: ReadWriteMany
+#    size: 8Gi
+#    subPath: "/"
+#    
