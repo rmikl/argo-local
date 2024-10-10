@@ -1,5 +1,6 @@
-persistance:
-  enabled: true
-  storageClass: "dlink-ssd"
-  size: "10Gi"
-  accessMode: "ReadWriteMany"
+nextcloud:
+  persistance:
+    enabled: true
+    storageClass: "dlink-ssd"
+    size: "10Gi"
+    accessMode: "ReadWriteMany"
