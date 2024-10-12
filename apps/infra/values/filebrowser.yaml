@@ -48,6 +48,10 @@ args:
   - "/config/.filebrowser.json"
   - "--database"
   - "/config/database.db"
+  - "--disable-preview-resize" 
+  - "--disable-type-detection-by-header" 
+  - "--cache-dir" 
+  - "/filebrowser/cache"
 
 volumeMounts:
   data:
@@ -60,3 +64,10 @@ volumeMounts:
     - name: config-volume
       mountPath: /config/database.db
       subPath: k8s-tools-config/filebrowser_config/database.db
+    - name: config-volume
+      subPath: k8s-tools-config/filebrowser_config/cache/
+      mountPatch: /filebrowser/cache/
+
+      
+
+  
