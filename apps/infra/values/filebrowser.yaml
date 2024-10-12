@@ -56,7 +56,7 @@ volumeMounts:
   config:
     - name: config-volume
       mountPath: /config/.filebrowser.json
-      subPath: filebrowser_config/.filebrowser.json
+      subPath: k8s-tools-config/filebrowser_config/.filebrowser.json
     - name: config-volume
       mountPath: /config/database.db
-      subPath: filebrowser_config/database.db
+      subPath: k8s-tools-config/filebrowser_config/database.db
