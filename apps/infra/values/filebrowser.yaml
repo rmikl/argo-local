@@ -1,0 +1,64 @@
+replicaCount: 0
+
+image:
+  repository: filebrowser/filebrowser
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+initContainer:
+  name: init-filebrowser
+  image: busybox
+  command: |
+    mkdir -p /mnt/k8s-tools-config/filebrowser_config
+    touch /mnt/k8s-tools-config/filebrowser_config/database.db
+    touch /mnt/k8s-tools-config/filebrowser_config/.filebrowser.json
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
+
+persistence:
+  enabled: true
+  existingClaim: ""
+  storageClass: "dlink"
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+
+containerPort: 90
+
+args:
+  - "--config"
+  - "/config/.filebrowser.json"
+  - "--database"
+  - "/config/database.db"
+
+volumeMounts:
+  - name: filebrowser-volume
+    mountPath: /srv
+  - name: filebrowser-volume
+    mountPath: /config/.filebrowser.json
+    subPath: k8s-tools-config/filebrowser_config/.filebrowser.json
+  - name: filebrowser-volume
+    mountPath: /config/database.db
+    subPath: k8s-tools-config/filebrowser_config/database.db
