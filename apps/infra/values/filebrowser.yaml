@@ -51,7 +51,7 @@ args:
   - "--disable-preview-resize" 
   - "--disable-type-detection-by-header" 
   - "--cache-dir" 
-  - "/filebrowser/cache"
+  - "/config/cache"
 
 volumeMounts:
   data:
@@ -65,8 +65,8 @@ volumeMounts:
       mountPath: /config/database.db
       subPath: k8s-tools-config/filebrowser_config/database.db
     - name: config-volume
+      mountPatch: /config/cache/
       subPath: k8s-tools-config/filebrowser_config/cache/
-      mountPatch: /filebrowser/cache/
 
       
 
