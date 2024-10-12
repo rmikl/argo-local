@@ -52,6 +52,7 @@ args:
   - "--disable-type-detection-by-header" 
   - "--cache-dir" 
   - "/config/cache"
+  - "--disable-thumbnails"
 
 volumeMounts:
   data:
