@@ -65,7 +65,7 @@ volumeMounts:
       mountPath: /config/database.db
       subPath: k8s-tools-config/filebrowser_config/database.db
     - name: config-volume
-      mountPatch: /config/cache/
+      mountPath: /config/cache/
       subPath: k8s-tools-config/filebrowser_config/cache/
 
       
