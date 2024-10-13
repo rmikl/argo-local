@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: csi-driver-smb-storage-class-dlink
+  name: additional-k8s-objects
   namespace: argocd  
 spec:
   project: infra
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
+    targetRevision: feature/added-plugin-device
     path: k8s-objects
   destination:
     server: https://kubernetes.default.svc  

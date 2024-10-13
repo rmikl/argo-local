@@ -68,7 +68,3 @@ volumeMounts:
     - name: config-volume
       mountPath: /config/cache/
       subPath: k8s-tools-config/filebrowser_config/cache/
-
-      
-
-  
