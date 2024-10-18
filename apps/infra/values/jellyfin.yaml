@@ -25,7 +25,7 @@ nodeSelector:
 securityContext:
   privileged: true
 
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: jellyfin/jellyfin
