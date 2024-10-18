@@ -29,7 +29,7 @@ spec:
   - https://owncloud-docker.github.io/helm-charts
   - https://github.com/vnc-biz/owncloud.git
   - https://nextcloud.github.io/helm
-  - ttps://kubernetes-sigs.github.io/node-feature-discovery/charts
+  - https://kubernetes-sigs.github.io/node-feature-discovery/charts
   
   destinations:
   - server: https://kubernetes.default.svc
