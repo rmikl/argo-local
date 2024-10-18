@@ -19,6 +19,10 @@ service:
   port: 80         
   nodePort: 32080
 
+nodeSelector:
+  media: "true"
+
+
 replicaCount: 1
 
 image:
