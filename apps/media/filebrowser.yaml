@@ -4,20 +4,20 @@ metadata:
   name: filebrowser
   namespace: argocd
 spec:
-  project: infra
+  project: media
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: master
     path: custom-charts/filebrowser
     helm:
       valueFiles:
-      - $values/apps/infra/values/filebrowser.yaml
+      - $values/apps/media/values/filebrowser.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: cluster-operators
+    namespace: media
   syncPolicy:
     automated:
       prune: true
