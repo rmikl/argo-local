@@ -22,8 +22,9 @@ service:
 nodeSelector:
   media: "true"
 
-securityContext:
-  privileged: true
+
+#securityContext:
+#  privileged: true
 
 replicaCount: 1
 
