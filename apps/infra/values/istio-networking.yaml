@@ -67,4 +67,4 @@ clusterIssuer:
 certificate:
   enabled: true
   domain: rmikl.pl
-  namespacesToCopy: "cluster-operators, argocd, istio-system"
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media"
