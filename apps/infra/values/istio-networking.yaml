@@ -54,7 +54,7 @@ virtualServices:
     namespace: cluster-operators
     host: "file.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
-    serviceName: filebrowser.cluster-operators.svc.cluster.local
+    serviceName: filebrowser.media.svc.cluster.local
     servicePort: 8080
 
 clusterIssuer:
