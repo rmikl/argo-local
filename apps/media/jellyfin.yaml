@@ -4,20 +4,20 @@ metadata:
   name: jellyfin
   namespace: argocd
 spec:
-  project: infra
+  project: media
   sources:
   - repoURL: https://github.com/jellyfin/jellyfin-helm.git
     targetRevision: master
     path: charts/jellyfin
     helm:
       valueFiles:
-      - $values/apps/infra/values/jellyfin.yaml
+      - $values/apps/media/values/jellyfin.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: cluster-operators
+    namespace: media
   syncPolicy:
     automated:
       prune: true

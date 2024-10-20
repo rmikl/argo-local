@@ -42,7 +42,7 @@ virtualServices:
     namespace: cluster-operators
     host: "jelly.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
-    serviceName: jellyfin.cluster-operators.svc.cluster.local
+    serviceName: jellyfin.media.svc.cluster.local
     servicePort: 80
   - name: qbt
     namespace: cluster-operators

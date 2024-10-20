@@ -9,6 +9,7 @@ spec:
   sourceRepos:
   - https://github.com/rmikl/helm_predeploy.git
   - https://github.com/rmikl/argo-local.git
+  - https://github.com/jellyfin/jellyfin-helm.git
 
   destinations:
   - server: https://kubernetes.default.svc
