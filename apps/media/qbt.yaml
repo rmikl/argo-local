@@ -11,7 +11,7 @@ spec:
     path: custom-charts/qbt
     helm:
       valueFiles:
-      - $values/apps/infra/values/qbt.yaml
+      - $values/apps/media/values/qbt.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
