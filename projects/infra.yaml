@@ -19,16 +19,9 @@ spec:
   - https://grafana.github.io/helm-charts
   - https://metallb.github.io/metallb
   - https://kubernetes-sigs.github.io/metrics-server/
-  - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
   - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
   - https://github.com/jellyfin/jellyfin-helm.git
   - https://k8s-home-lab.github.io/helm-charts/
-  - https://charts.bitnami.com/bitnami
-  - https://nextcloud.github.io/helm/
-  - https://github.com/rmikl/owncloud_helm.git
-  - https://owncloud-docker.github.io/helm-charts
-  - https://github.com/vnc-biz/owncloud.git
-  - https://nextcloud.github.io/helm
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
   
   destinations:
@@ -42,7 +35,6 @@ spec:
     namespace: 'kube-system'
   - server: https://kubernetes.default.svc
     namespace: 'metallb-system'
-
 
   clusterResourceWhitelist:
     - group: '*'  
