@@ -42,7 +42,7 @@ metadata:
   name: media-operators
   namespace: argocd  
 spec:
-  project: sites
+  project: media
   source:
     repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
