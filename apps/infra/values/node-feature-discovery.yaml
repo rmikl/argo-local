@@ -1,2 +1,1 @@
-serviceAccount:
-  name: nfd-sa
+fullnameOverride: nfd
