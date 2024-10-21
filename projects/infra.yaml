@@ -22,6 +22,7 @@ spec:
   - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
   - https://k8s-home-lab.github.io/helm-charts/
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
+  - https://helm.ngc.nvidia.com/nvidia
   
   destinations:
   - server: https://kubernetes.default.svc
