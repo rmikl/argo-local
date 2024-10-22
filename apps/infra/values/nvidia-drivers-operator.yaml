@@ -1,6 +1,4 @@
 hostPaths:
   rootFS: "/run/flannel/"
-driver:
-  enabled: true
 containerRuntime:
   name: "crio"
