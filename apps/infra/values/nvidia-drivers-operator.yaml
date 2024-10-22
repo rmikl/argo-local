@@ -1,4 +1,4 @@
-hostPaths:
-  rootFS: "/run/flannel/"
+#hostPaths:
+#  rootFS: "/run/flannel/"
 containerRuntime:
   name: "crio"
