@@ -1,2 +1,2 @@
 hostPaths:
-  rootFS: "/run/flannel/subnet.env"
+  rootFS: "/run/flannel/"
