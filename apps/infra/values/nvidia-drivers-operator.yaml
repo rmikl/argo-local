@@ -1,9 +1,0 @@
-operator:
-  image: gpu-operator
-  repository: nvcr.io/nvidia
-  version: v24.6.2
-
-driver:
-  image: driver
-  repository: nvcr.io/nvidia
-  version: 550-5.15.0-124-generic-ubuntu22.04
