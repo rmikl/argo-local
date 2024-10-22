@@ -1,2 +1,4 @@
 hostPaths:
   rootFS: "/run/flannel/"
+driver:
+  enabled: true
