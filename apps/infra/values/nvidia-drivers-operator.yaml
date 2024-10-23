@@ -11,3 +11,5 @@ operator:
 #    capabilities.drop: ["ALL"]
 #    runAsNonRoot: true
 #    seccompProfile.type: "RuntimeDefault"
+cdi:
+  enabled: false
