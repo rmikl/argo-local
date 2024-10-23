@@ -2,5 +2,5 @@
 #  rootFS: "/run/flannel/"
 containerRuntime:
   name: "crio"
-validation:
+validator:
   enabled: false
