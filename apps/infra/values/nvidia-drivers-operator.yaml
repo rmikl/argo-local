@@ -13,3 +13,7 @@ operator:
 #    seccompProfile.type: "RuntimeDefault"
 cdi:
   enabled: false
+
+driver:
+  nvidiaDriverCRD:
+    deployDefaultCR: false
