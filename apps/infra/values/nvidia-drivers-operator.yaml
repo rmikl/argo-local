@@ -1,5 +1,5 @@
-#hostPaths:
-#  rootFS: "/run/flannel/"
+hostPaths:
+  rootFS: /usr/bin/nvidia-smi
 containerRuntime:
   name: "crio"
 cdi:
@@ -10,3 +10,4 @@ toolkit:
   version: v1.8.0-ubuntu18.04
 psp:
   enabled: true
+
