@@ -9,12 +9,12 @@ spec:
   - chart: gpu-operator
     repoURL: https://nvidia.github.io/gpu-operator
     targetRevision: v22.9.0 
-  #  helm:
-  #    valueFiles:
-  #    - $values/apps/infra/values/nvidia-drivers-operator.yaml
-  #- repoURL: https://github.com/rmikl/argo-local
-  #  targetRevision: HEAD
-  #  ref: values
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/nvidia-drivers-operator.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
   destination:
     server: https://kubernetes.default.svc  
     namespace: cluster-operators
