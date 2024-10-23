@@ -2,21 +2,12 @@
 #  rootFS: "/run/flannel/"
 containerRuntime:
   name: "crio"
-operator:
-  initContainer: false
-#daemonSets:
-#  validator:
-#    privileged: false
-#    allowPrivilegeEscalation: false
-#    capabilities.drop: ["ALL"]
-#    runAsNonRoot: true
-#    seccompProfile.type: "RuntimeDefault"
-
-validator:
-  cuda: false
 cdi:
+  enabled: true
+driver:
+  enabled: false
+toolkit:
   enabled: false
 
-driver:
-  nvidiaDriverCRD:
-    deployDefaultCR: false
+
+
