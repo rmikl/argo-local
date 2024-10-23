@@ -1,10 +1,12 @@
 #hostPaths:
 #  rootFS: "/run/flannel/"
-#containerRuntime:
-#  name: "crio"
+containerRuntime:
+  name: "crio"
 cdi:
   enabled: true
 driver:
   enabled: false
 toolkit:
-  version: v1.13.1-ubuntu20.04
+  version: v1.8.0-ubuntu18.04
+psp:
+  enabled: true
