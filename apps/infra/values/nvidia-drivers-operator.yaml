@@ -2,5 +2,11 @@
 #  rootFS: "/run/flannel/"
 containerRuntime:
   name: "crio"
-validator:
-  enabled: false
+DaemonSets:
+
+  validator:
+    privileged: false
+    allowPrivilegeEscalation: false
+    capabilities.drop: ["ALL"]
+    runAsNonRoot: true
+    seccompProfile.type: "RuntimeDefault"
