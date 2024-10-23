@@ -1,12 +1,13 @@
-#hostPaths:
-#  rootFS: /usr/bin/nvidia-smi
-containerRuntime:
-  name: "crio"
-cdi:
-  enabled: true
-driver:
-  enabled: false
-#toolkit:
-#  version: v1.8.0-ubuntu18.04
-
-
+##hostPaths:
+##  rootFS: /usr/bin/nvidia-smi
+#containerRuntime:
+#  name: "crio"
+#cdi:
+#  enabled: true
+#driver:
+#  enabled: false
+##toolkit:
+##  version: v1.8.0-ubuntu18.04
+#
+#
+#
