@@ -1,7 +1,7 @@
 ##hostPaths:
 ##  rootFS: /usr/bin/nvidia-smi
-#containerRuntime:
-#  name: "crio"
+containerRuntime:
+  name: "crio"
 #cdi:
 #  enabled: true
 #driver:
