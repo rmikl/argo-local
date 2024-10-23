@@ -8,7 +8,7 @@ spec:
   sources:
   - chart: gpu-operator
     repoURL: https://nvidia.github.io/gpu-operator
-    targetRevision: v24.6.2 
+    targetRevision: v22.9.0 
   #  helm:
   #    valueFiles:
   #    - $values/apps/infra/values/nvidia-drivers-operator.yaml
