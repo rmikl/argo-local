@@ -20,7 +20,7 @@ service:
   nodePort: 32080
 
 nodeSelector:
-  media: "true"
+  nvidia.com/gpu.present: "true"
 
 replicaCount: 1
 
