@@ -6,7 +6,7 @@ vncServer:
     type: ClusterIP
     port: 5900
   serviceAccount:
-    name: cluster-operators:kubectl-sa
+    name: cluster-operators/kubectl-sa
   secret:
     name: gen-creds
     key: pwd
