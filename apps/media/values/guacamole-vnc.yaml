@@ -4,9 +4,9 @@ vncServer:
     tag: 9f7e541c1822e7abfc3873394518e283121f049a
   service:
     type: ClusterIP
-    port: 5900
+    port: 5901
   serviceAccount:
-    name: cluster-operators/kubectl-sa
+    name: vmc-admin
   secret:
     name: gen-creds
     key: pwd
