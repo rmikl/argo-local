@@ -1,0 +1,25 @@
+vncServer:
+  image:
+    repository: rmikl/vnc_server
+    tag: 9f7e541c1822e7abfc3873394518e283121f049a
+  service:
+    type: ClusterIP
+    port: 5900
+  serviceAccount:
+    name: kubectl-sa
+  secret:
+    name: gen-creds
+    key: pwd
+replicaCount: 1
+
+guacamole:
+  image:
+    repository: guacamole/guacamole
+    tag: latest
+  service:
+    type: LoadBalancer
+    port: 8080
+  env:
+    guacd_hostname: guacd
+    vnc_hostname: vnc-server
+    vnc_port: 5901
