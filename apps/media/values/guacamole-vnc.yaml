@@ -1,7 +1,7 @@
 vncServer:
   image:
     repository: rmikl/vnc_server
-    tag: 9f7e541c1822e7abfc3873394518e283121f049a
+    tag: 3322c9eff1c7627e0d707f9f43cb69b0bb5940d5  
   service:
     type: ClusterIP
     port: 5901
