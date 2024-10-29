@@ -1,7 +1,7 @@
 vncServer:
   image:
-    repository: rmikl/vnc_server
-    tag: 3d3e2dace9422eb4c9f3190e0253dfabf709a979     
+    repository: ubuntu
+    tag: 24.04
   service:
     type: ClusterIP
     port: 5901
