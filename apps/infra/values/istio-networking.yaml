@@ -17,6 +17,7 @@ gateway:
     - jelly.rmikl.pl
     - qbt.rmikl.pl
     - file.rmikl.pl
+    - vnc.rmikl.pl
 
   tls:
     enabled: true
@@ -56,6 +57,12 @@ virtualServices:
     gateway: "cluster-operators/main-gateway"
     serviceName: filebrowser.media.svc.cluster.local
     servicePort: 8080
+  - name: vnc
+    namespace: cluster-operators
+    host: "vnc.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: vnc-http.media.svc.cluster.local
+    servicePort: 80
 
 clusterIssuer:
   enabled: true

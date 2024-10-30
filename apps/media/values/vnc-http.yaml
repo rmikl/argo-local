@@ -18,7 +18,7 @@ vncServer:
 
 env:
   USER: "rmikl"
-  RESOLUTION: "1920x1080"
+  RESOLUTION: "1920x1200"
 
 persistence:
   enabled: true
