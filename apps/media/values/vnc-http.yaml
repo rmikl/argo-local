@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: elestio/docker-desktop-vnc
+  repository: rmikl/vnc_server
   pullPolicy: IfNotPresent
-  tag: latest
+  tag: 395174d9a1ce8eb6a960f33555454b9af6a9e0d9 
 
 service:
   type: NodePort
