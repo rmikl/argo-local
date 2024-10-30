@@ -19,3 +19,8 @@ vncServer:
 env:
   USER: "rmikl"
   RESOLUTION: "1920x1080"
+
+persistence:
+  enabled: true
+  storageClass: dlink
+  size: 10Gi
