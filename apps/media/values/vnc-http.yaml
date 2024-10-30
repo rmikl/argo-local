@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: rmikl/vnc_server
   pullPolicy: IfNotPresent
-  tag: 76515553e941f1145da14fe102abc567c60dabc1
+  tag: 1.0.669
 
 service:
   type: NodePort
