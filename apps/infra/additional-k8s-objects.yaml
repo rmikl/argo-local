@@ -7,7 +7,7 @@ spec:
   project: infra
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
+    targetRevision: feature/vnc-server-additional-home
     path: k8s-objects
   destination:
     server: https://kubernetes.default.svc  
