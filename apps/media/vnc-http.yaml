@@ -7,7 +7,7 @@ spec:
   project: media
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: feature/vnc-server-additional-home
+    targetRevision: vnc
     path: custom-charts/vnc-http
     helm:
       valueFiles:
