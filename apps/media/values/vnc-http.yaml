@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: elestio/docker-desktop-vnc
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  type: NodePort
+  httpPort: 80
+  httpNodePort: 30081
+
+existingSecret: "vnc-credentials"
+
+vncServer:
+  serviceAccount:
+    name: vnc-admin
+
+env:
+  USER: "rmikl"
+  RESOLUTION: "1920x1080"

@@ -8,10 +8,10 @@ spec:
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: feature/guacamole-vnc-server
-    path: custom-charts/guacamole-vnc
+    path: custom-charts/vnc-http
     helm:
       valueFiles:
-      - $values/apps/media/values/guacamole-vnc.yaml
+      - $values/apps/media/values/vnc-http.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
