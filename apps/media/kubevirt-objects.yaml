@@ -4,7 +4,7 @@ metadata:
   name: kubevirt-objects
   namespace: argocd  
 spec:
-  project: infra
+  project: media
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: feature/kubevirt-objects
