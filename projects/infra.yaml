@@ -41,6 +41,8 @@ spec:
     namespace: 'kubevirt'
   - server: https://kubernetes.default.svc
     namespace: 'cdi'
+  - server: https://kubernetes.default.svc
+    namespace: 'local-path-storage'
   clusterResourceWhitelist:
     - group: '*'  
       kind: '*'
