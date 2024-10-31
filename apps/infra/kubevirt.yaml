@@ -7,7 +7,7 @@ spec:
   project: infra
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
+    targetRevision: feature/kubevirt-objects
     path: k8s-objects/kubevirt
   destination:
     server: https://kubernetes.default.svc  
