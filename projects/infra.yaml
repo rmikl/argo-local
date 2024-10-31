@@ -23,7 +23,7 @@ spec:
   - https://k8s-home-lab.github.io/helm-charts/
   - https://helm.ngc.nvidia.com/nvidia
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
-  - https://github.com/kubevirt/kubevirt/releases/download/v1.3.1/
+  
   destinations:
   - server: https://kubernetes.default.svc
     namespace: 'cluster-operators'
