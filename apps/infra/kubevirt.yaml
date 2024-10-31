@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubevirt
+  namespace: argocd  
+spec:
+  project: infra
+  sources:
+  - repoURL: https://github.com/kubevirt/kubevirt/releases/download/v1.3.1/
+    chart: kubevirt-operator.yaml
+    targetRevision: v1.3.1
+  - repoURL: https://github.com/kubevirt/kubevirt/releases/download/v1.3.1/
+    chart: kubevirt-cr.yaml
+    targetRevision: v1.3.1
+  destination:
+    server: https://kubernetes.default.svc  
+    namespace: cluster-operators
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
+    automated:
+      prune: true
+      selfHeal: true
