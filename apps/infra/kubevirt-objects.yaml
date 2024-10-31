@@ -11,7 +11,7 @@ spec:
     path: k8s-objects/kubevirt-objects
   destination:
     server: https://kubernetes.default.svc  
-    namespace: cluster-operators
+    namespace: media
   syncPolicy:
     syncOptions:
       - RespectIgnoreDifferences=true
