@@ -23,7 +23,7 @@ spec:
   - https://k8s-home-lab.github.io/helm-charts/
   - https://helm.ngc.nvidia.com/nvidia
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
-  
+
   destinations:
   - server: https://kubernetes.default.svc
     namespace: 'cluster-operators'
@@ -37,6 +37,8 @@ spec:
     namespace: 'metallb-system'
   - server: https://kubernetes.default.svc
     namespace: 'kube-flannel'
+  - server: https://kubernetes.default.svc
+    namespace: 'kubevirt'
 
   clusterResourceWhitelist:
     - group: '*'  
