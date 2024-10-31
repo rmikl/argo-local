@@ -39,7 +39,8 @@ spec:
     namespace: 'kube-flannel'
   - server: https://kubernetes.default.svc
     namespace: 'kubevirt'
-
+  - server: https://kubernetes.default.svc
+    namespace: 'cdi'
   clusterResourceWhitelist:
     - group: '*'  
       kind: '*'
