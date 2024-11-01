@@ -43,6 +43,7 @@ spec:
     namespace: 'cdi'
   - server: https://kubernetes.default.svc
     namespace: 'local-path-storage'
+  
   clusterResourceWhitelist:
     - group: '*'  
       kind: '*'
