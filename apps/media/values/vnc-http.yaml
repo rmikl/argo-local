@@ -6,9 +6,8 @@ image:
   tag: nightly
 
 service:
-  type: NodePort
+  type: ClusterIP
   httpPort: 80
-  httpNodePort: 30081
 
 existingSecret: "vnc-credentials"
 
