@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: consol/debian-xfce-vnc
+  repository: rmikl/vnc_server
   pullPolicy: IfNotPresent
-  tag: nightly
+  tag: ba314cfca9b7639395391094577b2714068727f2
 
 service:
   type: ClusterIP
