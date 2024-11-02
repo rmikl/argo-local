@@ -61,7 +61,7 @@ virtualServices:
     namespace: cluster-operators
     host: "vnc.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
-    serviceName: vmiservice.media.svc.cluster.local
+    serviceName: vnc-http.media.svc.cluster.local
     servicePort: 5901
 
 clusterIssuer:
