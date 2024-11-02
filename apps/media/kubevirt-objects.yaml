@@ -1,20 +1,20 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kubevirt-objects
-  namespace: argocd  
-spec:
-  project: media
-  sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: feature/kubevirt-objects
-    path: k8s-objects/kubevirt-objects
-  destination:
-    server: https://kubernetes.default.svc  
-    namespace: media
-  syncPolicy:
-    syncOptions:
-      - RespectIgnoreDifferences=true
-    automated:
-      prune: true
-      selfHeal: true
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: kubevirt-objects
+#  namespace: argocd  
+#spec:
+#  project: media
+#  sources:
+#  - repoURL: https://github.com/rmikl/helm_predeploy.git
+#    targetRevision: feature/kubevirt-objects
+#    path: k8s-objects/kubevirt-objects
+#  destination:
+#    server: https://kubernetes.default.svc  
+#    namespace: media
+#  syncPolicy:
+#    syncOptions:
+#      - RespectIgnoreDifferences=true
+#    automated:
+#      prune: true
+#      selfHeal: true
