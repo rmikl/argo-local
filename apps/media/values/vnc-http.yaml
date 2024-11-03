@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: rmikl/vnc_server
   pullPolicy: IfNotPresent
-  tag: ba314cfca9b7639395391094577b2714068727f2
+  tag: cbbd81154122be4b5fc39c7cc32e4ff828dae2c0
 
 service:
   type: ClusterIP
