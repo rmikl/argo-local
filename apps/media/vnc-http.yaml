@@ -7,7 +7,7 @@ spec:
   project: media
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
+    targetRevision: feature/chagnes-in-http-vnc
     path: custom-charts/vnc-http
     helm:
       valueFiles:
