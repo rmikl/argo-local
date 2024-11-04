@@ -18,6 +18,7 @@ gateway:
     - qbt.rmikl.pl
     - file.rmikl.pl
     - vnc.rmikl.pl
+    - grafana.rmikl.pl
 
   tls:
     enabled: true
@@ -62,6 +63,12 @@ virtualServices:
     host: "vnc.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
     serviceName: vnc-http.media.svc.cluster.local
+    servicePort: 80
+  - name: grafana
+    namespace: cluster-operators
+    host: "grafana.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: grafana.cluster-operators.svc.cluster.local
     servicePort: 80
 
 clusterIssuer:
