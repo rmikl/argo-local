@@ -8,8 +8,8 @@ server:
     scrape_interval: 30s 
   resources:
     limits:
-      cpu: 200m 
-      memory: 512Mi  
+      cpu: 1000m 
+      memory: 1000Mi  
     requests:
       cpu: 100m
       memory: 256Mi
