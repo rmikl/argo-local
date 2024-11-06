@@ -5,10 +5,16 @@ metadata:
   namespace: argocd  
 spec:
   project: infra
-  source:
-    repoURL: https://istio-release.storage.googleapis.com/charts  # The Helm repository URL for Istio
+  sources:
+  - repoURL: https://istio-release.storage.googleapis.com/charts  # The Helm repository URL for Istio
     chart: istiod  # The Helm chart name
-    targetRevision: 1.23.0  # The chart version
+    targetRevision: 1.23.3  # The chart version
+    helm:
+      valueFiles:
+      - $values/apps/infra/values/istiod.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
   destination:
     server: https://kubernetes.default.svc  
     namespace: istio-system
