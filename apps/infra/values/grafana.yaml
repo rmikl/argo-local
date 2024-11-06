@@ -38,7 +38,7 @@ dashboardProviders:
 
 dashboards:
   k8s:
-    k8s-monitoring:
+    default:
       gnetId: 18283
       datasource: Prometheus
       revision: 1
