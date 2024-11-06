@@ -41,7 +41,7 @@ dashboards:
     grafana-overview:
       gnetId: 18283
       revision: 1
-      datasource: Prometheus
+      datasource: prometheusdatasource
 
 datasources:
   datasources.yaml:
@@ -49,7 +49,7 @@ datasources:
     datasources:
       - name: Prometheus
         type: prometheus
-        uid: DS_SERVICEMONITOR
+        uid: prometheusdatasource
         url: http://prometheus-server.cluster-operators.svc.cluster.local
         access: proxy
         isDefault: true
