@@ -23,6 +23,15 @@ service:
 ingress:
   enabled: false
 
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus-server.cluster-operators.svc.cluster.local
+
 dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
@@ -43,11 +52,3 @@ dashboards:
       revision: 1
       datasource: Prometheus
 
-datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-      - name: Prometheus
-        type: prometheus
-        access: proxy
-        url: http://prometheus-server.cluster-operators.svc.cluster.local
