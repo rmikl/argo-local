@@ -49,6 +49,7 @@ datasources:
     datasources:
       - name: Prometheus
         type: prometheus
+        uid: DS_SERVICEMONITOR
         url: http://prometheus-server.cluster-operators.svc.cluster.local
         access: proxy
         isDefault: true
