@@ -47,35 +47,63 @@ dashboardProviders:
 
 dashboards:
   default:
-    kubernetes:
+    k1:
       gnetId: 13332
       revision: 1
       datasource: Prometheus
-    kube-state-metrics-v2:
-      gnetId: 13332
+      name: k1
+    k2:
+      gnetId: 13646
       revision: 1
       datasource: Prometheus
-    K8S-for-Prometheus-Dashboard:
+      name: k2
+    k3:
       gnetId: 15661
       revision: 1
       datasource: Prometheus
-    cert-manager:
-      gnetId: 11001
-      revision: 1
-      datasource: Prometheus
-    K8s_Storage_Volumes_Cluster:
+      name: k3
+    k4:
       gnetId: 11454
       revision: 1
       datasource: Prometheus
-    Kubernetes_cluster_monitoring:
+      name: k4
+    k5:
       gnetId: 315
       revision: 1
       datasource: Prometheus
-    Kubernetes_cluster:
+      name: k5
+    k6:
       gnetId: 6417
       revision: 1
       datasource: Prometheus
-    prometheus-stats:
-      gnetId: 2
+      name: k6
+    k7:
+      gnetId: 1860
       revision: 2
       datasource: Prometheus
+      name: k7
+    k8:
+      gnetId: 13041
+      revision: 2
+      datasource: Prometheus
+      name: k8
+    k9:
+      gnetId: 8171
+      revision: 2
+      datasource: Prometheus
+      name: k9
+    k10:
+      gnetId: 14584
+      revision: 2
+      datasource: Prometheus
+      name: k10
+    k11:
+      gnetId: 7645
+      revision: 2
+      datasource: Prometheus
+      name: k11
+    k12:
+      gnetId: 1860
+      revision: 2
+      datasource: Prometheus
+      name: k12
