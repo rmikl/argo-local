@@ -1,20 +1,20 @@
 alertmanager:
   enabled: true
   persistentVolume:
-    enabled: false 
+    enabled: false
 
 server:
   global:
-    scrape_interval: 30s 
+    scrape_interval: 60s # Increase scrape interval to reduce load
   resources:
     limits:
-      cpu: 1000m 
-      memory: 1500Mi 
+      cpu: 1500m # Increase CPU limit for stability
+      memory: 2500Mi # Increase memory limit
     requests:
-      cpu: 500m
-      memory: 1000Mi  
-  retention: 36h 
+      cpu: 750m # Increase CPU request
+      memory: 2000Mi # Increase memory request to reduce OOM risk
+  retention: 24h # Reduce retention period to decrease memory usage
   persistentVolume:
-    enabled: false 
-  nodeSelector: {}  
-  tolerations: []  
+    enabled: false
+  nodeSelector: {}
+  tolerations: []
