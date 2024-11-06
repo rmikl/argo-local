@@ -47,63 +47,39 @@ dashboardProviders:
 
 dashboards:
   default:
-    k1:
-      gnetId: 13332
-      revision: 1
-      datasource: Prometheus
-      name: k1
-    k2:
+    kubernetes-persistent-volumes:
       gnetId: 13646
       revision: 1
       datasource: Prometheus
-      name: k2
-    k3:
+    1_K8S_for_Prometheus_Dashboard_20211010_EN:
       gnetId: 15661
       revision: 1
       datasource: Prometheus
       name: k3
-    k4:
-      gnetId: 11454
+    Storage I/O Statistics:
+      gnetId: 11801
       revision: 1
       datasource: Prometheus
-      name: k4
-    k5:
-      gnetId: 315
+    K8s Cluster Metrics:
+      gnetId: 11663
       revision: 1
       datasource: Prometheus
-      name: k5
-    k6:
-      gnetId: 6417
+    Kubernetes Monitor:
+      gnetId: 15398
       revision: 1
       datasource: Prometheus
-      name: k6
-    k7:
-      gnetId: 1860
-      revision: 2
+    Network Traffic:
+      gnetId: 12619
+      revision: 1
       datasource: Prometheus
-      name: k7
-    k8:
-      gnetId: 13041
-      revision: 2
+    Kubernetes monitoring by namespace and instance:
+      gnetId: 15826
+      revision: 1
       datasource: Prometheus
-      name: k8
-    k9:
-      gnetId: 8171
-      revision: 2
+    Kubernetes / Networking / Pod Flows (Workload):
+      gnetId: 20929
+      revision: 1
       datasource: Prometheus
-      name: k9
-    k10:
-      gnetId: 14584
-      revision: 2
-      datasource: Prometheus
-      name: k10
-    k11:
-      gnetId: 7645
-      revision: 2
-      datasource: Prometheus
-      name: k11
-    k12:
-      gnetId: 1860
-      revision: 2
-      datasource: Prometheus
-      name: k12
+
+
+    
