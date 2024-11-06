@@ -9,7 +9,7 @@ resources:
     memory: 64Mi
 
 admin:
-  existingSecret: grafana-admin-credentials 
+  existingSecret: grafana-admin-credentials
   userKey: admin-user
   passwordKey: admin-password
 
@@ -27,20 +27,21 @@ dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-    - name: 'default'
-      orgId: 1
-      folder: 'default'
-      type: file
-      disableDeletion: true
-      editable: true
-      options:
-        path: /var/lib/grafana/dashboards/standard
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: true
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards
 
 dashboards:
   default:
-    gnetId: 18283
-    datasource: Prometheus
-    revision: 1
+    grafana-overview:
+      gnetId: 18283
+      revision: 1
+      datasource: Prometheus
 
 datasources:
   datasources.yaml:
@@ -51,4 +52,3 @@ datasources:
         url: http://prometheus-server.cluster-operators.svc.cluster.local
         access: proxy
         isDefault: true
-
