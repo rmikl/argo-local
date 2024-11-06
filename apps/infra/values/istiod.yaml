@@ -1,2 +1,3 @@
-pilot:
-  replicaCount: 2
+global:
+  defaultPodDisruptionBudget:
+    enabled: false

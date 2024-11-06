@@ -6,9 +6,9 @@ metadata:
 spec:
   project: infra
   sources:
-  - repoURL: https://istio-release.storage.googleapis.com/charts  # The Helm repository URL for Istio
-    chart: istiod  # The Helm chart name
-    targetRevision: 1.23.3  # The chart version
+  - repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: istiod
+    targetRevision: 1.23.3
     helm:
       valueFiles:
       - $values/apps/infra/values/istiod.yaml
