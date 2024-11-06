@@ -1,7 +1,1 @@
-spec:
-  replicas: 2
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: istiod
-      istio: pilot
+replicaCount: 2
