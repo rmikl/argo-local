@@ -37,11 +37,10 @@ dashboardProviders:
        path: /var/lib/grafana/dashboards/standard
 
 dashboards:
-  k8s:
-    default:
-      gnetId: 18283
-      datasource: Prometheus
-      revision: 1
+  default:
+    gnetId: 18283
+    datasource: Prometheus
+    revision: 1
 
 datasources:
   datasources.yaml:
