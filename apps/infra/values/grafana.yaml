@@ -56,30 +56,7 @@ dashboards:
       revision: 1
       datasource: Prometheus
       name: k3
-    Storage_I_O_Statistics:
-      gnetId: 11801
-      revision: 1
-      datasource: Prometheus
     K8s_Cluster_Metrics:
       gnetId: 11663
       revision: 1
       datasource: Prometheus
-    Kubernetes_Monitor:
-      gnetId: 15398
-      revision: 1
-      datasource: Prometheus
-    Network_Traffic:
-      gnetId: 12619
-      revision: 1
-      datasource: Prometheus
-    Kubernetes_monitoring_by_namespace_and_instance:
-      gnetId: 15826
-      revision: 1
-      datasource: Prometheus
-    Kubernetes_Networking_Pod_Flows_Workload:
-      gnetId: 20929
-      revision: 1
-      datasource: Prometheus
-
-
-    
