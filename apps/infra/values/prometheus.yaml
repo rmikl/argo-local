@@ -9,13 +9,12 @@ server:
   resources:
     limits:
       cpu: 1000m 
-      memory: 1500Mi  # Increased memory limit
+      memory: 1500Mi 
     requests:
-      cpu: 100m
-      memory: 512Mi  # Increased memory request
-  retention: 2d 
+      cpu: 500m
+      memory: 1000Mi  
+  retention: 36h 
   persistentVolume:
-    enabled: true  # Enabled persistent storage
-    size: 10Gi     # Specify a storage size suitable for your needs
+    enabled: false 
   nodeSelector: {}  
   tolerations: []  
