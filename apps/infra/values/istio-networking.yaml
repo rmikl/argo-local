@@ -1,0 +1,84 @@
+gateway:
+  enabled: true
+  name: main-gateway
+  selector:
+    istio: ingress
+  httpsPort:
+    number: 443
+    name: https
+    protocol: HTTPS
+  httpPort:
+    number: 80
+    name: http
+    protocol: HTTP
+  hosts:
+    - argo.rmikl.pl
+    - mama.rmikl.pl
+    - jelly.rmikl.pl
+    - qbt.rmikl.pl
+    - file.rmikl.pl
+    - vnc.rmikl.pl
+    - grafana.rmikl.pl
+
+  tls:
+    enabled: true
+    mode: SIMPLE
+    credentialName: "rmikl.pl"
+    minProtocolVersion: TLSV1_2
+    maxProtocolVersion: TLSV1_3
+
+virtualServices:
+  - name: argo
+    namespace: argocd
+    host: "argo.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: argocd-server.argocd.svc.cluster.local
+    servicePort: 80
+  - name: mama
+    namespace: cluster-operators
+    host: "mama.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: mama-chadcn.sites.svc.cluster.local
+    servicePort: 80
+  - name: jelly
+    namespace: cluster-operators
+    host: "jelly.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: jellyfin.media.svc.cluster.local
+    servicePort: 80
+  - name: qbt
+    namespace: cluster-operators
+    host: "qbt.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: qbt.media.svc.cluster.local
+    servicePort: 8080
+  - name: filebrowser
+    namespace: cluster-operators
+    host: "file.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: filebrowser.media.svc.cluster.local
+    servicePort: 8080
+  - name: vnc
+    namespace: cluster-operators
+    host: "vnc.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: vnc-http.media.svc.cluster.local
+    servicePort: 80
+  - name: grafana
+    namespace: cluster-operators
+    host: "grafana.rmikl.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: grafana.cluster-operators.svc.cluster.local
+    servicePort: 80
+
+clusterIssuer:
+  enabled: true
+  cloudflare:
+    enabled: true
+  azureDNS:
+    enabled: false  
+
+certificate:
+  enabled: true
+  domain: rmikl.pl
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media"

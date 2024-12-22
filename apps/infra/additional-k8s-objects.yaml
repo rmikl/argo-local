@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: additional-k8s-objects
+  namespace: argocd  
+spec:
+  project: infra
+  sources:
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: master
+    path: k8s-objects/device-plugins
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: master
+    path: k8s-objects/network
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: master
+    path: k8s-objects/storage
+  destination:
+    server: https://kubernetes.default.svc  
+    namespace: cluster-operators
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
+    automated:
+      prune: true
+      selfHeal: true

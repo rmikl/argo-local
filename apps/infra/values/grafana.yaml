@@ -1,0 +1,62 @@
+replicas: 1
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+admin:
+  existingSecret: grafana-admin-credentials
+  userKey: admin-user
+  passwordKey: admin-password
+
+persistence:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: http://prometheus-server.cluster-operators.svc.cluster.local
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: default
+      orgId: 1
+      folder: "default"
+      type: file
+      disableDeletion: false
+      editable: false
+      options:
+        path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    kubernetes-persistent-volumes:
+      gnetId: 13646
+      revision: 1
+      datasource: Prometheus
+    1_K8S_for_Prometheus_Dashboard_20211010_EN:
+      gnetId: 15661
+      revision: 1
+      datasource: Prometheus
+      name: k3
+    K8s_Cluster_Metrics:
+      gnetId: 11663
+      revision: 1
+      datasource: Prometheus

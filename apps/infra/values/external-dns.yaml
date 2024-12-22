@@ -1,0 +1,17 @@
+provider: cloudflare
+
+domainFilters:
+  - rmikl.pl
+  - psycholog-miklas.pl
+
+namespaced: false
+
+sources:
+- istio-gateway
+
+policy: sync
+registry: txt
+
+rbac:
+  create: true
+  serviceAccountName: external-dns

@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-operators
+  namespace: argocd  
+spec:
+  project: infra
+  source:
+    repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/
+  destination:
+    server: https://kubernetes.default.svc  
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sites-operators
+  namespace: argocd  
+spec:
+  project: sites
+  source:
+    repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/sites/
+  destination:
+    server: https://kubernetes.default.svc  
+    namespace: sites
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: media-operators
+  namespace: argocd  
+spec:
+  project: media
+  source:
+    repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/media/
+  destination:
+    server: https://kubernetes.default.svc  
+    namespace: media
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

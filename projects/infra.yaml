@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infra
+  namespace: argocd  
+spec:
+  description: "Project for managing infrastructure resources"
+  
+  sourceRepos:
+  - https://github.com/rmikl/argo-local.git  
+  - https://istio-release.storage.googleapis.com/charts
+  - https://emberstack.github.io/helm-charts
+  - https://charts.external-secrets.io/
+  - https://charts.bitnami.com/bitnami
+  - https://github.com/rmikl/helm_predeploy.git
+  - https://kubernetes-sigs.github.io/external-dns/
+  - https://charts.jetstack.io 
+  - https://prometheus-community.github.io/helm-charts
+  - https://grafana.github.io/helm-charts
+  - https://metallb.github.io/metallb
+  - https://kubernetes-sigs.github.io/metrics-server/
+  - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
+  - https://k8s-home-lab.github.io/helm-charts/
+  - https://helm.ngc.nvidia.com/nvidia
+  - https://kubernetes-sigs.github.io/node-feature-discovery/charts
+
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: 'cluster-operators'
+  - server: https://kubernetes.default.svc
+    namespace: 'argocd'
+  - server: https://kubernetes.default.svc
+    namespace: 'istio-system'
+  - server: https://kubernetes.default.svc
+    namespace: 'kube-system'
+  - server: https://kubernetes.default.svc
+    namespace: 'metallb-system'
+  - server: https://kubernetes.default.svc
+    namespace: 'kube-flannel'
+  - server: https://kubernetes.default.svc
+    namespace: 'kubevirt'
+  - server: https://kubernetes.default.svc
+    namespace: 'cdi'
+  - server: https://kubernetes.default.svc
+    namespace: 'local-path-storage'
+  
+  clusterResourceWhitelist:
+    - group: '*'  
+      kind: '*'

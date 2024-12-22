@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: media
+  namespace: argocd  
+spec:
+  description: "Project for managing media resources"
+  
+  sourceRepos:
+  - https://github.com/rmikl/helm_predeploy.git
+  - https://github.com/rmikl/argo-local.git
+  - https://github.com/jellyfin/jellyfin-helm.git
+
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: 'media'
+  - server: https://kubernetes.default.svc
+    namespace: 'argocd'
+
+  clusterResourceWhitelist:
+    - group: '*'  
+      kind: '*'

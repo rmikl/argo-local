@@ -1,0 +1,33 @@
+replicaCount: 1
+image:
+  repository: lscr.io/linuxserver/qbittorrent
+  tag: latest
+
+service:
+  type: NodePort
+  webuiPort: 8080
+  torrentingPort: 6881
+  nodePort:
+    webui: 30080
+    torrent: 30681
+
+persistence:
+  config:
+    enabled: true
+    storageClass: dlink
+    accessMode: ReadWriteMany
+    size: 1Gi
+    subPath: "k8s-tools-config/qbittorrent_config"
+
+  downloads:
+    enabled: true
+    storageClass: dlink
+    accessMode: ReadWriteMany
+    size: 10Gi
+
+env:
+  PUID: "1001"
+  PGID: "1001"
+  TZ: "Etc/UTC"
+  WEBUI_PORT: "8080"
+  TORRENTING_PORT: "6881"
