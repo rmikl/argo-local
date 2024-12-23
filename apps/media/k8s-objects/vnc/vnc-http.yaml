@@ -22,11 +22,13 @@ data:
     	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
     	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     	&& sudo apt update \
-    	&& sudo apt install gh -y
+    	&& sudo apt install gh vim fzf -y
     sudo apt install zsh -y
     chsh -s $(which zsh)
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
     echo "alias k=kubectl" >> ~/.zshrc
     echo "abc:$PASSWORD" | sudo chpasswd
+    code --install-extension tomrijndorp.find-it-faster
+    code --install-extension github.copilot
 ---
