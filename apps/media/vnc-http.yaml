@@ -17,7 +17,7 @@ spec:
     ref: values
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: master
-    path: apps/media/k8s-objects/vnc/
+    path: apps/media/k8s-objects/vnc
   destination:
     server: https://kubernetes.default.svc
     namespace: media
