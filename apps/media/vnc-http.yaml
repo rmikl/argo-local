@@ -7,13 +7,13 @@ spec:
   project: media
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
-    path: custom-charts/vnc-http
+    targetRevision: feature/chagnes-in-external-secret-doppler
+    path: custom-charts/vnc-http-new
     helm:
       valueFiles:
       - $values/apps/media/values/vnc-http.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
-    targetRevision: HEAD
+    targetRevision: master
     ref: values
   destination:
     server: https://kubernetes.default.svc
