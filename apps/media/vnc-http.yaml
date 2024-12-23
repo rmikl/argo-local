@@ -7,7 +7,7 @@ spec:
   project: media
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: feature/chagnes-in-external-secret-doppler
+    targetRevision: master
     path: custom-charts/vnc-http-new
     helm:
       valueFiles:
