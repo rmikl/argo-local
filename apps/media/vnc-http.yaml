@@ -8,7 +8,7 @@ spec:
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: master
-    path: custom-charts/vnc-http-new
+    path: custom-charts/vnc-http
     helm:
       valueFiles:
       - $values/apps/media/values/vnc-http.yaml
