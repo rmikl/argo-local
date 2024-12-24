@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: lscr.io/linuxserver/webtop
   pullPolicy: IfNotPresent
-  tag: ubuntu-mate
+  tag: ubuntu-xfce
 
 service:
   type: ClusterIP
