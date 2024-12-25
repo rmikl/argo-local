@@ -61,5 +61,5 @@ data:
     git config --global user.name rmikl
     git config --global user.email robert.miklas@protonmail.com
     git config --global core.editor vim
-    git config --global credential.helper manager
+    git config --global credential.helper manager-core
 ---
