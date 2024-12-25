@@ -22,11 +22,44 @@ data:
     	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
     	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     	&& sudo apt update \
-    	&& sudo apt install gh -y
-    sudo apt install zsh -y
+    	&& sudo apt install gh vim fzf -y
+    sudo apt install zsh sshpass -y
     chsh -s $(which zsh)
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
+
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
     echo "alias k=kubectl" >> ~/.zshrc
     echo "abc:$PASSWORD" | sudo chpasswd
+    sudo chmod 777 /config/.zshrc
+    sudo cat <<'EOF' >> ~/.zshrc
+    ns() {
+      local new_namespace="$1"
+      if [ -z "$new_namespace" ]; then
+        echo "Użycie: ns <namespace>"
+        return 1
+      fi
+      sed -i 's|^alias k=.*|alias k="kubectl -n '"$new_namespace"'"|' ~/.zshrc
+      echo "Zaktualizowano alias k na: kubectl -n $new_namespace"
+      source ~/.zshrc
+    }
+    acp() {
+      git add -A;git commit -m "$1";git push origin HEAD
+    }
+    aca() {
+      git add -A;git commit --amend --no-edit ;git push origin HEAD --force
+    }
+    alias lapdell="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.33"
+    alias lapmsi="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.36"
+    alias lapsamsung="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.27"
+    alias pc1="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.38"
+    alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
+    alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
+    EOF
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions 
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+    sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
+    git config --global user.name rmikl
+    git config --global user.email robert.miklas@protonmail.com
+    git config --global core.editor vim
+    git config --global credential.helper manager
 ---
