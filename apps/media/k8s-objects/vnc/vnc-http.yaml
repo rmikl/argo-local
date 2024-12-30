@@ -23,7 +23,7 @@ data:
     	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     	&& sudo apt update \
     	&& sudo apt install gh vim fzf -y
-    sudo apt install zsh sshpass -y
+    sudo apt install zsh sshpass tilix -y
     chsh -s $(which zsh)
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
 
@@ -56,10 +56,12 @@ data:
     alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
     EOF
-    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions 
-    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
     git config --global user.name rmikl
     git config --global user.email robert.miklas@protonmail.com
     git config --global core.editor vim
+    echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
+    gh auth setup-git
+    git config --global --add safe.directory /mnt/dlink/repos/argo-local
+    git config --global --add safe.directory /mnt/dlink/repos/helm_predeploy
 ---
