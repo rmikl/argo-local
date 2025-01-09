@@ -22,7 +22,7 @@ data:
     	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
     	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     	&& sudo apt update \
-    	&& sudo apt install gh vim fzf -y
+    	&& sudo apt install gh vim fzf inetutils-ping inetutils-telnet -y
     sudo apt install zsh sshpass tilix engrampa -y
     chsh -s $(which zsh)
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
@@ -31,6 +31,7 @@ data:
     echo "alias k=kubectl" >> ~/.zshrc
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
+    export USER=abc && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     sudo cat <<'EOF' >> ~/.zshrc
     ns() {
       local new_namespace="$1"
@@ -55,6 +56,8 @@ data:
     alias pc2="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.21"
     alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
+    alias nas="ssh root@192.168.1.22"
+    export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
     EOF
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
     git config --global user.name rmikl
