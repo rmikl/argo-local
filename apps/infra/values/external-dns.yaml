@@ -2,7 +2,7 @@ provider: cloudflare
 
 domainFilters:
   - rmikl.pl
-  - psycholog-miklas.pl
+  - miklas-psycholog.pl
 
 namespaced: false
 
