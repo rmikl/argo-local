@@ -29,9 +29,9 @@ certificates:
     issuer: letsencrypt-prod
   namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
 - name: miklas-psycholog
-  commonName: "psycholog-miklas.pl"
+  commonName: "miklas-psycholog.pl"
   dnsNames:
-    - psycholog-miklas.pl
+    - miklas-psycholog.pl
   certificate:
     issuer: letsencrypt-prod
   namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
@@ -113,7 +113,7 @@ virtualServices:
 ## OTHER Domains
   - name: mama
     namespace: cluster-operators
-    host: "psycholog-miklas.pl"
+    host: "miklas-psycholog.pl"
     gateway: "cluster-operators/main-gateway"
     serviceName: mama-chadcn.sites.svc.cluster.local
     servicePort: 80
