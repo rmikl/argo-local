@@ -19,7 +19,20 @@ domains:
   certificate:
     issuer: letsencrypt-prod
 
-
+certificates:
+- name: rmikl
+  hosts: 
+  - rmikl.pl
+  - "*.rmikl.pl"
+  certificate:
+    issuer: letsencrypt-prod
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
+- name: miklas-psycholog
+  hosts:
+    - psycholog-miklas.pl
+  certificate:
+    issuer: letsencrypt-prod
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
 
 #
 gateway:
@@ -111,4 +124,3 @@ clusterIssuer:
     enabled: false  
 
 certificate:
-  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
