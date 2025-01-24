@@ -19,7 +19,7 @@ gateway:
     - file.rmikl.pl
     - vnc.rmikl.pl
     - grafana.rmikl.pl
-
+    - psycholog-miklas.pl
   tls:
     enabled: true
     mode: SIMPLE
@@ -28,6 +28,7 @@ gateway:
     maxProtocolVersion: TLSV1_3
 
 virtualServices:
+##DOMAIN rmikl.pl
   - name: argo
     namespace: argocd
     host: "argo.rmikl.pl"
@@ -69,6 +70,13 @@ virtualServices:
     host: "grafana.rmikl.pl"
     gateway: "cluster-operators/main-gateway"
     serviceName: grafana.cluster-operators.svc.cluster.local
+    servicePort: 80
+## OTHER Domains
+  - name: mama
+    namespace: cluster-operators
+    host: "psycholog-miklas.pl"
+    gateway: "cluster-operators/main-gateway"
+    serviceName: mama-chadcn.sites.svc.cluster.local
     servicePort: 80
 
 clusterIssuer:
