@@ -22,7 +22,7 @@ domains:
 certificates:
 - name: rmikl
   commonName: "*.rmikl.pl"
-  dnSNames: 
+  dnsNames: 
   - rmikl.pl
   - "*.rmikl.pl"
   certificate:
@@ -30,7 +30,7 @@ certificates:
   namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
 - name: miklas-psycholog
   commonName: "psycholog-miklas.pl"
-  dnSNames:
+  dnsNames:
     - psycholog-miklas.pl
   certificate:
     issuer: letsencrypt-prod
