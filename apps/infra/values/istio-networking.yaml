@@ -19,9 +19,11 @@ domains:
   certificate:
     issuer: letsencrypt-prod
 
+
+
 #
-#gateway:
-#  enabled: true
+gateway:
+  enabled: true
 #  name: main-gateway
 #  selector:
 #    istio: ingress
