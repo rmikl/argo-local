@@ -21,14 +21,16 @@ domains:
 
 certificates:
 - name: rmikl
-  hosts: 
+  commonName: "*.rmikl.pl"
+  dnSNames: 
   - rmikl.pl
   - "*.rmikl.pl"
   certificate:
     issuer: letsencrypt-prod
   namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
 - name: miklas-psycholog
-  hosts:
+  commonName: "psycholog-miklas.pl"
+  dnSNames:
     - psycholog-miklas.pl
   certificate:
     issuer: letsencrypt-prod
