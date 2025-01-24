@@ -1,24 +1,23 @@
 domains:
-  - name: rmikl
-    hosts: 
-    - argo.rmikl.pl
-    - mama.rmikl.pl
-    - jelly.rmikl.pl
-    - qbt.rmikl.pl
-    - file.rmikl.pl
-    - vnc.rmikl.pl
-    - grafana.rmikl.pl
-    gatewayName: rmikl
-    certificate:
-      issuer: letsencrypt-prod
+- name: rmikl
+  hosts: 
+  - argo.rmikl.pl
+  - mama.rmikl.pl
+  - jelly.rmikl.pl
+  - qbt.rmikl.pl
+  - file.rmikl.pl
+  - vnc.rmikl.pl
+  - grafana.rmikl.pl
+  gatewayName: rmikl
+  certificate:
+    issuer: letsencrypt-prod
 
-  - name: miklas-psycholog
-    hosts:
-      - miklas-psycholog.pl
-    gatewayName: miklas-psycholog
-    certificate:
-      issuer: letsencrypt-prod
-
+- name: miklas-psycholog
+  hosts:
+    - miklas-psycholog.pl
+  gatewayName: miklas-psycholog
+  certificate:
+    issuer: letsencrypt-prod
 
 #
 #gateway:
@@ -110,4 +109,4 @@ clusterIssuer:
     enabled: false  
 
 certificate:
-  namespacesToCopy: "cluster-operators, argocd, istio-system, media"
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
