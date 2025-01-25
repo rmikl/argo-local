@@ -114,7 +114,7 @@ virtualServices:
   - name: mama
     namespace: cluster-operators
     host: "miklas-psycholog.pl"
-    gateway: "cluster-operators/main-gateway"
+    gateway: "cluster-operators/miklas-psycholog"
     serviceName: mama-chadcn.sites.svc.cluster.local
     servicePort: 80
 
@@ -124,5 +124,3 @@ clusterIssuer:
     enabled: true
   azureDNS:
     enabled: false  
-
-certificate:
