@@ -28,14 +28,14 @@ resources:
 persistence:
   data:
     enabled: true
-    storageClass: "dlink"
+    storageClass: "qnap"
     accessModes:
       - ReadWriteOnce
     size: 1Gi
     existingClaim: ""
   config:
     enabled: true
-    storageClass: "dlink-ssd"
+    storageClass: "qnap"
     accessModes:
       - ReadWriteOnce
     size: 500Mi

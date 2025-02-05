@@ -14,14 +14,14 @@ service:
 persistence:
   config:
     enabled: true
-    storageClass: dlink
+    storageClass: qnap
     accessMode: ReadWriteMany
     size: 1Gi
     subPath: "k8s-tools-config/qbittorrent_config"
 
   downloads:
     enabled: true
-    storageClass: dlink
+    storageClass: qnap
     accessMode: ReadWriteMany
     size: 10Gi
 

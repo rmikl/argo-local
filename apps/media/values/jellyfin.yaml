@@ -6,12 +6,12 @@ persistence:
     enabled: true
     accessMode: ReadWriteMany
     size: 10Gi
-    storageClass: dlink
+    storageClass: qnap
   config:
     enabled: true
     accessMode: ReadWriteMany
     size: 10Gi
-    storageClass: dlink
+    storageClass: qnap
     subPath: k8s-tools-config/jellyfin_config
     
 service:

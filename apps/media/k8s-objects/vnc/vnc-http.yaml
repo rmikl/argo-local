@@ -65,6 +65,6 @@ data:
     git config --global core.editor vim
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     gh auth setup-git
-    git config --global --add safe.directory /mnt/dlink/repos/argo-local
-    git config --global --add safe.directory /mnt/dlink/repos/helm_predeploy
+    git config --global --add safe.directory /mnt/qnap/repos/argo-local
+    git config --global --add safe.directory /mnt/qnap/repos/helm_predeploy
 ---

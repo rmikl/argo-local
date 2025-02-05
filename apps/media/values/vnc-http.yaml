@@ -20,5 +20,5 @@ env:
 
 persistence:
   enabled: true
-  storageClass: dlink
+  storageClass: qnap
   size: 10Gi
