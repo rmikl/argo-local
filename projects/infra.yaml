@@ -39,7 +39,7 @@ spec:
   - server: https://kubernetes.default.svc
     namespace: 'kube-flannel'
   - server: https://kubernetes.default.svc
-    namespace: 'nginx-ingress'
+    namespace: 'ingress-nginx'
   
   clusterResourceWhitelist:
     - group: '*'  
