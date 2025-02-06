@@ -69,3 +69,16 @@ metadata:
   name: media
 spec: {}
 status: {}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+  creationTimestamp: null
+  name: ingress-nginx
+spec: {}
+status: {}
