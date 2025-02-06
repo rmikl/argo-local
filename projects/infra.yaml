@@ -23,6 +23,7 @@ spec:
   - https://k8s-home-lab.github.io/helm-charts/
   - https://helm.ngc.nvidia.com/nvidia
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
+  - https://kubernetes.github.io/ingress-nginx
 
   destinations:
   - server: https://kubernetes.default.svc
@@ -38,11 +39,7 @@ spec:
   - server: https://kubernetes.default.svc
     namespace: 'kube-flannel'
   - server: https://kubernetes.default.svc
-    namespace: 'kubevirt'
-  - server: https://kubernetes.default.svc
-    namespace: 'cdi'
-  - server: https://kubernetes.default.svc
-    namespace: 'local-path-storage'
+    namespace: 'nginx-ingress'
   
   clusterResourceWhitelist:
     - group: '*'  
