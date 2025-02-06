@@ -8,6 +8,7 @@ namespaced: false
 
 sources:
 - istio-gateway
+- ingress
 
 policy: sync
 registry: txt

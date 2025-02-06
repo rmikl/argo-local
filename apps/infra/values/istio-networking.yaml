@@ -8,6 +8,8 @@ domains:
   - file.rmikl.pl
   - vnc.rmikl.pl
   - grafana.rmikl.pl
+  - seba.rmikl.pl
+
   gatewayName: rmikl
   certificate:
     issuer: letsencrypt-prod
@@ -27,44 +29,19 @@ certificates:
   - "*.rmikl.pl"
   certificate:
     issuer: letsencrypt-prod
-  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites, ingress-nginx"
 - name: miklas-psycholog
   commonName: "miklas-psycholog.pl"
   dnsNames:
     - miklas-psycholog.pl
   certificate:
     issuer: letsencrypt-prod
-  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites"
+  namespacesToCopy: "cluster-operators, argocd, istio-system, media, sites, ingress-nginx"
 
-#
+
 gateway:
   enabled: true
-#  name: main-gateway
-#  selector:
-#    istio: ingress
-#  httpsPort:
-#    number: 443
-#    name: https
-#    protocol: HTTPS
-#  httpPort:
-#    number: 80
-#    name: http
-#    protocol: HTTP
-#  hosts:
-#    - argo.rmikl.pl
-#    - mama.rmikl.pl
-#    - jelly.rmikl.pl
-#    - qbt.rmikl.pl
-#    - file.rmikl.pl
-#    - vnc.rmikl.pl
-#    - grafana.rmikl.pl
-#    - psycholog-miklas.pl
-#  tls:
-#    enabled: true
-#    mode: SIMPLE
-#    credentialName: "rmikl.pl"
-#    minProtocolVersion: TLSV1_2
-#    maxProtocolVersion: TLSV1_3
+
 
 virtualServices:
 ##DOMAIN rmikl.pl
@@ -110,6 +87,12 @@ virtualServices:
     gateway: "cluster-operators/rmikl"
     serviceName: grafana.cluster-operators.svc.cluster.local
     servicePort: 80
+  - name: seba
+    namespace: cluster-operators
+    host: "seba.rmikl.pl"
+    gateway: "cluster-operators/rmikl"
+    serviceName: seba.ingress-nginx.svc.cluster.local
+    servicePort: 8080
 ## OTHER Domains
   - name: mama
     namespace: cluster-operators

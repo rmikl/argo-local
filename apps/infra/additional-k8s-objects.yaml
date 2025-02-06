@@ -15,6 +15,9 @@ spec:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
     targetRevision: master
     path: k8s-objects/storage
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: master
+    path: apps/infra/k8s-objects
   destination:
     server: https://kubernetes.default.svc  
     namespace: cluster-operators
