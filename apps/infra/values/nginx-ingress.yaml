@@ -1,0 +1,14 @@
+controller:
+  allowSnippetAnnotations: true
+  replicaCount: 1
+  service:
+    enableHttps: true
+    targetPorts:
+      https: 443
+      http: 80
+    externalTrafficPolicy: Local
+    type: LoadBalancer
+rbac:
+  create: true
+serviceAccount:
+  create: true
