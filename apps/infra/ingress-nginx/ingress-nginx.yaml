@@ -5,13 +5,19 @@ metadata:
   namespace: argocd # Argo CD manages this Application
 spec:
   project: infra
-  source:
+  sources:
+  - chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.12.0
-    chart: ingress-nginx
     helm:
       valueFiles:
       - $values/apps/infra/ingress-nginx/values.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/sites/ingress-nginx/k8s-manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: infra # Where the Ingress Controller deploys
