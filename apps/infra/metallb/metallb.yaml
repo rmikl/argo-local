@@ -1,24 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb-objects
-  namespace: argocd
+  name: metallb
+  namespace: argocd # Argo CD manages this Application
 spec:
   project: infra
   sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
-    path: custom-charts/metallb-objects
-    helm:
-      valueFiles:
-      - $values/apps/infra/values/metallb-objects.yaml
+  - chart: metallb
+    repoURL: https://metallb.github.io/metallb
+    targetRevision: 0.14.8
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
-    ref: values
+    path: apps/infra/metallb/k8s-manifests/
   destination:
     server: https://kubernetes.default.svc
-    namespace: metallb-system
+    namespace: infra
   syncPolicy:
+    syncOptions:
+    - RespectIgnoreDifferences=true
     automated:
       prune: true
       selfHeal: true
