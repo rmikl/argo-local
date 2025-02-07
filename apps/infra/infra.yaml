@@ -1,27 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: infra-operators
-  namespace: argocd
+  name: infra
+  namespace: infra
 spec:
-  generators:
-  - list:
-      elements:
-      - name: ingress-nginx
-  template:
-    metadata:
-      name: '{{name}}'
-      namespace: infra
-    spec:
-      project: infra
-      source:
-        repoURL: https://github.com/rmikl/argo-local.git
-        targetRevision: HEAD
-        path: apps/infra/{{name}}/
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: 'infra'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+  project: infra
+  sources:
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/ingress-nginx/ingress-nginx.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
