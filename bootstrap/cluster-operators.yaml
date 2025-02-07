@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: https://github.com/rmikl/argo-local.git
         targetRevision: HEAD
-        path: apps/{{name}}/
+        path: apps/{{name}}.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{name}}'

@@ -2,13 +2,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: infra
-  namespace: infra
+  namespace: argocd
 spec:
   project: infra
-  sources:
-  - repoURL: https://github.com/rmikl/argo-local.git
+  source:
+    repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
-    path: apps/infra/ingress-nginx/ingress-nginx.yaml
+    path: apps/infra
+    kustomize: {}
   destination:
     server: https://kubernetes.default.svc
     namespace: infra
