@@ -17,7 +17,7 @@ spec:
     ref: values
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
-    path: apps/sites/ingress-nginx/k8s-manifests
+    path: apps/infra/ingress-nginx/k8s-manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: infra # Where the Ingress Controller deploys
