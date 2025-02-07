@@ -2,7 +2,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: funbox
-  namespace: infra
+  namespace: metallb-system
 spec:
   addresses:
   - 1.1.1.1/32
