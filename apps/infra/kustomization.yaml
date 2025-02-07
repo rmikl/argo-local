@@ -7,3 +7,4 @@ resources:
 - update-ext-ip/update-ext-ip.yaml
 - external-secrets/external-secrets.yaml
 - cert-manager/cert-manager.yaml
+- external-dns/external-dns.yaml
