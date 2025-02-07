@@ -2,9 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ingress-nginx
-  namespace: sites
+  namespace: infra
 spec:
-  project: sites
+  project: infra
   sources:
   - chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
@@ -20,7 +20,7 @@ spec:
     path: apps/sites/ingress-nginx/k8s-manifests
   destination:
     server: https://kubernetes.default.svc
-    namespace: sites
+    namespace: infra
   syncPolicy:
     automated:
       prune: true
