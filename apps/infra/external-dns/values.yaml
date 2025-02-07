@@ -1,0 +1,17 @@
+provider: cloudflare
+
+domainFilters:
+- rmikl.pl
+- miklas-psycholog.pl
+
+namespaced: false
+
+sources:
+- ingress
+
+policy: sync
+registry: txt
+
+rbac:
+  create: true
+  serviceAccountName: external-dns
