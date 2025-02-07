@@ -1,29 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: operators-appset
+  name: application
   namespace: argocd
 spec:
-  generators:
-  - list:
-      elements:
-      #- name: media
-      #- name: sites
-      - name: infra
-  template:
-    metadata:
-      name: '{{name}}-operators'
-      namespace: argocd
-    spec:
-      project: '{{name}}'
-      source:
-        repoURL: https://github.com/rmikl/argo-local.git
-        targetRevision: HEAD
-        path: apps/{{name}}.yaml
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{name}}'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+  project: default
+  source:
+    repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
