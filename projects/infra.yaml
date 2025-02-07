@@ -2,19 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: infra
-  namespace: argocd  
+  namespace: argocd
 spec:
   description: "Project for managing infrastructure resources"
-  
+
   sourceRepos:
-  - https://github.com/rmikl/argo-local.git  
+  - https://github.com/rmikl/argo-local.git
   - https://istio-release.storage.googleapis.com/charts
   - https://emberstack.github.io/helm-charts
   - https://charts.external-secrets.io/
   - https://charts.bitnami.com/bitnami
   - https://github.com/rmikl/helm_predeploy.git
   - https://kubernetes-sigs.github.io/external-dns/
-  - https://charts.jetstack.io 
+  - https://charts.jetstack.io
   - https://prometheus-community.github.io/helm-charts
   - https://grafana.github.io/helm-charts
   - https://metallb.github.io/metallb
@@ -40,7 +40,10 @@ spec:
     namespace: 'kube-flannel'
   - server: https://kubernetes.default.svc
     namespace: 'ingress-nginx'
-  
+
+  - server: https://kubernetes.default.svc
+    namespace: 'infra'
+
   clusterResourceWhitelist:
-    - group: '*'  
-      kind: '*'
+  - group: '*'
+    kind: '*'
