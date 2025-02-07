@@ -14,7 +14,7 @@ spec:
     path: apps/infra/metallb/k8s-manifests/
   destination:
     server: https://kubernetes.default.svc
-    namespace: infra
+    namespace: metallb-system
   syncPolicy:
     syncOptions:
     - RespectIgnoreDifferences=true
