@@ -16,7 +16,6 @@ spec:
   commonName: "*.rmikl.pl"
   dnsNames:
   - "*.rmikl.pl"
-  - rmikl.pl
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
