@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: sites
+spec:
+  project: sites
+  sources:
+  - chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.12.0
+    helm:
+      valueFiles:
+      - $values/apps/infra/ingress-nginx/values.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/sites/ingress-nginx/k8s-manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sites
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

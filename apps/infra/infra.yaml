@@ -7,22 +7,20 @@ spec:
   generators:
   - list:
       elements:
-      #- name: media
-      #- name: sites
-      - name: infra
+      - name: ingress-nginx
   template:
     metadata:
-      name: '{{name}}-operators'
-      namespace: argocd
+      name: '{{name}}'
+      namespace: infra
     spec:
-      project: '{{name}}'
+      project: infra
       source:
         repoURL: https://github.com/rmikl/argo-local.git
         targetRevision: HEAD
-        path: apps/{{name}}/
+        path: apps/infra/{{name}}/
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{name}}'
+        namespace: 'infra'
       syncPolicy:
         automated:
           prune: true
