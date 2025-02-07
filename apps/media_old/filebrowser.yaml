@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: filebrowser
+  namespace: argocd
+spec:
+  project: media
+  sources:
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: master
+    path: custom-charts/filebrowser
+    helm:
+      valueFiles:
+      - $values/apps/media/values/filebrowser.yaml
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: media
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

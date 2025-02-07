@@ -1,0 +1,38 @@
+# ServiceAccount
+serviceAccount:
+  name: kubectl-sa
+  namespace: cluster-operators
+
+# Role
+role:
+  name: kubectl-sa-role
+  namespace: cluster-operators
+
+# RoleBinding
+roleBinding:
+  name: kubectl-sa-binding
+  namespace: cluster-operators
+
+cronjob:
+  name: kubectl-pod-cronjob
+  schedule: "*/1 * * * *" 
+
+pod:
+  name: kubectl-pod
+  namespace: cluster-operators
+  image: rmikl/kubectl:b9423032dbdadc16e0a3e837d864a59379e97986
+  command:
+    - /bin/sh
+    - -c
+    - /update_metallb_address_pool.sh
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "128Mi"
+    requests:
+      cpu: "250m"
+      memory: "64Mi"
+  env:
+    INTERVAL_TIME: "10"
+    POOL_NAME: "router-orange"
+    POOL_NAMESPACE: "metallb-system"

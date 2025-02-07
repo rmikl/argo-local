@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-base
+  namespace: argocd  
+spec:
+  project: infra
+  source:
+    chart: base
+    repoURL: https://istio-release.storage.googleapis.com/charts  
+    targetRevision: 1.23.0
+  destination:
+    server: https://kubernetes.default.svc  
+    namespace: istio-system
+  ignoreDifferences:
+  - group: admissionregistration.k8s.io
+    kind: ValidatingWebhookConfiguration
+    name: istiod-default-validator
+    jqPathExpressions:
+    - .webhooks[] | select(.name == "validation.istio.io") | .failurePolicy
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
+    automated:
+      prune: true
+      selfHeal: true
