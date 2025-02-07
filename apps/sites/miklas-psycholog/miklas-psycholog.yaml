@@ -1,23 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mama-chadcn
-  namespace: argocd
+  name: miklas-psycholog
+  namespace: sites
 spec:
   project: sites
   sources:
   - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master 
+    targetRevision: HEAD
     path: custom-charts/chadcn-frontend-app
     helm:
       valueFiles:
-      - $values/apps/sites/values/mama-chadcn.yaml
+      - $values/apps/sites/miklas-psycholog/values.yaml
   - repoURL: https://github.com/rmikl/argo-local
     targetRevision: HEAD
     ref: values
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/sites/miklas-psycholog/additional-k8s-objects
   destination:
-    server: https://kubernetes.default.svc 
-    namespace: sites 
+    server: https://kubernetes.default.svc
+    namespace: sites
   syncPolicy:
     automated:
       prune: true

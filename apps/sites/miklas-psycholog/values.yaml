@@ -1,7 +1,7 @@
 replicaCount: 1
 
 deployment:
-  name: mama-chadcn
+  name: miklas-psycholog
 
 image:
   gitSync:
@@ -21,7 +21,7 @@ frontApp:
   workingDir: /app
   containerPort: 3000
 service:
-  name: mama-chadcn
+  name: miklas-psycholog
   port: 80
   targetPort: 3000
   type: ClusterIP
