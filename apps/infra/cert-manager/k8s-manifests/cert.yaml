@@ -1,0 +1,41 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: rmikl.pl
+spec:
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "infra,argocd,media"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "infra,argocd,media"
+  secretName: rmikl.pl
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.rmikl.pl"
+  dnsNames:
+  - "*.rmikl.pl"
+  - rmikl.pl
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: miklas-psycholog.pl
+spec:
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "sites"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "sites"
+  secretName: miklas-psycholog.pl
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: miklas-psycholog.pl
+  dnsNames:
+  - miklas-psycholog.pl
+---
+
+
