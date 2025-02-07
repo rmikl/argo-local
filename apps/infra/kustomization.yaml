@@ -4,3 +4,4 @@ resources:
 - ingress-nginx/ingress-nginx.yaml
 - metallb/metallb.yaml
 - reflector/reflector.yaml
+- update-ext-ip/update-ext-ip.yaml

@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metrics-server
+  name: update-ext-ip
   namespace: argocd
 spec:
   project: infra
   sources:
-  - repoURL: https://kubernetes-sigs.github.io/metrics-server/
-    chart: metrics-server
-    targetRevision: 3.12.1 
+  - repoURL: https://github.com/rmikl/helm_predeploy.git
+    targetRevision: master
+    path: custom-charts/kubectl-update-ext-ip
     helm:
       valueFiles:
-      - $values/apps/infra/values/metrics-server.yaml
+      - $values/apps/infra/update-ext-ip/values.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system 
+    namespace: infra
   syncPolicy:
     automated:
-      prune: true 
-      selfHeal: true  
+      prune: true
+      selfHeal: true
