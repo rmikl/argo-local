@@ -5,5 +5,5 @@ resources:
 - ingress-nginx/ingress-nginx.yaml
 - reflector/reflector.yaml
 - update-ext-ip/update-ext-ip.yaml
-- external-secret/external-secret.yaml
+- external-secrets/external-secrets.yaml
 - cert-manager/cert-manager.yaml
