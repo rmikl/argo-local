@@ -4,6 +4,12 @@ metadata:
   name: ingress-nginx
   namespace: argocd # Argo CD manages this Application
 spec:
+  syncPolicy:
+    automated:
+      prune: true # Automatically delete removed resources
+      selfHeal: true # Automatically correct state drift
+    syncOptions:
+    - CreateNamespace=true # Optional: Create namespace if missing
   project: infra
   sources:
   - chart: ingress-nginx
