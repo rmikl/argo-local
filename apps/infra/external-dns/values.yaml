@@ -15,3 +15,6 @@ registry: txt
 rbac:
   create: true
   serviceAccountName: external-dns
+
+livenesProbe:
+  enabled: false
