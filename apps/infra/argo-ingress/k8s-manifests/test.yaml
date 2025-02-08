@@ -29,8 +29,11 @@ kind: Ingress
 metadata:
   name: hello-world-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    #nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  ingressClassName: nginx
   rules:
   - host: hw.rmikl
     http:
