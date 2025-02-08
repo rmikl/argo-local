@@ -9,12 +9,6 @@ spec:
   - chart: node-feature-discovery
     repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
     targetRevision: v0.17.1
-    helm:
-      valueFiles:
-      - $values/apps/infra/node-feature-discovery/values.yaml
-  - repoURL: https://github.com/rmikl/argo-local.git
-    targetRevision: HEAD
-    ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: infra
