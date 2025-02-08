@@ -11,7 +11,7 @@ spec:
     targetRevision: v24.9.2
   destination:
     server: https://kubernetes.default.svc
-    namespace: cluster-operators
+    namespace: infra
   syncPolicy:
     syncOptions:
     - RespectIgnoreDifferences=true
