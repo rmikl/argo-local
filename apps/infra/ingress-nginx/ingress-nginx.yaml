@@ -21,4 +21,4 @@ spec:
   #  path: apps/infra/ingress-nginx/k8s-manifests/
   destination:
     server: https://kubernetes.default.svc
-    namespace: infra # Where the Ingress Controller deploys
+    namespace: infra
