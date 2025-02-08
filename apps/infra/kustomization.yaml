@@ -11,4 +11,5 @@ resources:
 - external-dns/external-dns.yaml
 - argo-ingress/argo-ingress.yaml
 - csi-driver-samba/csi-driver-samba.yaml
+- node-feature-discovery/node-feature-discovery.yaml
 - nvidia-gpu-operator/nvidia-gpu-operator.yaml

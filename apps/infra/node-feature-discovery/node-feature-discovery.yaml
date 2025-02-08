@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nvidia-gpu-operator
+  name: node-feature-discovery
   namespace: argocd
 spec:
   project: infra
   sources:
-  - chart: gpu-operator
-    repoURL: https://helm.ngc.nvidia.com/nvidia
-    targetRevision: v24.9.2
+  - chart: node-feature-discovery
+    repoURL: https://kubernetes-sigs.github.io/node-feature-discovery
+    targetRevision: v0.17.1
     helm:
       valueFiles:
-      - $values/apps/infra/nvidia-gpu-operator/values.yaml
+      - $values/apps/infra/node-feature-discovery/values.yaml
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
