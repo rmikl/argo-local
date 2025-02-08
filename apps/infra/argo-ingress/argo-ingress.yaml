@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-ingress
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/argo-ingress/k8s-manifests/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+    - RespectIgnoreDifferences=true
+    automated:
+      prune: true
+      selfHeal: true
