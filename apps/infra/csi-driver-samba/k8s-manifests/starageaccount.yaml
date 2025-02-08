@@ -6,9 +6,9 @@ provisioner: smb.csi.k8s.io
 parameters:
   source: "//192.168.1.48/smb"
   csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
-  csi.storage.k8s.io/node-stage-secret-namespace: cluster-operators
+  csi.storage.k8s.io/node-stage-secret-namespace: infra
   csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
-  csi.storage.k8s.io/node-publish-secret-namespace: cluster-operators
+  csi.storage.k8s.io/node-publish-secret-namespace: infra
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
 allowVolumeExpansion: false
