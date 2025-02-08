@@ -15,7 +15,7 @@ spec:
       paths:
       - backend:
           service:
-            name: argocd-server
+            name: argocd-server.argocd.svc.cluster.local
             port:
               number: 80
         path: /
