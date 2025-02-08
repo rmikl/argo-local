@@ -1,13 +1,24 @@
-apiVersion: external-secrets.io/v1beta1
-kind: SecretStore
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: doppler
-  namespace: infra
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  provider:
-    doppler:
-      auth:
-        secretRef:
-          dopplerToken:
-            name: doppler-token-auth-api
-            key: dopplerToken
+  ingressClassName: nginx
+  rules:
+  - host: argo.rmikl.pl
+    http:
+      paths:
+      - backend:
+          service:
+            name: argocd-server.argocd.svc.cluster.local
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - argo.rmikl.pl
+    secretName: rmikl.pl
