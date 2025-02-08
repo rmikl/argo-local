@@ -22,4 +22,4 @@ livenesProbe:
 #im overwriting this image version according to:
 #https://github.com/kubernetes-sigs/external-dns/issues/5035
 image:
-  tag: 0.14.5
+  tag: 0.14.2
