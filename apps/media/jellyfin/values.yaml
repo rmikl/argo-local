@@ -40,7 +40,7 @@ resources:
     nvidia.com/gpu: 1
 
 ingress:
-  enabled: false
+  enabled: true
   className: nginx
   annotations: 
     kubernetes.io/ingress.class: nginx
