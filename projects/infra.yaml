@@ -24,7 +24,7 @@ spec:
   - https://helm.ngc.nvidia.com/nvidia
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
   - https://kubernetes.github.io/ingress-nginx
-  - oci://registry-1.docker.io/bitnamicharts/
+  - registry-1.docker.io/bitnamicharts
 
   destinations:
   - server: https://kubernetes.default.svc
