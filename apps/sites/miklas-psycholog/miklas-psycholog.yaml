@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: miklas-psycholog
-  namespace: sites
+  namespace: argocd
 spec:
   project: sites
   sources:
@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
       - $values/apps/sites/miklas-psycholog/values.yaml
-  - repoURL: https://github.com/rmikl/argo-local
+  - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     ref: values
   - repoURL: https://github.com/rmikl/argo-local.git
