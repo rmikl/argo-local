@@ -4,6 +4,7 @@ resources:
 - metallb/metallb.yaml
 - ingress-nginx/ingress-nginx.yaml
 - reflector/reflector.yaml
+- metrics-server/metrics-server.yaml
 - update-ext-ip/update-ext-ip.yaml
 - external-secrets/external-secrets.yaml
 - cert-manager/cert-manager.yaml
