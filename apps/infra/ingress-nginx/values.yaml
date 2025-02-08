@@ -6,7 +6,7 @@ controller:
     targetPorts:
       https: 443
       http: 80
-    externalTrafficPolicy: Local
+    externalTrafficPolicy: Cluster
     type: LoadBalancer
 rbac:
   create: true
