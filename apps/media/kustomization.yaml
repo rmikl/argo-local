@@ -4,3 +4,4 @@ resources:
 - jellyfin/jellyfin.yaml
 - vnc/vnc.yaml
 - seba/seba.yaml
+- torrent/torrent.yaml
