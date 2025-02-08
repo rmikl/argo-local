@@ -25,7 +25,7 @@ spec:
   - https://kubernetes-sigs.github.io/node-feature-discovery/charts
   - https://kubernetes.github.io/ingress-nginx
   - registry-1.docker.io/bitnamicharts
-
+  - https://kubernetes-sigs.github.io/node-feature-discovery
   destinations:
   - server: https://kubernetes.default.svc
     namespace: 'cluster-operators'
