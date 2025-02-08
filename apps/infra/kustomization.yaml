@@ -10,3 +10,5 @@ resources:
 - cert-manager/cert-manager.yaml
 - external-dns/external-dns.yaml
 - argo-ingress/argo-ingress.yaml
+- csi-driver-samba/csi-driver-samba.yaml
+- nvidia-gpu-operator/nvidia-gpu-operator.yaml

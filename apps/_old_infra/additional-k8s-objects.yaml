@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: additional-k8s-objects
-  namespace: argocd  
+  namespace: argocd
 spec:
   project: infra
   sources:
@@ -19,11 +19,11 @@ spec:
     targetRevision: master
     path: apps/infra/k8s-objects
   destination:
-    server: https://kubernetes.default.svc  
+    server: https://kubernetes.default.svc
     namespace: cluster-operators
   syncPolicy:
     syncOptions:
-      - RespectIgnoreDifferences=true
+    - RespectIgnoreDifferences=true
     automated:
       prune: true
       selfHeal: true

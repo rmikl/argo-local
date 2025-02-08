@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: csi-driver-smb
+  name: nvidia-gpu-operator
   namespace: argocd
 spec:
   project: infra
   sources:
-  - chart: csi-driver-smb
-    repoURL: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
-    targetRevision: v1.17.0
+  - chart: gpu-operator
+    repoURL: https://helm.ngc.nvidia.com/nvidia
+    targetRevision: v24.9.2
   destination:
     server: https://kubernetes.default.svc
-    namespace: infra
+    namespace: cluster-operators
   syncPolicy:
     syncOptions:
     - RespectIgnoreDifferences=true
