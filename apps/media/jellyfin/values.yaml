@@ -49,12 +49,7 @@ ingress:
   hosts:
   - host: jelly.rmikl.pl
     paths:
-    - backend:
-        service:
-          name: jellyfin
-          port:
-            number: 80
-      path: /
+    - path: /
       pathType: Prefix
   tls: 
     - secretName: rmikl.pl
