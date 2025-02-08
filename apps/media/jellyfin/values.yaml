@@ -47,16 +47,15 @@ ingress:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
-    - host: jelly.rmikl.pl
-      http:
-        paths:
-        - backend:
-            service:
-              name: jellyfin
-              port:
-                number: 80
-          path: /
-          pathType: Prefix
+  - host: jelly.rmikl.pl
+    paths:
+    - backend:
+        service:
+          name: jellyfin
+          port:
+            number: 80
+      path: /
+      pathType: Prefix
   tls: 
     - secretName: rmikl.pl
       hosts:
