@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: miklas-psycholog
+  namespace: sites
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: miklas-psycholog.pl
+    http:
+      paths:
+      - backend:
+          service:
+            name: miklas-psycholog
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - miklas-psycholog.pl
+    secretName: miklas-psycholog.pl
