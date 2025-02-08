@@ -20,29 +20,6 @@ metadata:
     pod-security.kubernetes.io/audit: privileged
     pod-security.kubernetes.io/warn: privileged
   creationTimestamp: null
-  name: cluster-operators
-spec: {}
-status: {}
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  annotations:
-    argocd.argoproj.io/sync-options: Prune=false
-  creationTimestamp: null
-  name: istio-system
-spec: {}
-status: {}
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  annotations:
-    argocd.argoproj.io/sync-options: Prune=false
-    pod-security.kubernetes.io/enforce: privileged
-    pod-security.kubernetes.io/audit: privileged
-    pod-security.kubernetes.io/warn: privileged
-  creationTimestamp: null
   name: metallb-system
 spec: {}
 status: {}
@@ -95,3 +72,16 @@ metadata:
   name: infra
 spec: {}
 status: {}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: docker-io-helm-oci
+  namespace: argocd
+stringData:
+  url: registry-1.docker.io/bitnamicharts
+  name: bitnamicharts
+  type: helm
+  enableOCI: "true"
