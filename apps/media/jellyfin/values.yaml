@@ -1,0 +1,40 @@
+ingress:
+  enabled: false
+
+persistence:
+  media:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: qnap
+  config:
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: qnap
+    subPath: k8s-tools-config/jellyfin_config
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 32080
+
+nodeSelector:
+  nvidia.com/gpu.present: "true"
+
+replicaCount: 1
+
+image:
+  repository: jellyfin/jellyfin
+  tag: 10.10.1
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 3000m
+    memory: 4Gi
+    nvidia.com/gpu: 1
+  requests:
+    cpu: 500m
+    memory: 1Gi
+    nvidia.com/gpu: 1
