@@ -13,3 +13,4 @@ resources:
 - csi-driver-samba/csi-driver-samba.yaml
 - node-feature-discovery/node-feature-discovery.yaml
 - nvidia-gpu-operator/nvidia-gpu-operator.yaml
+- device-plugins/device-plugins.yaml

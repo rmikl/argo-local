@@ -9,6 +9,9 @@ spec:
   - chart: csi-driver-smb
     repoURL: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
     targetRevision: v1.17.0
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/csi-driver-samba/k8s-manifests/
   destination:
     server: https://kubernetes.default.svc
     namespace: infra

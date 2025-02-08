@@ -1,0 +1,27 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: qnap
+provisioner: smb.csi.k8s.io
+parameters:
+  source: "//192.168.1.48/smb"
+  csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
+  csi.storage.k8s.io/node-stage-secret-namespace: cluster-operators
+  csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
+  csi.storage.k8s.io/node-publish-secret-namespace: cluster-operators
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+allowVolumeExpansion: false
+mountOptions:
+- vers=3.0
+- rsize=1048576
+- wsize=1048576
+- cache=strict
+- nobrl
+- dir_mode=0777
+- file_mode=0777
+- mfsymlinks
+- noserverino
+---
+
+
