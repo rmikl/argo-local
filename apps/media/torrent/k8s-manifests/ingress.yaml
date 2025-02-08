@@ -4,22 +4,24 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  name: seba
+    nginx.ingress.kubernetes.io/auth-secret: torrent-auth
+    nginx.ingress.kubernetes.io/auth-type: basic
+  name: torrent
   namespace: media
 spec:
   ingressClassName: nginx
   rules:
-  - host: seba.rmikl.pl
+  - host: torrent.rmikl.pl
     http:
       paths:
       - backend:
           service:
-            name: seba
+            name: torrent
             port:
-              number: 8080
+              number: 3200
         path: /
         pathType: Prefix
   tls:
   - hosts:
-    - seba.rmikl.pl
+    - torrent.rmikl.pl
     secretName: rmikl.pl
