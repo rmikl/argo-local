@@ -28,3 +28,11 @@ spec:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+        - CreateNamespace=true 
+      ignoreDifferences:
+      - group: argoproj.io
+        kind: Application
+        name: '{{name}}'
+        jsonPointers:
+        - /spec/source/kustomize
