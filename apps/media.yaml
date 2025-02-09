@@ -1,19 +1,19 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: media
-  namespace: argocd
-spec:
-  project: media
-  source:
-    repoURL: https://github.com/rmikl/argo-local.git
-    targetRevision: HEAD
-    path: apps/media
-    kustomize: {}
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: media
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: media
+#  namespace: argocd
+#spec:
+#  project: media
+#  source:
+#    repoURL: https://github.com/rmikl/argo-local.git
+#    targetRevision: HEAD
+#    path: apps/media
+#    kustomize: {}
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: media
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
