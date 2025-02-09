@@ -4,8 +4,6 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/auth-secret: torrent-auth
-    nginx.ingress.kubernetes.io/auth-type: basic
   name: torrent
   namespace: media
 spec:
