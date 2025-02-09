@@ -16,7 +16,7 @@ spec:
           service:
             name: torrent
             port:
-              number: 3200
+              number: 6363
         path: /
         pathType: Prefix
   tls:
