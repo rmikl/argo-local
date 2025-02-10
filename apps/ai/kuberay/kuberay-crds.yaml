@@ -1,18 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ray-operator
+  name: ray-operator-crds
 spec:
   project: ai
   source:
     repoURL: https://github.com/ray-project/kuberay
     targetRevision: v1.2.2
-    path: helm-chart/kuberay-operator
-    helm:
-      skipCrds: true
+    path: helm-chart/kuberay-operator/crds
   destination:
     server: https://kubernetes.default.svc
-    namespace: ai
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+    - Replace=true
