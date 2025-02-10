@@ -7,7 +7,7 @@ spec:
   description: "Project for managing ai resources"
 
   sourceRepos:
-  - https://ray-project.github.io/kuberay-helm/
+  - https://github.com/ray-project/kuberay
   - https://github.com/rmikl/argo-local.git
 
   destinations:
