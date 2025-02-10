@@ -13,5 +13,9 @@ spec:
     server: https://kubernetes.default.svc
     namespace: ai
   syncPolicy:
+    automated:
+      prune: true # Delete resources when they are not in Git
+      selfHeal: true # Automatically sync when actual state deviates from target state
+      allowEmpty: false
     syncOptions:
     - Replace=true
