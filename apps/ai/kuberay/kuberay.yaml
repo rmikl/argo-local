@@ -7,8 +7,8 @@ spec:
   project: ai
   sources:
   - repoURL: https://ray-project.github.io/kuberay-helm/
-    targetRevision: v1.2.2
-    chart: kuberay/kuberay-operator
+    targetRevision: 1.2.2
+    chart: kuberay/ray-cluster
   destination:
     server: https://kubernetes.default.svc
     namespace: ai
