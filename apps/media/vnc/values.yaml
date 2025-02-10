@@ -11,10 +11,6 @@ service:
 
 existingSecret: "vnc-credentials"
 
-vncServer:
-  serviceAccount:
-    name: vnc-admin
-
 env:
   USER: "rmikl"
 
