@@ -14,7 +14,7 @@ spec:
           kubernetes.io/hostname: lap-dell
         containers:
         - name: ray-head
-          image: rayproject/ray:2.13.0
+          image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
               cpu: "10"
@@ -33,7 +33,7 @@ spec:
           kubernetes.io/hostname: lap-samsung
         containers:
         - name: ray-worker
-          image: rayproject/ray:2.13.0
+          image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
               cpu: "3"
@@ -51,7 +51,7 @@ spec:
           kubernetes.io/hostname: pc-1
         containers:
         - name: ray-worker
-          image: rayproject/ray:2.13.0
+          image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
               cpu: "3"
