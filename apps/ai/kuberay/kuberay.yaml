@@ -6,9 +6,9 @@ metadata:
 spec:
   project: ai
   sources:
-  - repoURL: https://ray-project.github.io/kuberay-helm/
-    targetRevision: 1.2.2
-    chart: kuberay-operator
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/ai/k8s-manifests/
   destination:
     server: https://kubernetes.default.svc
     namespace: ai
@@ -17,14 +17,3 @@ spec:
       prune: true
       selfHeal: true
   # Add resource customization section
-  resourceCustomizations: |
-    apiextensions.k8s.io/CustomResourceDefinition:
-      rayservices.ray.io:
-        annotations:
-          argocd.argoproj.io/sync-options: Replace=true
-      rayjobs.ray.io:
-        annotations:
-          argocd.argoproj.io/sync-options: Replace=true
-      rayclusters.ray.io:
-        annotations:
-          argocd.argoproj.io/sync-options: Replace=true
