@@ -7,7 +7,7 @@ spec:
   project: ai
   sources:
   - repoURL: https://ray-project.github.io/kuberay-helm/
-    targetRevision: 1.2.2
+    targetRevision: v1.2.2
     chart: kuberay/kuberay-operator
   destination:
     server: https://kubernetes.default.svc
