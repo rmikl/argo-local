@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ai
+  namespace: argocd
+spec:
+  description: "Project for managing ai resources"
+
+  sourceRepos:
+  - https://ray-project.github.io/kuberay-helm/
+
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: 'ai'
+  - server: https://kubernetes.default.svc
+    namespace: 'argocd'
+
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
