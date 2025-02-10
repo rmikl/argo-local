@@ -6,6 +6,8 @@ spec:
   headGroupSpec:
     rayStartParams:
       dashboard-host: '0.0.0.0'
+      block: 'true' # Required for head node
+      metrics-export-port: '8080'
     template:
       spec:
         nodeSelector:
@@ -18,7 +20,13 @@ spec:
               cpu: "10"
               memory: "28Gi"
   workerGroupSpecs:
-  - replicas: 1 # lap-samsung
+  - groupName: samsung-group # Required unique identifier
+    rayStartParams:
+      # Required for workers
+      dashboard-host: '0.0.0.0'
+      block: 'true'
+      metrics-export-port: '8080'
+    replicas: 1
     template:
       spec:
         nodeSelector:
@@ -30,7 +38,13 @@ spec:
             limits:
               cpu: "3"
               memory: "5Gi"
-  - replicas: 1 # pc-1
+  - groupName: pc1-group # Required unique identifier
+    rayStartParams:
+      # Required for workers
+      dashboard-host: '0.0.0.0'
+      block: 'true'
+      metrics-export-port: '8080'
+    replicas: 1
     template:
       spec:
         nodeSelector:
