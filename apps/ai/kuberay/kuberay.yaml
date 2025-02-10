@@ -5,12 +5,15 @@ metadata:
   namespace: argocd
 spec:
   project: ai
-  source:
-    repoURL: https://github.com/ray-project/kuberay
+  sources:
+  - repoURL: https://github.com/ray-project/kuberay
     targetRevision: v1.2.2
     path: helm-chart/kuberay-operator
     helm:
       skipCrds: true
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/ai/kuberay/k8s-manifests/
   destination:
     server: https://kubernetes.default.svc
     namespace: ai
