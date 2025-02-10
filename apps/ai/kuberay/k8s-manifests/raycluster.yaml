@@ -1,0 +1,44 @@
+apiVersion: ray.io/v1alpha1
+kind: RayCluster
+metadata:
+  name: llm-cluster
+spec:
+  headGroupSpec:
+    rayStartParams:
+      dashboard-host: '0.0.0.0'
+    template:
+      spec:
+        nodeSelector:
+          kubernetes.io/hostname: lap-dell
+        containers:
+        - name: ray-head
+          image: rayproject/ray:2.13.0
+          resources:
+            limits:
+              cpu: "10"
+              memory: "28Gi"
+  workerGroupSpecs:
+  - replicas: 1 # lap-samsung
+    template:
+      spec:
+        nodeSelector:
+          kubernetes.io/hostname: lap-samsung
+        containers:
+        - name: ray-worker
+          image: rayproject/ray:2.13.0
+          resources:
+            limits:
+              cpu: "3"
+              memory: "5Gi"
+  - replicas: 1 # pc-1
+    template:
+      spec:
+        nodeSelector:
+          kubernetes.io/hostname: pc-1
+        containers:
+        - name: ray-worker
+          image: rayproject/ray:2.13.0
+          resources:
+            limits:
+              cpu: "3"
+              memory: "12Gi"
