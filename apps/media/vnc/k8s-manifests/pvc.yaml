@@ -14,6 +14,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: vnc-mozilla
+  namespace: media
 spec:
   accessModes:
   - ReadWriteMany
@@ -22,12 +23,14 @@ spec:
     requests:
       storage: 1Gi
   volumeAttributes:
-    subDir: "k8s-tools-config/vnc/.mozilla"
+    source: "//192.168.1.48/smb/k8s-tools-config/vnc"
+    subDir: ".mozilla"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: vnc-vscode
+  namespace: media
 spec:
   accessModes:
   - ReadWriteMany
@@ -36,4 +39,5 @@ spec:
     requests:
       storage: 1Gi
   volumeAttributes:
-    subDir: "k8s-tools-config/vnc/.vscode"
+    source: "//192.168.1.48/smb/k8s-tools-config/vnc"
+    subDir: ".vscode"
