@@ -61,7 +61,12 @@ spec:
           name: init-vnc
         - mountPath: /config/.kube
           name: secret-volume
+        - mountPath: /mnt/qnap
+          name: vnc-storage
       volumes:
+      - name: vnc-storage
+        persistentVolumeClaim:
+          claimName: vnc
       - name: mozilla-data
         persistentVolumeClaim:
           claimName: vnc-mozilla
