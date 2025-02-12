@@ -62,7 +62,7 @@ spec:
       volumes:
       - name: vnc-storage
         persistentVolumeClaim:
-          claimName: vnc-http-pvc
+          claimName: vnc
       - configMap:
           defaultMode: 493
           name: init-vnc
