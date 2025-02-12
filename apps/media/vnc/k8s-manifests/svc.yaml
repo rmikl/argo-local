@@ -9,6 +9,5 @@ spec:
     protocol: TCP
     targetPort: 3000
   selector:
-    app.kubernetes.io/instance: vnc
     app.kubernetes.io/name: vnc
   type: ClusterIP
