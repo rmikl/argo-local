@@ -4,9 +4,36 @@ metadata:
   name: vnc
 spec:
   accessModes:
-    - ReadWriteMany
+  - ReadWriteMany
   storageClassName: qnap
   resources:
     requests:
       storage: 10Gi
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vnc-mozilla
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: qnap
+  resources:
+    requests:
+      storage: 1Gi
+  volumeAttributes:
+    subDir: "k8s-tools-config/vnc/.mozilla"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vnc-vscode
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: qnap
+  resources:
+    requests:
+      storage: 1Gi
+  volumeAttributes:
+    subDir: "k8s-tools-config/vnc/.vscode"
