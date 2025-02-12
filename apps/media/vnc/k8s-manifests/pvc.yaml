@@ -18,14 +18,12 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: qnap
+  storageClassName: qnap-mozilla
   resources:
     requests:
       storage: 1Gi
-  volumeAttributes:
-    source: "//192.168.1.48/smb/k8s-tools-config/vnc"
-    subDir: ".mozilla"
 ---
+# PVC for VSCode
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -34,10 +32,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: qnap
+  storageClassName: qnap-vscode
   resources:
     requests:
       storage: 1Gi
-  volumeAttributes:
-    source: "//192.168.1.48/smb/k8s-tools-config/vnc"
-    subDir: ".vscode"
