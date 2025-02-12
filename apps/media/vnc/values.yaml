@@ -15,6 +15,5 @@ env:
   USER: "rmikl"
 
 persistence:
-  enabled: true
   storageClass: qnap
   size: 10Gi

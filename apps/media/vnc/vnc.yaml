@@ -6,15 +6,15 @@ metadata:
 spec:
   project: media
   sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: master
-    path: custom-charts/vnc-http
-    helm:
-      valueFiles:
-      - $values/apps/media/vnc/values.yaml
-  - repoURL: https://github.com/rmikl/argo-local.git
-    targetRevision: master
-    ref: values
+  #- repoURL: https://github.com/rmikl/helm_predeploy.git
+  #  targetRevision: master
+  #  path: custom-charts/vnc-http
+  #  helm:
+  #    valueFiles:
+  #    - $values/apps/media/vnc/values.yaml
+  #- repoURL: https://github.com/rmikl/argo-local.git
+  #  targetRevision: master
+  #  ref: values
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: master
     path: apps/media/vnc/k8s-manifests/

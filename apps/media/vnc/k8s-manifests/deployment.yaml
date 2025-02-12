@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: vnc
+  name: vnc
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vnc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vnc
+    spec:
+      containers:
+      - command:
+        - /bin/bash
+        - -c
+        - |
+          /vnc-script/init.sh
+          /init
+        env:
+        - name: DRINODE
+          value: /dev/dri/renderD128
+        - name: CUSTOM_USER
+          value: rmikl
+        - name: USER
+          value: rmikl
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: VNC_PASSWORD
+              name: vnc-credentials
+        - name: GITHUB_TOKEN_RAW
+          valueFrom:
+            secretKeyRef:
+              key: GITHUB_TOKEN_RAW
+              name: vnc-credentials
+        - name: LOCAL_NODES_PWD
+          valueFrom:
+            secretKeyRef:
+              key: LOCAL_NODES_PWD
+              name: vnc-credentials
+        image: lscr.io/linuxserver/webtop:ubuntu-xfce
+        name: vnc-http
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+        volumeMounts:
+        - mountPath: /mnt/qnap
+          name: vnc-storage
+        - mountPath: /vnc-script
+          name: init-vnc
+        - mountPath: /config/.kube
+          name: secret-volume
+      volumes:
+      - name: vnc-storage
+        persistentVolumeClaim:
+          claimName: vnc-http-pvc
+      - configMap:
+          defaultMode: 493
+          name: init-vnc
+        name: init-vnc
+      - name: secret-volume
+        secret:
+          defaultMode: 420
+          items:
+          - key: KUBECONFIG
+            path: config
+          secretName: vnc-credentials
