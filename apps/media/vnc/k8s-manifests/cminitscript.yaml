@@ -34,18 +34,9 @@ data:
     echo "alias k=kubectl" >> ~/.zshrc
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
-    export USER=abc && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    export NONINTERACTIVE=1 && export USER=abc && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew install kubectx kubens fzf
     sudo cat <<'EOF' >> ~/.zshrc
-    ns() {
-      local new_namespace="$1"
-      if [ -z "$new_namespace" ]; then
-        echo "Użycie: ns <namespace>"
-        return 1
-      fi
-      sed -i 's|^alias k=.*|alias k="kubectl -n '"$new_namespace"'"|' ~/.zshrc
-      echo "Zaktualizowano alias k na: kubectl -n $new_namespace"
-      source ~/.zshrc
-    }
     acp() {
       git add -A;git commit -m "$1";git push origin HEAD
     }
@@ -60,7 +51,10 @@ data:
     alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
     export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
+    alias ns="kubens"
+    alias ctx="kubectx"
     EOF
+
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
     git config --global user.name rmikl
     git config --global user.email robert.miklas@protonmail.com
@@ -77,3 +71,5 @@ data:
     gh auth setup-git
     sudo gh auth setup-git
 ---
+
+

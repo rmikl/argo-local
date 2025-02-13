@@ -30,14 +30,14 @@ spec:
     template:
       spec:
         nodeSelector:
-          kubernetes.io/hostname: lap-samsung
+          kubernetes.io/hostname: lap-msi
         containers:
         - name: ray-worker
           image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
-              cpu: "3"
-              memory: "5Gi"
+              cpu: "7"
+              memory: "12Gi"
   - groupName: pc1-group # Required unique identifier
     rayStartParams:
       # Required for workers
