@@ -51,3 +51,7 @@ sudo docker system prune -af || sudo crictl rmi --prune
 
 
 sudo reboot 0
+
+
+#Initialize cluster 
+#sudo kubeadm init   --control-plane-endpoint "192.168.1.27:6443"   --pod-network-cidr=10.244.0.0/16   --upload-certs
