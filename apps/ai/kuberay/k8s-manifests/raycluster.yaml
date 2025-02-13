@@ -6,23 +6,43 @@ spec:
   headGroupSpec:
     rayStartParams:
       dashboard-host: '0.0.0.0'
-      block: 'true' # Required for head node
+      block: 'true'
       metrics-export-port: '8080'
     template:
       spec:
         nodeSelector:
-          kubernetes.io/hostname: lap-dell
+          kubernetes.io/hostname: lap-dell # Head node on lap-dell
         containers:
         - name: ray-head
           image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
-              cpu: "10"
-              memory: "28Gi"
+              cpu: "2" # Adjusted for shared node
+              memory: "8Gi" # Adjusted for shared node
+
   workerGroupSpecs:
-  - groupName: msi-group # Required unique identifier
+  # Worker group for lap-dell (same node as head)
+  - groupName: dell-worker-group
     rayStartParams:
-      # Required for workers
+      dashboard-host: '0.0.0.0'
+      block: 'true'
+      metrics-export-port: '8080'
+    replicas: 1
+    template:
+      spec:
+        nodeSelector:
+          kubernetes.io/hostname: lap-dell # Worker on lap-dell
+        containers:
+        - name: ray-worker
+          image: rayproject/ray:nightly-py311-cpu
+          resources:
+            limits:
+              cpu: "9" # Reserve remaining capacity
+              memory: "22Gi"
+
+  # Existing worker groups
+  - groupName: msi-group
+    rayStartParams:
       dashboard-host: '0.0.0.0'
       block: 'true'
       metrics-export-port: '8080'
@@ -38,9 +58,12 @@ spec:
             limits:
               cpu: "7"
               memory: "12Gi"
-  - groupName: pc1-group # Required unique identifier
+            requests:
+              cpu: "7"
+              memory: "12Gi"
+
+  - groupName: pc1-group
     rayStartParams:
-      # Required for workers
       dashboard-host: '0.0.0.0'
       block: 'true'
       metrics-export-port: '8080'
@@ -54,5 +77,8 @@ spec:
           image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
+              cpu: "3"
+              memory: "12Gi"
+            requests:
               cpu: "3"
               memory: "12Gi"
