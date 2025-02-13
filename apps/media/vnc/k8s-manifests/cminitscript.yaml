@@ -34,9 +34,17 @@ data:
     echo "alias k=kubectl" >> ~/.zshrc
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
-    export NONINTERACTIVE=1 && export USER=abc && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    brew install kubectx kubens fzf
     sudo cat <<'EOF' >> ~/.zshrc
+    ns() {
+      local new_namespace="$1"
+      if [ -z "$new_namespace" ]; then
+        echo "Użycie: ns <namespace>"
+        return 1
+      fi
+      sed -i 's|^alias k=.*|alias k="kubectl -n '"$new_namespace"'"|' ~/.zshrc
+      echo "Zaktualizowano alias k na: kubectl -n $new_namespace"
+      source ~/.zshrc
+    }
     acp() {
       git add -A;git commit -m "$1";git push origin HEAD
     }
