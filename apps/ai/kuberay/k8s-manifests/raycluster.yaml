@@ -37,8 +37,8 @@ spec:
           image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
-              cpu: "9" # Reserve remaining capacity
-              memory: "22Gi"
+              cpu: "8" # Reserve remaining capacity
+              memory: "20Gi"
 
   # Existing worker groups
   - groupName: msi-group
