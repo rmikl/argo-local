@@ -20,7 +20,7 @@ spec:
               cpu: "10"
               memory: "28Gi"
   workerGroupSpecs:
-  - groupName: samsung-group # Required unique identifier
+  - groupName: msi-group # Required unique identifier
     rayStartParams:
       # Required for workers
       dashboard-host: '0.0.0.0'
