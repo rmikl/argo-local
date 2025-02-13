@@ -53,6 +53,7 @@ data:
     export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
     alias ns="kubens"
     alias ctx="kubectx"
+    alias w="watch -n 1 "
     EOF
 
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
