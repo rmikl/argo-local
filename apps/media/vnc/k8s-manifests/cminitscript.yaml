@@ -70,6 +70,7 @@ data:
     git config --global core.editor vim
     git config --global --add safe.directory /mnt/qnap/repos/argo-local
     git config --global --add safe.directory /mnt/qnap/repos/helm_predeploy
+    git config --global --add safe.directory /mnt/qnap/repos/docker
     sudo git config --global user.name rmikl
     sudo git config --global user.email robert.miklas@protonmail.com
     sudo git config --global core.editor vim
