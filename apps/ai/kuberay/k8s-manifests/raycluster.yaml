@@ -21,7 +21,6 @@ spec:
               memory: "8Gi" # Adjusted for shared node
 
   workerGroupSpecs:
-  # Worker group for lap-dell (same node as head)
   - groupName: dell-worker-group
     rayStartParams:
       dashboard-host: '0.0.0.0'
@@ -31,13 +30,17 @@ spec:
     template:
       spec:
         nodeSelector:
-          kubernetes.io/hostname: lap-dell # Worker on lap-dell
+          kubernetes.io/hostname: lap-dell
         containers:
         - name: ray-worker
           image: rmikl/ray-nightly-py311-cpu:d49e9b2847a8202676bdb0537e5cb58da8dac8eb
+          ports:
+          - containerPort: 8000 # Expose the HTTP port
+            name: http
+            protocol: TCP
           resources:
             limits:
-              cpu: "7" # Reserve remaining capacity
+              cpu: "7"
               memory: "18Gi"
 
   # Existing worker groups
