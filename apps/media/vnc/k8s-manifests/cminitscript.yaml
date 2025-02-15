@@ -59,8 +59,6 @@ data:
     alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
     export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-    alias ns="kubens"
-    alias ctx="kubectx"
     alias w="watch -n 1 "
     EOF
 
