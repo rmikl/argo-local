@@ -34,7 +34,7 @@ spec:
           kubernetes.io/hostname: lap-dell # Worker on lap-dell
         containers:
         - name: ray-worker
-          image: rmikl/ray-nightly-py311-cpu:307317b6fc0ed2d8aae4b016afd3bc2754958b6b
+          image: rmikl/ray-nightly-py311-cpu:d49e9b2847a8202676bdb0537e5cb58da8dac8eb
           resources:
             limits:
               cpu: "7" # Reserve remaining capacity
