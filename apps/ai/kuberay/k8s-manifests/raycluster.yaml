@@ -26,7 +26,7 @@ spec:
       dashboard-host: '0.0.0.0'
       block: 'true'
       metrics-export-port: '8080'
-      resources: '{"lap-dell-node": 1}' #Add this
+      resources: '"{\"lap-dell-node\": 1}"' #Add this
     replicas: 1
     template:
       spec:
@@ -35,10 +35,10 @@ spec:
         containers:
         - name: ray-worker
           env:
-          - name: RAY_OVERRIDE_RESOURCES
-            value: '{"lap-dell-node": 1}' # Add this
-          #- name: RAY_RESOURCES
-          #  value: '{"lap-dell-node": 1}'
+          #- name: RAY_OVERRIDE_RESOURCES
+          #  value: '{"lap-dell-node": 1}' # Add this
+          - name: RAY_RESOURCES
+            value: '{"lap-dell-node": 1}'
           image: rmikl/ray-nightly-py311-cpu:78ad3b475db611c0501ad0bc4feb60987b4cbddb
           ports:
           - containerPort: 8000 # Expose the HTTP port
