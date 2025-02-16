@@ -5,6 +5,7 @@ metadata:
     app.kubernetes.io/name: vnc
   name: vnc
   namespace: media
+
 spec:
   replicas: 1
   selector:
@@ -15,6 +16,8 @@ spec:
       labels:
         app.kubernetes.io/name: vnc
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: lap-dell
       containers:
       - command:
         - /bin/bash
