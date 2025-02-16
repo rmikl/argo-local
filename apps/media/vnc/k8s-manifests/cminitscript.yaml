@@ -66,20 +66,26 @@ data:
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
     git config --global user.name rmikl
     git config --global user.email robert.miklas@protonmail.com
-    git config --global core.editor vim
+    git config --global core.editor code
     git config --global --add safe.directory /mnt/qnap/repos/argo-local
     git config --global --add safe.directory /mnt/qnap/repos/helm_predeploy
     git config --global --add safe.directory /mnt/qnap/repos/docker
     sudo git config --global user.name rmikl
     sudo git config --global user.email robert.miklas@protonmail.com
-    sudo git config --global core.editor vim
+    sudo git config --global core.editor code
     sudo git config --global --add safe.directory /mnt/qnap/repos/argo-local
     sudo git config --global --add safe.directory /mnt/qnap/repos/helm_predeploy
+    sudo git config --global --add safe.directory /mnt/qnap/repos/docker
+
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     echo $GITHUB_TOKEN_RAW | sudo gh auth login --with-token     
     gh auth setup-git
     sudo gh auth setup-git
     apt-get update && apt-get install -y containerd && apt-get clean
+    mkdir -p /config/.kube
+    cp /config/kube/config /config/.kube/config
+    chmod 700 /config/.kube/
+    chmod 600 /config/.kube/config
 ---
 
 

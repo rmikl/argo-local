@@ -62,7 +62,7 @@ spec:
           name: vscode-data
         - mountPath: /vnc-script
           name: init-vnc
-        - mountPath: /config/.kube
+        - mountPath: /config/kube
           name: secret-volume
         - mountPath: /mnt/qnap
           name: vnc-storage
