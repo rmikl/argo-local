@@ -63,6 +63,8 @@ spec:
           name: secret-volume
         - mountPath: /mnt/qnap
           name: vnc-storage
+        - name: containerd-sock
+          mountPath: /run/containerd
       volumes:
       - name: vnc-storage
         persistentVolumeClaim:
@@ -84,3 +86,7 @@ spec:
           - key: KUBECONFIG
             path: config
           secretName: vnc-credentials
+      - name: containerd-sock
+        hostPath:
+          path: /run/containerd
+          type: Directory

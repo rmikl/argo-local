@@ -78,6 +78,7 @@ data:
     echo $GITHUB_TOKEN_RAW | sudo gh auth login --with-token     
     gh auth setup-git
     sudo gh auth setup-git
+    apt-get update && apt-get install -y containerd && apt-get clean
 ---
 
 
