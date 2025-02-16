@@ -33,7 +33,7 @@ spec:
           kubernetes.io/hostname: lap-dell
         containers:
         - name: ray-worker
-          image: rmikl/ray-nightly-py311-cpu:0d5309f0c4f8b3d76ccb7688d2a9cb545d6ad417
+          image: rmikl/ray-nightly-py311-cpu:b36ccff909eb13ebf3abb642cb8777cf80012f1b
           ports:
           - containerPort: 8000 # Expose the HTTP port
             name: http
