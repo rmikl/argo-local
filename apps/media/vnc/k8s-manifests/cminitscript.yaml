@@ -60,7 +60,7 @@ data:
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
     export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
     alias w="watch -n 1 "
-    alias ctr="sudo ctr"
+    alias ctr="sudo ctr -n k8s.io"
     EOF
 
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc

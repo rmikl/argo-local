@@ -26,8 +26,6 @@ spec:
           /vnc-script/init.sh
           /init
         env:
-        - name: CONTAINERD_NAMESPACE
-          value: k8s.io
         - name: DRINODE
           value: /dev/dri/renderD128
         - name: CUSTOM_USER
