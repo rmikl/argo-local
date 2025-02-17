@@ -6,7 +6,9 @@ data:
   init.sh: |
     
     #OTHER CONFIG
+
     whoami
+    sudo chown abc:abc /config -R
     find /config/.mozilla/firefox -iname "*lock*" | xargs -I {} rm -f {} 
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
