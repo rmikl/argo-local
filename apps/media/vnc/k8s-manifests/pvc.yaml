@@ -37,16 +37,5 @@ spec:
     requests:
       storage: 1Gi
 ---
-# PVC for cache
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: vnc-cache
-  namespace: media
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: qnap-cache
-  resources:
-    requests:
-      storage: 1Gi
+
+
