@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: registry-1.docker.io/bitnamicharts
+    chart: external-dns
+    targetRevision: 8.7.4
+    helm:
+      valueFiles:
+      - $values/apps/infra/external-dns/values.yaml
+  - repoURL: https://github.com/rmikl/argo-local
+    targetRevision: HEAD
+    ref: values
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/external-dns/k8s-manifests/
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
