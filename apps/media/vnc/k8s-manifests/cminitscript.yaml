@@ -6,9 +6,10 @@ data:
   init.sh: |
     
     #OTHER CONFIG
+    whoami
     find /config/.mozilla/firefox -iname "*lock*" | xargs -I {} rm -f {} 
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
-    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh)
 
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
@@ -59,8 +60,8 @@ data:
     echo $GITHUB_TOKEN_RAW | sudo gh auth login --with-token     
     gh auth setup-git
     sudo gh auth setup-git
-    mkdir -p /config/.kube
-    cp /config/kube/config /config/.kube/config
+    sudo mkdir -p /config/.kube
+    sudo cp /config/kube/config /config/.kube/config
     chmod 700 /config/.kube/
     chmod 600 /config/.kube/config
     sudo chown abc:abc /config/.kube/ -R 
