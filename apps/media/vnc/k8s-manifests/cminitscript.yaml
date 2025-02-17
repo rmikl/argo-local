@@ -6,7 +6,7 @@ data:
   init.sh: |
     
     #OTHER CONFIG
-    find /config -iname "*lock*" | xargs -I {} rm -f {} 
+    find /config/.mozilla/firefox -iname "*lock*" | xargs -I {} rm -f {} 
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     chsh -s $(which zsh)
 
