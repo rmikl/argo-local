@@ -55,8 +55,9 @@ spec:
               - /bin/bash
               - -c
               - |
-                sudo su
-                pgrep firexox | xargs -I {} kill -9 {}
+                echo "start killing process..."
+                P=$(pgrep firefox)
+                kill -9 $P
         name: vnc-http
         ports:
         - containerPort: 3000
