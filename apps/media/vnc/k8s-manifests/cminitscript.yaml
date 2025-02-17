@@ -5,60 +5,8 @@ metadata:
 data:
   init.sh: |
     
-    export DEBIAN_FRONTEND="noninteractive"
-
-    # Prepare system
-    sudo apt update && sudo apt install -y \
-      wget \
-      curl \
-      apt-transport-https \
-      software-properties-common \
-      gpg
-
-    # Key management for repositories (modern approach)
-    sudo mkdir -p /etc/apt/keyrings
-
-    # Microsoft VSCode (verified from packages.microsoft.com/repos/vscode/dists/stable)
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | \
-      sudo gpg --dearmor -o /etc/apt/keyrings/microsoft-vscode.gpg
-    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-vscode.gpg] https://packages.microsoft.com/repos/vscode stable main" | \
-      sudo tee /etc/apt/sources.list.d/vscode.list
-
-    # GitHub CLI (fixed signing key)
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
-      sudo gpg --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
-      sudo tee /etc/apt/sources.list.d/github-cli.list
-
-    # Update with verified sources
-    sudo apt update -o Acquire::Check-Valid-Until=false
-
-    # Install packages with proper repository validation
-    sudo apt install -y \
-      code \
-      git \
-      gh \
-      vim \
-      fzf \
-      inetutils-ping \
-      inetutils-telnet \
-      zsh \
-      sshpass \
-      tilix \
-      engrampa \
-      containerd
-
-    # Cleanup legacy keyring references
-    sudo rm -f /etc/apt/trusted.gpg.d/*
-
-    #OTHER BINS
-    #KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt | grep -oP 'v\d+\.\d+\.\d+')
-    sudo wget "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl && sudo chmod +x /usr/local/bin/kubectl
-
-    sudo wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_linux_amd64.deb && sudo apt install ./k9s_linux_amd64.deb &&  rm k9s_linux_amd64.deb
-    sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-
     #OTHER CONFIG
+    find /config -iname "*lock*" | xargs -I {} rm -f {} 
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     chsh -s $(which zsh)
 

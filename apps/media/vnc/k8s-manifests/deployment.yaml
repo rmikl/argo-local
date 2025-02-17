@@ -47,7 +47,7 @@ spec:
             secretKeyRef:
               key: LOCAL_NODES_PWD
               name: vnc-credentials
-        image: lscr.io/linuxserver/webtop:ubuntu-kde
+        image: vnc_server:f06eedfeb6bd0ae1fa0cb851a0b39698b9bfd69d
         name: vnc-http
         ports:
         - containerPort: 3000
