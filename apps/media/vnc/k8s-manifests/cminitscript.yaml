@@ -30,10 +30,6 @@ data:
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
       sudo tee /etc/apt/sources.list.d/github-cli.list
 
-    # Kubernetes (using pool structure from packages.cloud.google.com)
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
-      sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
-
     # Update with verified sources
     sudo apt update -o Acquire::Check-Valid-Until=false
 
@@ -51,14 +47,13 @@ data:
       tilix \
       engrampa \
       containerd \
-      kubectl
 
     # Cleanup legacy keyring references
     sudo rm -f /etc/apt/trusted.gpg.d/*
 
     #OTHER BINS
     #KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt | grep -oP 'v\d+\.\d+\.\d+')
-    #sudo wget "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl && sudo chmod +x /usr/local/bin/kubectl
+    sudo wget "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl && sudo chmod +x /usr/local/bin/kubectl
 
     sudo wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_linux_amd64.deb && sudo apt install ./k9s_linux_amd64.deb &&  rm k9s_linux_amd64.deb
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
