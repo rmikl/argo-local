@@ -46,7 +46,7 @@ data:
       sshpass \
       tilix \
       engrampa \
-      containerd \
+      containerd
 
     # Cleanup legacy keyring references
     sudo rm -f /etc/apt/trusted.gpg.d/*
