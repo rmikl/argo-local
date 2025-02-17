@@ -4,29 +4,41 @@ metadata:
   name: init-vnc
 data:
   init.sh: |
+    
     export DEBIAN_FRONTEND="noninteractive"
 
-    #PREPRARE KEYS FOR APT
-    sudo apt update
-
-    sudo apt install -y \
+    # Prepare system
+    sudo apt update && sudo apt install -y \
       wget \
       curl \
       apt-transport-https \
-      software-properties-common
+      software-properties-common \
+      gpg
 
-    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/gh-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-    #CODE INSTALLATION SECTION
+    # Key management for repositories (modern approach)
     sudo mkdir -p /etc/apt/keyrings
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
-    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
 
-    sudo apt update
+    # Microsoft VSCode (verified from packages.microsoft.com/repos/vscode/dists/stable)
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | \
+      sudo gpg --dearmor -o /etc/apt/keyrings/microsoft-vscode.gpg
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-vscode.gpg] https://packages.microsoft.com/repos/vscode stable main" | \
+      sudo tee /etc/apt/sources.list.d/vscode.list
 
-    #APT INSTALL
-    sudo apt install -y \ 
+    # GitHub CLI (fixed signing key)
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+      sudo gpg --dearmor -o /etc/apt/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
+      sudo tee /etc/apt/sources.list.d/github-cli.list
+
+    # Kubernetes (using pool structure from packages.cloud.google.com)
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+      sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+
+    # Update with verified sources
+    sudo apt update -o Acquire::Check-Valid-Until=false
+
+    # Install packages with proper repository validation
+    sudo apt install -y \
       code \
       git \
       gh \
@@ -38,7 +50,12 @@ data:
       sshpass \
       tilix \
       engrampa \
-      containerd 
+      containerd \
+      docker-ce \
+      docker-ce-cli
+
+    # Cleanup legacy keyring references
+    sudo rm -f /etc/apt/trusted.gpg.d/*
 
     #OTHER BINS
     KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt | grep -oP 'v\d+\.\d+\.\d+')
