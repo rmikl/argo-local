@@ -55,6 +55,7 @@ spec:
               - /bin/bash
               - -c
               - |
+                sudo su
                 pgrep firexox | xargs -I {} kill -9 {}
         name: vnc-http
         ports:
