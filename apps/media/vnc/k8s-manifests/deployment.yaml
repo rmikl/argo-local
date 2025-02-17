@@ -47,7 +47,7 @@ spec:
             secretKeyRef:
               key: LOCAL_NODES_PWD
               name: vnc-credentials
-        image: rmikl/vnc_server:f06eedfeb6bd0ae1fa0cb851a0b39698b9bfd69d
+        image: rmikl/vnc_server:5e18ad219c5d2525a20295872983a576098dbcd9
         name: vnc-http
         ports:
         - containerPort: 3000
