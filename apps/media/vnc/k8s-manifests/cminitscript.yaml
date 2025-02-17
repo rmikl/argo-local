@@ -12,12 +12,6 @@ data:
     find /config/.mozilla/firefox -iname "*lock*" | xargs -I {} rm -f {} 
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
-    
-    # 1. Download the latest binary (~95 MB):
-    sudo curl -fL https://app.getambassador.io/download/tel2oss/releases/download/v2.21.1/telepresence-linux-amd64 -o /usr/local/bin/telepresence
-
-    # 2. Make the binary executable:
-    sudo chmod a+x /usr/local/bin/telepresence
 
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
