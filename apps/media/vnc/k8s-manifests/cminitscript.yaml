@@ -5,33 +5,43 @@ metadata:
 data:
   init.sh: |
     export DEBIAN_FRONTEND="noninteractive"
-    sudo apt update
-    sudo apt install software-properties-common apt-transport-https wget -y
+
+    #PREPRARE KEYS FOR APT
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
     curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
     sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    sudo wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl && sudo chmod +x /usr/local/bin/kubectl
-    sudo apt install code git -y
-    cd /tmp
-    wget https://www.keepersecurity.com/desktop_electron/Linux/repo/deb/keeperpasswordmanager_16.11.3_amd64.deb
-    wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_linux_amd64.deb
-    sudo apt install ./k9s_linux_amd64.deb
-    rm k9s_linux_amd64.deb
-    sudo dpkg -i keeperpasswordmanager_16.11.3_amd64.deb
-    (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
-    	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-      && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-      && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-    	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-    	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    	&& sudo apt update \
-    	&& sudo apt install gh vim fzf inetutils-ping inetutils-telnet -y
-    sudo apt install zsh sshpass tilix engrampa -y
-    chsh -s $(which zsh)
-    sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/gh-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/gh-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
+    sudo apt update
+
+    #APT INSTALL
+    sudo apt install -y \ 
+      software-properties-common \
+      apt-transport-https \
+      wget \
+      code \
+      git \
+      gh \
+      vim \
+      fzf \
+      inetutils-ping \
+      inetutils-telnet \
+      zsh \
+      sshpass \
+      tilix \
+      engrampa \
+      containerd 
+
+    #OTHER BINS
+    sudo wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl && sudo chmod +x /usr/local/bin/kubectl
+    sudo wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_linux_amd64.deb && sudo apt install ./k9s_linux_amd64.deb &&  rm k9s_linux_amd64.deb
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-    echo "alias k=kubectl" >> ~/.zshrc
+
+    #OTHER CONFIG
+    sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
+    chsh -s $(which zsh)
+
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
     sudo cat <<'EOF' >> ~/.zshrc
@@ -58,9 +68,9 @@ data:
     alias pc2="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.21"
     alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
-    export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
     alias w="watch -n 1 "
     alias ctr="sudo ctr -n k8s.io"
+    alias k=kubectl
     EOF
 
     sed -i 's|^plugins=(git)$|plugins=(git kubectl)|' /config/.zshrc
@@ -81,11 +91,11 @@ data:
     echo $GITHUB_TOKEN_RAW | sudo gh auth login --with-token     
     gh auth setup-git
     sudo gh auth setup-git
-    apt-get update && apt-get install -y containerd && apt-get clean
     mkdir -p /config/.kube
     cp /config/kube/config /config/.kube/config
     chmod 700 /config/.kube/
     chmod 600 /config/.kube/config
+    sudo chown abc:abc /config/.kube/ -R 
 ---
 
 
