@@ -48,6 +48,14 @@ spec:
               key: LOCAL_NODES_PWD
               name: vnc-credentials
         image: rmikl/vnc_server:5e18ad219c5d2525a20295872983a576098dbcd9
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/bash
+              - -c
+              - |
+                pgrep firexox | xargs -I {} kill -9 {}
         name: vnc-http
         ports:
         - containerPort: 3000
