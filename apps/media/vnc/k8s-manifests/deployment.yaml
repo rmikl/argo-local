@@ -5,7 +5,6 @@ metadata:
     app.kubernetes.io/name: vnc
   name: vnc
   namespace: media
-
 spec:
   replicas: 1
   selector:
@@ -58,7 +57,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: home-data
-        - mountPath: /vnc-script
+        - mountPath: /vnc-script  # Fixed: Matches volume name "vnc-init"
           name: vnc-init
         - mountPath: /kube
           name: secret-volume
@@ -68,7 +67,6 @@ spec:
           mountPath: /run/containerd
         - name: vnc-rc
           mountPath: /init-config
-
       volumes:
       - name: vnc-base
         persistentVolumeClaim:
@@ -76,22 +74,22 @@ spec:
       - name: home-data
         persistentVolumeClaim:
           claimName: vnc-home
-      - name: vnc-init
+      - name: vnc-init  # Volume index 2: Fixed configMap reference
         configMap:
-          defaultMode: 777
+          name: vnc-config-files
           items:
           - key: init.sh
             path: init.sh
-          configMapName: vnc-config-files
-      - name: vnc-rc
+          defaultMode: 0777  # Octal format
+      - name: vnc-rc  # Volume index 3: Fixed configMap reference
         configMap:
-          defaultMode: 777
+          name: vnc-config-files
           items:
           - key: .zshrc
             path: .zshrc
           - key: .gitconfig
             path: .gitconfig
-          configMapName: vnc-config-files
+          defaultMode: 0777  # Octal format
       - name: secret-volume
         secret:
           defaultMode: 420
