@@ -61,7 +61,7 @@ spec:
         #- mountPath: /config/.vscode
         #  name: vscode-data
         - mountPath: /config
-          name: vscode-home
+          name: home-data
         - mountPath: /vnc-script
           name: init-vnc
         - mountPath: /kube
