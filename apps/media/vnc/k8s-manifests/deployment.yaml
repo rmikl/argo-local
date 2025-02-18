@@ -22,8 +22,20 @@ spec:
         - /bin/bash
         - -c
         - |
+          mkdir -p /run/dbus
+          rm -rf /config/.config/Code/User /config/.XDG
+          dbus-daemon --system --fork
+          mkdir -p /config/.config/Code/User /config/.XDG
           /vnc-script/init.sh
           /init
+        securityContext:
+          capabilities:
+            add: ["SYS_RESOURCE"]
+          sysctls:
+            - name: fs.inotify.max_user_instances
+              value: "1024"
+            - name: fs.inotify.max_user_watches
+              value: "524288"
         env:
         - name: DRINODE
           value: /dev/dri/renderD128
