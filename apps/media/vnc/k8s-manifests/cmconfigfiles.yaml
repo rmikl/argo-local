@@ -82,7 +82,7 @@ data:
     
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
-    
+    sudo su
     # Ensure critical directories are in PATH, avoiding duplicates
     addpath() {
       if ! echo ":$PATH:" | grep -q ":$1:"; then
