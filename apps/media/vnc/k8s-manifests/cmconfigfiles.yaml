@@ -65,6 +65,8 @@ data:
     #OTHER CONFIG
     set -x
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
+    sudo apt update -y
+    sudo apt install -y lsof
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
     echo "abc:$PASSWORD" | sudo chpasswd
