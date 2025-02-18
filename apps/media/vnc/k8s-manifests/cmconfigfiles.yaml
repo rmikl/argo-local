@@ -83,24 +83,28 @@ data:
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
     sudo su
-    sudo chown root:root /tmp/.X11-unix
-    sudo chmod 1777 /tmp/.X11-unix
     # Ensure critical directories are in PATH, avoiding duplicates
+    if [ "$(id -u)" -ne 0 ]; then
+      echo "Error: This script must be run as root." >&2
+      exit 1
+    fi
+    
+    # --- PATH Configuration ---
     addpath() {
       if ! echo ":$PATH:" | grep -q ":$1:"; then
         PATH="$1:$PATH"
       fi
     }
-
-    # Initialize PATH
+    
+    # Initialize PATH with critical directories
     export PATH=/bin:/usr/bin:/command
-
-    # Wait for Docker readiness notification (if applicable)
+    
+    # --- Docker Readiness Check ---
     if read _ 2>/dev/null <&3; then
       exec 3<&-
     fi
-
-    # Run preinit as root, then stage0 as the container's user
+    
+    # --- Run s6-overlay-suexec as root ---
     exec s6-overlay-suexec \
       /package/admin/s6-overlay/libexec/preinit \
       '' \
