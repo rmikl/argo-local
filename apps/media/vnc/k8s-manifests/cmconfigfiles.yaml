@@ -70,13 +70,13 @@ data:
     sudo chmod 777 /config/.zshrc
     #echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
-    sudo rm -rf  \
-            /config/.zshr* \
-            /config/.shell.pre-oh-my-zsh \
-            /config/.dbus \
-            /config/.cache 
-            #/config/.config \
-            #/config/.wget-hsts \
+    #sudo rm -rf  \
+    #        /config/.zshr* \
+    #        /config/.shell.pre-oh-my-zsh \
+    #        /config/.dbus \
+    #        /config/.cache 
+    #        #/config/.config \
+    #        #/config/.wget-hsts \
     
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
