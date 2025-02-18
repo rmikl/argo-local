@@ -22,7 +22,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          /vnc-script/init.sh
+          sudo /vnc-script/init.sh
   #/init
         securityContext:
           capabilities:
