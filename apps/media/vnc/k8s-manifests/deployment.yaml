@@ -28,10 +28,9 @@ spec:
         - /bin/bash
         - -c
         - |
-          mkdir -p /run/dbus
+          #mkdir -p /run/dbus
           rm -rf /config/.config/Code/User /config/.XDG
-          dbus-daemon --system --fork
-          mkdir -p /config/.config/Code/User /config/.XDG
+          #dbus-daemon --system --fork
           /vnc-script/init.sh
           /init
         securityContext:
