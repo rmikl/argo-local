@@ -72,5 +72,8 @@ mountOptions:
 - file_mode=0777
 - mfsymlinks
 - noserverino
+- uid=911
+- gid=911
 ---
+
 

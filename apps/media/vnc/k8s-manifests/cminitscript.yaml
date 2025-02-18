@@ -61,9 +61,9 @@ data:
     gh auth setup-git
     sudo gh auth setup-git
     sudo mkdir -p /config/.kube
-    sudo cp --force /config/kube/config /config/.kube/config
-    chmod 700 /config/.kube/
-    chmod 600 /config/.kube/config
+    sudo cp --force /kube/config /config/.kube/config
+    #chmod 700 /config/.kube/
+    #chmod 600 /config/.kube/config
     #sudo chown abc:abc /config/.kube/ -R 
 ---
 
