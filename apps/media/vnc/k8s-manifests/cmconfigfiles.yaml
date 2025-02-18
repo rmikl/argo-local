@@ -61,19 +61,26 @@ data:
             
   init.sh: |
     #OTHER CONFIG
+    set -x
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
-    cp --force /init-config/.zshrc /config/.zshrc
+    rm -rf  /config/.config \
+            /config/.XDG \
+            /config/.zcompdump* \ 
+            /conffig/.wget-hsts \
+            /config/.npm \
+            /config/.zshr* \
+            /config/.shell.pre-oh-my-zsh \
+            /config/.dbus \
+            /config/.cache \
+            /config/.gtkrc-2.0 
+    
     cp --force /init-config/.gitconfig /config/.gitconfig
-    #mkdir -p /run/dbus
-    #rm -rf /config/.config/Code/User 
-    rm -rf /config/.XDG
-    sudo rm /tmp/dbus*
-    dbus-daemon --system --fork
+    cp --force /init-config/.zshrc /config/.zshrc
 ---
 
 
