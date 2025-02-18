@@ -75,11 +75,12 @@ data:
     sudo cp --force /kube/config /config/.kube/config
     sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.XDG"
     sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config "
-    sudo rm -rf  /config/.config \
+    sudo rm -rf  \
+            #/config/.config \
             /config/.wget-hsts \
             /config/.zshr* \
             /config/.shell.pre-oh-my-zsh \
-            #/config/.dbus \
+            /config/.dbus \
             /config/.cache 
     
     cp --force /init-config/.gitconfig /config/.gitconfig
