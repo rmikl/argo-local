@@ -22,8 +22,8 @@ spec:
         - /bin/bash
         - -c
         - |
-          sudo /vnc-script/init.sh
-  #/init
+          /vnc-script/init.sh
+          /init
         securityContext:
           capabilities:
             add: ["SYS_RESOURCE"]

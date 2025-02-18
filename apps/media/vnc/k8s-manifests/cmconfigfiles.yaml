@@ -71,46 +71,17 @@ data:
     #echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
     sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.XDG"
-    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config "
+    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config"
     sudo rm -rf  \
-            #/config/.config \
-            /config/.wget-hsts \
             /config/.zshr* \
             /config/.shell.pre-oh-my-zsh \
             /config/.dbus \
             /config/.cache 
+            #/config/.config \
+            #/config/.wget-hsts \
     
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
-    sudo su
-    chown root:root /tmp/.X11-unix && sudo chmod 1777 /tmp/.X11-unix
-    # Ensure critical directories are in PATH, avoiding duplicates
-    if [ "$(id -u)" -ne 0 ]; then
-      echo "Error: This script must be run as root." >&2
-      exit 1
-    fi
-
-    # --- PATH Configuration ---
-    addpath() {
-      if ! echo ":$PATH:" | grep -q ":$1:"; then
-        PATH="$1:$PATH"
-      fi
-    }
-
-    # Initialize PATH with critical directories
-    export PATH=/bin:/usr/bin:/command
-
-    # --- Docker Readiness Check ---
-    if read _ 2>/dev/null <&3; then
-      exec 3<&-
-    fi
-
-    # --- Run s6-overlay-suexec as root ---
-    exec s6-overlay-suexec \
-      /package/admin/s6-overlay/libexec/preinit \
-      '' \
-      /package/admin/s6-overlay/libexec/stage0 \
-      "$@"
 ---
 
 
