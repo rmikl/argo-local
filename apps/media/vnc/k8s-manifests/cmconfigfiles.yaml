@@ -73,15 +73,15 @@ data:
     sudo cp --force /kube/config /config/.kube/config
 
     mkdir /tmp/empty
-    rsync -a --delete --force /tmp/empty/ /config/.config/dconf/
-    rsync -a --delete --force /tmp/empty/ /config/.config/pulse/
-    rsync -a --delete --force /tmp/empty/ /config/.XDG/dconf/
-    rmdir /tmp/empty
+    sudo rsync -a --delete --force /tmp/empty/ /config/.config/dconf/
+    sudo rsync -a --delete --force /tmp/empty/ /config/.config/pulse/
+    sudo rsync -a --delete --force /tmp/empty/ /config/.XDG/dconf/
+    sudo rmdir /tmp/empty
 
-    rm -rf  /config/.config \
+    sudo rm -rf  /config/.config \
             /config/.XDG \
             /config/.zcompdump* \ 
-            /conffig/.wget-hsts \
+            /config/.wget-hsts \
             /config/.npm \
             /config/.zshr* \
             /config/.shell.pre-oh-my-zsh \
