@@ -12,19 +12,15 @@ parameters:
 reclaimPolicy: Retain  # Prevents data loss on PV deletion
 volumeBindingMode: Immediate
 mountOptions:
-  - vers=3.0              # Enforce SMB3 protocol
-  - dir_mode=0777         # Directory permissions
-  - file_mode=0777        # File permissions
-  - uid=911               # User ID for pod access
-  - gid=911               # Group ID for pod access
-  - nobrl                 # Disable byte-range locks (required for SMB)
-  - mfsymlinks            # Support symbolic links
-  - noserverino           # Avoid inode inconsistencies
-  - cache=none            # Disable caching for consistency
-  - rsize=131072          # Read buffer size (128KB)
-  - wsize=131072          # Write buffer size (128KB)
-  - soft                  # Allow transient errors
-  - timeout=600           # Timeout in seconds
+  - vers=3.0
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=911
+  - gid=911
+  - nobrl
+  - noserverino
+  - rsize=131072
+  - wsize=131072
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
