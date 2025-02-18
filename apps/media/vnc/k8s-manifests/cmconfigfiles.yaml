@@ -68,6 +68,10 @@ data:
     sudo chmod 777 /config/.zshrc
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
+    find /config/.config/dconf -mindepth 1 -delete
+    find /config/.config/pulse -mindepth 1 -delete
+    find /config/.XDG/dconf -mindepth 1 -delete
+
     rm -rf  /config/.config \
             /config/.XDG \
             /config/.zcompdump* \ 
