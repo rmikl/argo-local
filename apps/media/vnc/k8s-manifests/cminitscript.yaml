@@ -7,9 +7,7 @@ data:
     
     #OTHER CONFIG
 
-    whoami
-    sudo chown abc:abc /config -R
-    find /config/.mozilla/firefox -iname "*lock*" | xargs -I {} rm -f {} 
+    #find /config/.mozilla/firefox -iname "*lock*" | xargs -I {} rm -f {} 
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
 
@@ -63,10 +61,10 @@ data:
     gh auth setup-git
     sudo gh auth setup-git
     sudo mkdir -p /config/.kube
-    sudo cp /config/kube/config /config/.kube/config
+    sudo cp --force /config/kube/config /config/.kube/config
     chmod 700 /config/.kube/
     chmod 600 /config/.kube/config
-    sudo chown abc:abc /config/.kube/ -R 
+    #sudo chown abc:abc /config/.kube/ -R 
 ---
 
 

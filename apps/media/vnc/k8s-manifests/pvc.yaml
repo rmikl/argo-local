@@ -37,5 +37,18 @@ spec:
     requests:
       storage: 1Gi
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vnc-home
+  namespace: media
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: qnap-home
+  resources:
+    requests:
+      storage: 10Gi
+---
 
 
