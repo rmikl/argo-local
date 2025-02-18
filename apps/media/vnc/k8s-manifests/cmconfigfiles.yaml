@@ -73,9 +73,9 @@ data:
     sudo cp --force /kube/config /config/.kube/config
 
     mkdir /tmp/empty
-    rsync -a --delete /tmp/empty/ /config/.config/dconf/
-    rsync -a --delete /tmp/empty/ /config/.config/pulse/
-    rsync -a --delete /tmp/empty/ /config/.XDG/dconf/
+    rsync -a --delete --force /tmp/empty/ /config/.config/dconf/
+    rsync -a --delete --force /tmp/empty/ /config/.config/pulse/
+    rsync -a --delete --force /tmp/empty/ /config/.XDG/dconf/
     rmdir /tmp/empty
 
     rm -rf  /config/.config \
