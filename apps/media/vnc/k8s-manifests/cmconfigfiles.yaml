@@ -60,15 +60,18 @@ data:
 
             
   init.sh: |
+
+
     #OTHER CONFIG
     set -x
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
-    
+
     mkdir /tmp/empty
     rsync -a --delete /tmp/empty/ /config/.config/dconf/
     rsync -a --delete /tmp/empty/ /config/.config/pulse/
