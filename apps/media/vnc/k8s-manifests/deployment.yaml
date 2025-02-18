@@ -23,7 +23,7 @@ spec:
         - -c
         - |
           /vnc-script/init.sh
-          /init
+  #/init
         securityContext:
           capabilities:
             add: ["SYS_RESOURCE"]

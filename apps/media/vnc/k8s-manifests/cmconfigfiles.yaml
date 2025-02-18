@@ -60,10 +60,7 @@ data:
 
             
   init.sh: |
-
-
     #OTHER CONFIG
-    set -x
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
     sudo apt update -y
     sudo apt install -y lsof sshpass
@@ -85,6 +82,28 @@ data:
     
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
+    
+    # Ensure critical directories are in PATH, avoiding duplicates
+    addpath() {
+      if ! echo ":$PATH:" | grep -q ":$1:"; then
+        PATH="$1:$PATH"
+      fi
+    }
+
+    # Initialize PATH
+    export PATH=/bin:/usr/bin:/command
+
+    # Wait for Docker readiness notification (if applicable)
+    if read _ 2>/dev/null <&3; then
+      exec 3<&-
+    fi
+
+    # Run preinit as root, then stage0 as the container's user
+    exec s6-overlay-suexec \
+      /package/admin/s6-overlay/libexec/preinit \
+      '' \
+      /package/admin/s6-overlay/libexec/stage0 \
+      "$@"
 ---
 
 
