@@ -73,7 +73,7 @@ data:
     sudo chmod 777 /config/.zshrc
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
-    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no robert@192.168.1.48 \
+    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 \
       "cd /share/smb/k8s-tools-config/vnc/home/ && \ 
        rm -rf .config .XDG"
     sudo rm -rf  /config/.config \
