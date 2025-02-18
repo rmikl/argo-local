@@ -1,41 +1,42 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: vnc
+  name: vnc-base
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: qnap
+  storageClassName: qnap-base
   resources:
     requests:
       storage: 10Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: vnc-mozilla
-  namespace: media
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: qnap-mozilla
-  resources:
-    requests:
-      storage: 1Gi
----
-# PVC for VSCode
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: vnc-vscode
-  namespace: media
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: qnap-vscode
-  resources:
-    requests:
-      storage: 1Gi
+
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: vnc-mozilla
+#  namespace: media
+#spec:
+#  accessModes:
+#  - ReadWriteMany
+#  storageClassName: qnap-mozilla
+#  resources:
+#    requests:
+#      storage: 1Gi
+#---
+## PVC for VSCode
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: vnc-vscode
+#  namespace: media
+#spec:
+#  accessModes:
+#  - ReadWriteMany
+#  storageClassName: qnap-vscode
+#  resources:
+#    requests:
+#      storage: 1Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

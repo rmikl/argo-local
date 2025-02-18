@@ -1,54 +1,3 @@
-# Storage Class for .mozilla
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: qnap-mozilla
-provisioner: smb.csi.k8s.io
-parameters:
-  source: "//192.168.1.48/smb/k8s-tools-config/vnc/.mozilla"
-  csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
-  csi.storage.k8s.io/node-stage-secret-namespace: infra
-  csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
-  csi.storage.k8s.io/node-publish-secret-namespace: infra
-reclaimPolicy: Retain
-volumeBindingMode: Immediate
-mountOptions:
-- vers=3.0
-- rsize=1048576
-- wsize=1048576
-- cache=strict
-- nobrl
-- dir_mode=0777
-- file_mode=0777
-- mfsymlinks
-- noserverino
----
-# Storage Class for .vscode
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: qnap-vscode
-provisioner: smb.csi.k8s.io
-parameters:
-  source: "//192.168.1.48/smb/k8s-tools-config/vnc/.vscode"
-  csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
-  csi.storage.k8s.io/node-stage-secret-namespace: infra
-  csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
-  csi.storage.k8s.io/node-publish-secret-namespace: infra
-reclaimPolicy: Retain
-volumeBindingMode: Immediate
-mountOptions:
-- vers=3.0
-- rsize=1048576
-- wsize=1048576
-- cache=strict
-- nobrl
-- dir_mode=0777
-- file_mode=0777
-- mfsymlinks
-- noserverino
----
-# Storage Class for .vscode
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -56,6 +5,32 @@ metadata:
 provisioner: smb.csi.k8s.io
 parameters:
   source: "//192.168.1.48/smb/k8s-tools-config/vnc/home"
+  csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
+  csi.storage.k8s.io/node-stage-secret-namespace: infra
+  csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
+  csi.storage.k8s.io/node-publish-secret-namespace: infra
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
+- vers=3.0
+- rsize=1048576
+- wsize=1048576
+- cache=strict
+- nobrl
+- dir_mode=0777
+- file_mode=0777
+- mfsymlinks
+- noserverino
+- uid=911
+- gid=911
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: qnap-base
+provisioner: smb.csi.k8s.io
+parameters:
+  source: "//192.168.1.48/smb"
   csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
   csi.storage.k8s.io/node-stage-secret-namespace: infra
   csi.storage.k8s.io/node-publish-secret-name: qnap-credentials

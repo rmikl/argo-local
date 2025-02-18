@@ -56,10 +56,6 @@ spec:
           limits:
             gpu.intel.com/i915: "1"
         volumeMounts:
-        #- mountPath: /config/.mozilla
-        #  name: mozilla-data
-        #- mountPath: /config/.vscode
-        #  name: vscode-data
         - mountPath: /config
           name: home-data
         - mountPath: /vnc-script
@@ -67,27 +63,35 @@ spec:
         - mountPath: /kube
           name: secret-volume
         - mountPath: /mnt/qnap
-          name: vnc-storage
+          name: vnc-base
         - name: containerd-sock
           mountPath: /run/containerd
+        - name: vnc-rc
+          mountPath: /init-config
 
       volumes:
-      - name: vnc-storage
+      - name: vnc-base
         persistentVolumeClaim:
-          claimName: vnc
-      #- name: mozilla-data
-      #  persistentVolumeClaim:
-      #    claimName: vnc-mozilla
-      #- name: vscode-data
-      #  persistentVolumeClaim:
-      #    claimName: vnc-vscode
+          claimName: vnc-base
       - name: home-data
         persistentVolumeClaim:
           claimName: vnc-home
-      - configMap:
-          defaultMode: 493
-          name: init-vnc
-        name: init-vnc
+      - name: vnc-init
+        configMap:
+          defaultMode: 777
+          items:
+          - key: init.sh
+            path: init.sh
+          configMapName: vnc-config-files
+      - name: vnc-rc
+        configMap:
+          defaultMode: 777
+          items:
+          - key: .zshrc
+            path: .zshrc
+          - key: .gitconfig
+            path: .gitconfig
+          configMapName: vnc-config-files
       - name: secret-volume
         secret:
           defaultMode: 420
