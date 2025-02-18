@@ -59,7 +59,7 @@ spec:
         - mountPath: /config
           name: home-data
         - mountPath: /vnc-script
-          name: init-vnc
+          name: vnc-init
         - mountPath: /kube
           name: secret-volume
         - mountPath: /mnt/qnap
