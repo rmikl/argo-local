@@ -39,8 +39,9 @@ data:
     alias w="watch -n 1 "
     alias ctr="sudo ctr -n k8s.io"
     alias k=kubectl
+    alias firefox='nohup firefox --ProfileManager &'
 
-  .gitconfig: |+
+  .gitconfig: |
     [user]
             name = rmikl
             email = robert.miklas@protonmail.com
@@ -68,6 +69,11 @@ data:
     sudo cp --force /kube/config /config/.kube/config
     cp --force /init-config/.zshrc /config/.zshrc
     cp --force /init-config/.gitconfig /config/.gitconfig
+    #mkdir -p /run/dbus
+    #rm -rf /config/.config/Code/User 
+    rm -rf /config/.XDG
+    sudo rm /tmp/dbus*
+    dbus-daemon --system --fork
 ---
 
 
