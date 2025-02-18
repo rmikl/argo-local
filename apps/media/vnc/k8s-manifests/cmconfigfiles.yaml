@@ -75,10 +75,7 @@ data:
     sudo cp --force /kube/config /config/.kube/config
     sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config /share/smb/k8s-tools-config/vnc/home/.XDG"
     sudo rm -rf  /config/.config \
-            /config/.XDG \
-            /config/.zcompdump* \ 
             /config/.wget-hsts \
-            /config/.npm \
             /config/.zshr* \
             /config/.shell.pre-oh-my-zsh \
             /config/.dbus \
