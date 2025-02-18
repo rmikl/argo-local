@@ -74,20 +74,20 @@ data:
     echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
 
-    mkdir /tmp/empty
-    sudo lsof +D /config/.config/dconf | awk '{print $2}' | xargs sudo kill -9
-    sudo lsof +D /config/.config/pulse | awk '{print $2}' | xargs sudo kill -9
-    sudo lsof +D /config/.XDG/dconf | awk '{print $2}' | xargs sudo kill -9
-    sudo umount /config/.config/dconf 2>/dev/null
-    sudo umount /config/.config/pulse 2>/dev/null
-    sudo umount /config/.XDG/dconf 2>/dev/null
-    sudo chattr -i /config/.config/dconf/*
-    sudo chattr -i /config/.config/pulse/*
-    sudo chattr -i /config/.XDG/dconf/*
-    sudo rsync -a --delete --force /tmp/empty/ /config/.config/dconf/
-    sudo rsync -a --delete --force /tmp/empty/ /config/.config/pulse/
-    sudo rsync -a --delete --force /tmp/empty/ /config/.XDG/dconf/
-    sudo rmdir /tmp/empty
+    #mkdir /tmp/empty
+    #sudo lsof +D /config/.config/dconf | awk '{print $2}' | xargs sudo kill -9
+    #sudo lsof +D /config/.config/pulse | awk '{print $2}' | xargs sudo kill -9
+    #sudo lsof +D /config/.XDG/dconf | awk '{print $2}' | xargs sudo kill -9
+    #sudo umount /config/.config/dconf 2>/dev/null
+    #sudo umount /config/.config/pulse 2>/dev/null
+    #sudo umount /config/.XDG/dconf 2>/dev/null
+    #sudo chattr -i /config/.config/dconf/*
+    #sudo chattr -i /config/.config/pulse/*
+    #sudo chattr -i /config/.XDG/dconf/*
+    #sudo rsync -a --delete --force /tmp/empty/ /config/.config/dconf/
+    #sudo rsync -a --delete --force /tmp/empty/ /config/.config/pulse/
+    #sudo rsync -a --delete --force /tmp/empty/ /config/.XDG/dconf/
+    #sudo rmdir /tmp/empty
 
     sudo rm -rf  /config/.config \
             /config/.XDG \

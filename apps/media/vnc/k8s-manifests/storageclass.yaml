@@ -4,25 +4,27 @@ metadata:
   name: qnap-home
 provisioner: smb.csi.k8s.io
 parameters:
-  source: "//192.168.1.48/smb/k8s-tools-config/vnc/home"
+  source: "//192.168.1.48/smb/k8s-tools-config/vnc/home"  # SMB share path
   csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
   csi.storage.k8s.io/node-stage-secret-namespace: infra
   csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
   csi.storage.k8s.io/node-publish-secret-namespace: infra
-reclaimPolicy: Retain
+reclaimPolicy: Retain  # Prevents data loss on PV deletion
 volumeBindingMode: Immediate
 mountOptions:
-- vers=3.0
-- rsize=1048576
-- wsize=1048576
-- cache=strict
-- nobrl
-- dir_mode=0777
-- file_mode=0777
-- mfsymlinks
-- noserverino
-- uid=911
-- gid=911
+  - vers=3.0              # Enforce SMB3 protocol
+  - dir_mode=0777         # Directory permissions
+  - file_mode=0777        # File permissions
+  - uid=911               # User ID for pod access
+  - gid=911               # Group ID for pod access
+  - nobrl                 # Disable byte-range locks (required for SMB)
+  - mfsymlinks            # Support symbolic links
+  - noserverino           # Avoid inode inconsistencies
+  - cache=none            # Disable caching for consistency
+  - rsize=131072          # Read buffer size (128KB)
+  - wsize=131072          # Write buffer size (128KB)
+  - soft                  # Allow transient errors
+  - timeout=600           # Timeout in seconds
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
