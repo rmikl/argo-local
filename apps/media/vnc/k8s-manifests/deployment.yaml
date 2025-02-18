@@ -15,6 +15,12 @@ spec:
       labels:
         app.kubernetes.io/name: vnc
     spec:
+      securityContext:
+        sysctls:
+          - name: fs.inotify.max_user_instances
+            value: "1024"
+          - name: fs.inotify.max_user_watches
+            value: "524288"
       nodeSelector:
         kubernetes.io/hostname: lap-dell
       containers:
@@ -30,12 +36,8 @@ spec:
           /init
         securityContext:
           capabilities:
+            runAsUser: 0
             add: ["SYS_RESOURCE"]
-          sysctls:
-            - name: fs.inotify.max_user_instances
-              value: "1024"
-            - name: fs.inotify.max_user_watches
-              value: "524288"
         env:
         - name: DRINODE
           value: /dev/dri/renderD128
