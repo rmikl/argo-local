@@ -21,7 +21,7 @@ spec:
         kubernetes.io/hostname: lap-dell
       terminationGracePeriodSeconds: 30
       containers:
-      - image: rmikl/vnc_server:797481e2e6ac2fc9fadd5e10eddc4dbb6c0d6b6d
+      - image: rmikl/vnc_server:54272e9d31aa4e8c6dad98a3af594981f173065a
         securityContext:
           privileged: true
           allowPrivilegeEscalation: true
