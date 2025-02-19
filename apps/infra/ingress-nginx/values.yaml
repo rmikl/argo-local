@@ -8,10 +8,11 @@ controller:
       http: 80
     externalTrafficPolicy: Cluster
     type: LoadBalancer
+  extraArgs:
+    enable-snippet-annotations: "true"
 rbac:
   create: true
 serviceAccount:
   create: true
 
-  extraArgs:
-    enable-snippet-annotations: "true"
+
