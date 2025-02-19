@@ -71,6 +71,8 @@ spec:
           limits:
             gpu.intel.com/i915: "1"       
         volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
         - mountPath: /vnc-script
           name: vnc-init
         - mountPath: /kube
@@ -86,6 +88,9 @@ spec:
         - name: vnc-vscode
           mountPath: /config/.vscode
       volumes:
+      - name: dshm
+        emptyDir:
+           medium: Memory
       - name: vnc-base
         persistentVolumeClaim:
           claimName: vnc-base
