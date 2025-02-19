@@ -4,12 +4,10 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    #nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-    #nginx.ingress.kubernetes.io/custom-headers: media/ingress-nginx-headers-configmap
     nginx.ingress.kubernetes.io/configuration-snippet: |
-       proxy_http_version 1.1;
-       proxy_set_header Upgrade "websocket";
-       proxy_set_header Connection "Upgrade";
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade "websocket";
+      proxy_set_header Connection "Upgrade";
   name: vnc
   namespace: media
 spec:
@@ -29,12 +27,3 @@ spec:
   - hosts:
     - vnc.rmikl.pl
     secretName: rmikl.pl
-#---
-#apiVersion: v1
-#data:
-#  Upgrade: "websocket"
-#  Connection: "Upgrade"
-#kind: ConfigMap
-#metadata:
-#  name: ingress-nginx-headers-configmap
-#  namespace: media
