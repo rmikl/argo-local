@@ -12,3 +12,6 @@ rbac:
   create: true
 serviceAccount:
   create: true
+
+  extraArgs:
+    enable-snippet-annotations: "true"
