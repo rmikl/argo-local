@@ -6,6 +6,8 @@ metadata:
   name: vnc
   namespace: media
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
@@ -17,13 +19,27 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: lap-dell
+      terminationGracePeriodSeconds: 30
       containers:
-      - command:
+      - image: rmikl/vnc_server:797481e2e6ac2fc9fadd5e10eddc4dbb6c0d6b6d
+        name: vnc-http
+        command:
         - /bin/bash
         - -c
         - |
           /vnc-script/init.sh
           /init
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/bash
+              - -c
+              - |
+                PROCESSESS_TO_KILL="$(pgrep firefox) $(pgrep code)"
+                if [ -n "$PROCESSESS_TO_KILL" ]; then
+                  kill -9 $PROCESSESS_TO_KILL
+                fi
         securityContext:
           capabilities:
             add: ["SYS_RESOURCE"]
@@ -49,16 +65,19 @@ spec:
             secretKeyRef:
               key: LOCAL_NODES_PWD
               name: vnc-credentials
-        image: rmikl/vnc_server:797481e2e6ac2fc9fadd5e10eddc4dbb6c0d6b6d
-        name: vnc-http
         ports:
         - containerPort: 3000
           protocol: TCP
         resources:
           limits:
             gpu.intel.com/i915: "1"
+            cpu: "2"
+            memory: "8Gi"            
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
         volumeMounts:
-        - mountPath: /vnc-script  # Fixed: Matches volume name "vnc-init"
+        - mountPath: /vnc-script
           name: vnc-init
         - mountPath: /kube
           name: secret-volume
@@ -68,18 +87,28 @@ spec:
           mountPath: /run/containerd
         - name: vnc-rc
           mountPath: /init-config
+        - name: vnc-mozilla
+          mountPath: /config/.mozilla
+        - name: vnc-vscode
+          mountPath: /config/.vscode
       volumes:
       - name: vnc-base
         persistentVolumeClaim:
           claimName: vnc-base
-      - name: vnc-init  # Volume index 2: Fixed configMap reference
+      - name: vnc-mozilla
+        persistentVolumeClaim:
+          claimName: vnc-mozilla
+      - name: vnc-vscode
+        persistentVolumeClaim:
+          claimName: vnc-vscode
+      - name: vnc-init
         configMap:
           name: vnc-config-files
           items:
           - key: init.sh
             path: init.sh
-          defaultMode: 0777  # Octal format
-      - name: vnc-rc  # Volume index 3: Fixed configMap reference
+          defaultMode: 0777  
+      - name: vnc-rc 
         configMap:
           name: vnc-config-files
           items:
@@ -87,7 +116,7 @@ spec:
             path: .zshrc
           - key: .gitconfig
             path: .gitconfig
-          defaultMode: 0777  # Octal format
+          defaultMode: 0777 
       - name: secret-volume
         secret:
           defaultMode: 420

@@ -16,8 +16,7 @@ data:
     ns() {
       local new_namespace="$1"
       if [ -z "$new_namespace" ]; then
-        echo "Użycie: ns <namespace>"
-        return 1
+        kubectl get ns
       fi
       sed -i 's|^alias k=.*|alias k="kubectl -n '"$new_namespace"'"|' ~/.zshrc
       echo "Zaktualizowano alias k na: kubectl -n $new_namespace"
@@ -39,8 +38,6 @@ data:
     alias w="watch -n 1 "
     alias ctr="sudo ctr -n k8s.io"
     alias k=kubectl
-    alias firefox='firefox --profile /mnt/qnap/k8s-tools-config/vnc/firefox-profile'
-    alias code="code --user-data-dir=/mnt/qnap/k8s-tools-config/vnc/vscode-config"
 
   .gitconfig: |
     [user]
@@ -68,7 +65,8 @@ data:
     sudo chsh -s $(which zsh)
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
-    echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
+    echo $GITHUB_TOKEN_RAW | gh auth login --with-token 
+    mkdir -p /config/.kube
     cp --force /kube/config /config/.kube/config
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc

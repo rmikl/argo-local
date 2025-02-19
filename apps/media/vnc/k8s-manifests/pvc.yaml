@@ -10,3 +10,27 @@ spec:
     requests:
       storage: 10Gi
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vnc-vscode
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: qnap-vscode
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vnc-mozilla
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: qnap-mozilla
+  resources:
+    requests:
+      storage: 10Gi
+---
