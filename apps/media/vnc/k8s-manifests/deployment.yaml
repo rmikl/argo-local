@@ -49,7 +49,7 @@ spec:
             secretKeyRef:
               key: LOCAL_NODES_PWD
               name: vnc-credentials
-        image: rmikl/vnc_server:d4ce7ef1c710b28ba571601f1653488f851216c2
+        image: rmikl/vnc_server:797481e2e6ac2fc9fadd5e10eddc4dbb6c0d6b6d
         name: vnc-http
         ports:
         - containerPort: 3000
@@ -58,8 +58,6 @@ spec:
           limits:
             gpu.intel.com/i915: "1"
         volumeMounts:
-        #- mountPath: /config
-        #  name: home-data
         - mountPath: /vnc-script  # Fixed: Matches volume name "vnc-init"
           name: vnc-init
         - mountPath: /kube
@@ -74,9 +72,6 @@ spec:
       - name: vnc-base
         persistentVolumeClaim:
           claimName: vnc-base
-      #- name: home-data
-      #  persistentVolumeClaim:
-      #    claimName: vnc-home
       - name: vnc-init  # Volume index 2: Fixed configMap reference
         configMap:
           name: vnc-config-files
