@@ -36,9 +36,9 @@ spec:
               - /bin/bash
               - -c
               - |
-                PROCESSESS_TO_KILL="$(pgrep firefox) $(pgrep code)"
+                PROCESSESS_TO_KILL="$(sudo pgrep firefox) $(sudo pgrep code)"
                 if [ -n "$PROCESSESS_TO_KILL" ]; then
-                  kill -9 $PROCESSESS_TO_KILL
+                  sudo kill -9 $PROCESSESS_TO_KILL
                 fi
         securityContext:
           capabilities:
