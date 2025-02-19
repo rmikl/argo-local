@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: vnc
     spec:
       nodeSelector:
-        kubernetes.io/hostname: lap-dell
+        kubernetes.io/hostname: lap-msi
       terminationGracePeriodSeconds: 30
       containers:
       - image: rmikl/vnc_server:fae0fa5fc185476bc5e350d0ec78cfc8e49977a6
