@@ -9,7 +9,7 @@ controller:
     externalTrafficPolicy: Cluster
     type: LoadBalancer
   extraArgs:
-    enable-snippet-annotations: "true"
+    enable-annotation-validation: "false"
 rbac:
   create: true
 serviceAccount:
