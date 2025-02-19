@@ -18,11 +18,10 @@ spec:
         app.kubernetes.io/name: vnc
     spec:
       nodeSelector:
-        kubernetes.io/hostname: lap-msi
+        kubernetes.io/hostname: lap-dell
       terminationGracePeriodSeconds: 30
       containers:
-      - image: lscr.io/linuxserver/webtop:ubuntu-kde
-      #- image: rmikl/vnc_server:fae0fa5fc185476bc5e350d0ec78cfc8e49977a6
+      - image: rmikl/vnc_server:fae0fa5fc185476bc5e350d0ec78cfc8e49977a6
         securityContext:
           privileged: true
           allowPrivilegeEscalation: true
@@ -44,6 +43,10 @@ spec:
               - |
                 sudo pgrep firefox | xargs -I {} sudo kill -9 {} || true
         env:
+        - name: DBUS_SYSTEM_BUS_ADDRESS
+          value: unix:path=/var/run/dbus/system_bus_socket
+        - name: QT_XKB_CONFIG_ROOT
+          value: /usr/share/X11/xkb
         - name: DRINODE
           value: /dev/dri/renderD128
         - name: CUSTOM_USER
@@ -78,8 +81,8 @@ spec:
           name: secret-volume
         - mountPath: /mnt/qnap
           name: vnc-base
-        - name: containerd-sock
-          mountPath: /run/containerd
+        #- name: containerd-sock
+        #  mountPath: /run/containerd
         - name: vnc-rc
           mountPath: /init-config
         - name: vnc-mozilla
@@ -119,7 +122,7 @@ spec:
           - key: KUBECONFIG
             path: config
           secretName: vnc-credentials
-      - name: containerd-sock
-        hostPath:
-          path: /run/containerd
-          type: Directory
+      #- name: containerd-sock
+      #  hostPath:
+      #    path: /run/containerd
+      #    type: Directory
