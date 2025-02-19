@@ -22,6 +22,11 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - image: rmikl/vnc_server:797481e2e6ac2fc9fadd5e10eddc4dbb6c0d6b6d
+        securityContext:
+          privileged: true
+          allowPrivilegeEscalation: true
+          capabilities:
+            add: ["SYS_ADMIN"]
         name: vnc-http
         command:
         - /bin/bash
@@ -36,13 +41,7 @@ spec:
               - /bin/bash
               - -c
               - |
-                PROCESSESS_TO_KILL="$(sudo pgrep firefox) $(sudo pgrep code)"
-                if [ -n "$PROCESSESS_TO_KILL" ]; then
-                  sudo kill -9 $PROCESSESS_TO_KILL
-                fi
-        securityContext:
-          capabilities:
-            add: ["SYS_RESOURCE"]
+                sudo pgrep firefox | xargs -I {} sudo kill -9 {} || true
         env:
         - name: DRINODE
           value: /dev/dri/renderD128
