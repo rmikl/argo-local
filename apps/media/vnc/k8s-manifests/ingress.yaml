@@ -5,8 +5,8 @@ metadata:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-    nginx.ingress.kubernetes.io/connection-proxy-header: "Upgrade"
-    nginx.ingress.kubernetes.io/custom-headers: "Connection: Upgrade"
+    nginx.ingress.kubernetes.io/custom-headers: "Connection: Upgrade, Upgrade: websocket"
+    #nginx.ingress.kubernetes.io/custom-headers: "Upgrade: "websocket"
 
     
     #nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -32,3 +32,4 @@ spec:
   - hosts:
     - vnc.rmikl.pl
     secretName: rmikl.pl
+
