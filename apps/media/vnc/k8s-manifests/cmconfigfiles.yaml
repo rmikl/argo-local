@@ -60,7 +60,6 @@ data:
   init.sh: |
     #OTHER CONFIG
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
-    sudo apt update -y
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
     echo "abc:$PASSWORD" | sudo chpasswd
