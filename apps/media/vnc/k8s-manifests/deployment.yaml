@@ -70,9 +70,6 @@ spec:
         resources:
           limits:
             gpu.intel.com/i915: "1"       
-          requests:
-            cpu: "250m"
-            memory: "256Mi"
         volumeMounts:
         - mountPath: /vnc-script
           name: vnc-init
