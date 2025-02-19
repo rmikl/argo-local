@@ -77,8 +77,8 @@ spec:
           name: secret-volume
         - mountPath: /mnt/qnap
           name: vnc-base
-        #- name: containerd-sock
-        #  mountPath: /run/containerd
+        - name: containerd-sock
+          mountPath: /run/containerd
         - name: vnc-rc
           mountPath: /init-config
         - name: vnc-mozilla
@@ -118,7 +118,7 @@ spec:
           - key: KUBECONFIG
             path: config
           secretName: vnc-credentials
-      #- name: containerd-sock
-      #  hostPath:
-      #    path: /run/containerd
-      #    type: Directory
+      - name: containerd-sock
+        hostPath:
+          path: /run/containerd
+          type: Directory
