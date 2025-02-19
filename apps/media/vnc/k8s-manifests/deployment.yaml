@@ -21,7 +21,8 @@ spec:
         kubernetes.io/hostname: lap-msi
       terminationGracePeriodSeconds: 30
       containers:
-      - image: rmikl/vnc_server:fae0fa5fc185476bc5e350d0ec78cfc8e49977a6
+      - image: lscr.io/linuxserver/webtop:ubuntu-kde
+      #- image: rmikl/vnc_server:fae0fa5fc185476bc5e350d0ec78cfc8e49977a6
         securityContext:
           privileged: true
           allowPrivilegeEscalation: true
