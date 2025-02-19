@@ -35,9 +35,11 @@ data:
     alias pc2="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.21"
     alias raspi44gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.40"
     alias raspi48gb="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.39"
+    alias nas="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no rmikl@192.168.1.48"
     alias w="watch -n 1 "
     alias ctr="sudo ctr -n k8s.io"
     alias k=kubectl
+    cd /mnt/qnap/repos/
 
   .gitconfig: |
     [user]
