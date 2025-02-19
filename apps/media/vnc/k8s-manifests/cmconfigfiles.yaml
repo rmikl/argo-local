@@ -70,18 +70,18 @@ data:
     sudo chmod 777 /config/.zshrc
     #echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
     sudo cp --force /kube/config /config/.kube/config
-    #sudo rm -rf  \
-    #        /config/.zshr* \
-    #        /config/.shell.pre-oh-my-zsh \
-    #        /config/.dbus \
+    sudo rm -rf  \
+            /config/.zshr* \
+            /config/.shell.pre-oh-my-zsh \
+            /config/.dbus 
     #        /config/.cache 
     #        #/config/.config \
     #        #/config/.wget-hsts \
     
+    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config"
+    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.XDG"
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
 ---
-#sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config"
-#sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.XDG"
 
 
