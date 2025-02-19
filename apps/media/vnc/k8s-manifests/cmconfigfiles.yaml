@@ -39,7 +39,8 @@ data:
     alias w="watch -n 1 "
     alias ctr="sudo ctr -n k8s.io"
     alias k=kubectl
-    alias firefox='nohup firefox --ProfileManager &'
+    alias firefox='firefox --profile /mnt/qnap/k8s-tools-config/vnc/firefox-profile'
+    alias code="code --user-data-dir=/mnt/qnap/k8s-tools-config/vnc/vscode-config"
 
   .gitconfig: |
     [user]
@@ -63,23 +64,12 @@ data:
     #OTHER CONFIG
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
     sudo apt update -y
-    sudo apt install -y lsof sshpass
     sudo sed -i 's|/bin/bash|/usr/bin/zsh|g' /etc/passwd
     sudo chsh -s $(which zsh)
     echo "abc:$PASSWORD" | sudo chpasswd
     sudo chmod 777 /config/.zshrc
-    #echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
-    sudo cp --force /kube/config /config/.kube/config
-    sudo rm -rf  \
-            /config/.zshr* \
-            /config/.shell.pre-oh-my-zsh \
-            /config/.dbus 
-    #        /config/.cache 
-    #        #/config/.config \
-    #        #/config/.wget-hsts \
-    
-    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.config"
-    sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no rmikl@192.168.1.48 "rm -rf /share/smb/k8s-tools-config/vnc/home/.XDG"
+    echo $GITHUB_TOKEN_RAW | gh auth login --with-token     
+    cp --force /kube/config /config/.kube/config
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
 ---

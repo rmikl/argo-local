@@ -58,8 +58,8 @@ spec:
           limits:
             gpu.intel.com/i915: "1"
         volumeMounts:
-        - mountPath: /config
-          name: home-data
+        #- mountPath: /config
+        #  name: home-data
         - mountPath: /vnc-script  # Fixed: Matches volume name "vnc-init"
           name: vnc-init
         - mountPath: /kube
@@ -74,9 +74,9 @@ spec:
       - name: vnc-base
         persistentVolumeClaim:
           claimName: vnc-base
-      - name: home-data
-        persistentVolumeClaim:
-          claimName: vnc-home
+      #- name: home-data
+      #  persistentVolumeClaim:
+      #    claimName: vnc-home
       - name: vnc-init  # Volume index 2: Fixed configMap reference
         configMap:
           name: vnc-config-files
