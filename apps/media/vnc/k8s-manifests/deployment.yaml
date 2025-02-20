@@ -28,11 +28,11 @@ spec:
         #  capabilities:
         #    add: ["SYS_ADMIN"]
         name: vnc-http
-#/vnc-script/init.sh
         command:
         - /bin/bash
         - -c
         - |
+          /vnc-script/init.sh
           /init
         lifecycle:
           preStop:
