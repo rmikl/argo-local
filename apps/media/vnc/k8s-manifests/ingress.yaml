@@ -4,11 +4,11 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    #nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header Upgrade "websocket";
       proxy_set_header Connection "Upgrade";
 #proxy_http_version 1.1;
-    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
   name: vnc
   namespace: media
 spec:
