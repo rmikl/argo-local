@@ -1,34 +1,3 @@
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  annotations:
-#    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-#    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-#    #nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-#    nginx.ingress.kubernetes.io/configuration-snippet: |
-#      proxy_set_header Upgrade "websocket";
-#      proxy_set_header Connection "Upgrade";
-##proxy_http_version 1.1;
-#  name: vnc
-#  namespace: media
-#spec:
-#  ingressClassName: nginx
-#  rules:
-#  - host: vnc.rmikl.pl
-#    http:
-#      paths:
-#      - backend:
-#          service:
-#            name: vnc
-#            port:
-#              number: 80
-#        path: /
-#        pathType: Prefix
-#  tls:
-#  - hosts:
-#    - vnc.rmikl.pl
-#    secretName: rmikl.pl
-#
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -46,14 +15,15 @@ spec:
   - host: vnc.rmikl.pl
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
+      - backend:
           service:
             name: vnc
             port:
               number: 80
+        path: /
+        pathType: Prefix
   tls:
   - hosts:
     - vnc.rmikl.pl
     secretName: rmikl.pl
+---
