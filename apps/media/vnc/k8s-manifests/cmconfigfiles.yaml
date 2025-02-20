@@ -71,6 +71,9 @@ data:
     cp --force /kube/config /config/.kube/config
     cp --force /init-config/.gitconfig /config/.gitconfig
     cp --force /init-config/.zshrc /config/.zshrc
+    chown abc:abc /config/.zshrc
+    chown abc:abc /config/.gitconfig
+    chown abc:abc /config/.kube/config
 ---
 
 
