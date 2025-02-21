@@ -14,7 +14,7 @@ spec:
           kubernetes.io/hostname: lap-dell # Head node on lap-dell
         containers:
         - name: ray-head
-          image: rayproject/ray:2.42.1-py311-cpu
+          image: rmikl/ray-nightly-py311-cpu:53eacfa90336c0524e38d0a236eb9337efff2e74
           resources:
             limits:
               cpu: "2" 
