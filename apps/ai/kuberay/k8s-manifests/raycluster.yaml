@@ -37,7 +37,7 @@ spec:
           env:
           - name: RAY_RESOURCES
             value: '{"lap-dell-node": 1}'
-          image: rayproject/ray:2.42.1-py311-cpu
+          image: rmikl/ray-nightly-py311-cpu:53eacfa90336c0524e38d0a236eb9337efff2e74
           ports:
           - containerPort: 8000
             name: http
