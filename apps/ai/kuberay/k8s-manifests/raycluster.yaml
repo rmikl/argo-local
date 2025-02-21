@@ -17,11 +17,11 @@ spec:
           image: rayproject/ray:nightly-py311-cpu
           resources:
             limits:
-              cpu: "2" # Adjusted for shared node
-              memory: "8Gi" # Adjusted for shared node
+              cpu: "2" 
+              memory: "8Gi" 
 
   workerGroupSpecs:
-  - groupName: dell-worker-group
+  - groupName: dell-worker
     rayStartParams:
       dashboard-host: '0.0.0.0'
       block: 'true'
@@ -35,18 +35,27 @@ spec:
         containers:
         - name: ray-worker
           env:
-
           - name: RAY_RESOURCES
             value: '{"lap-dell-node": 1}'
-          image: rmikl/ray-nightly-py311-cpu:78ad3b475db611c0501ad0bc4feb60987b4cbddb
+          image: rayproject/ray:nightly-py311-cpu
           ports:
-          - containerPort: 8000 # Expose the HTTP port
+          - containerPort: 8000
             name: http
             protocol: TCP
           resources:
             limits:
-              cpu: "2"
-              memory: "8Gi"
+              cpu: "5"
+              memory: "16Gi"
+          volumeMounts:
+          - name: repos
+            mountPath: /repos
+        volumes:
+        - name: repos
+          persistentVolumeClaim:
+            claimName: repos
+
+
+
 
   # Existing worker groups
   - groupName: msi-group

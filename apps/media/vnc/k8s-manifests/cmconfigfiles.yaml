@@ -73,7 +73,7 @@ data:
     cp --force /init-config/.zshrc /config/.zshrc
     sudo chown abc:abc /config/.zshrc
     sudo chown abc:abc /config/.gitconfig
-    sudo chown abc:abc /config/.kube/config
+    sudo chown abc:abc /config/.kube/ -R
 ---
 
 

@@ -42,12 +42,6 @@ spec:
               - |
                 sudo pgrep firefox | xargs -I {} sudo kill -9 {} || true
         env:
-        #- name: DBUS_SYSTEM_BUS_ADDRESS
-        #  value: unix:path=/var/run/dbus/system_bus_socket
-        #- name: QT_XKB_CONFIG_ROOT
-        #  value: /usr/share/X11/xkb
-        #- name: XKB_CONFIG_ROOT
-        #  value: /usr/share/X11/xkb
         - name: DRINODE
           value: /dev/dri/renderD128
         - name: CUSTOM_USER
