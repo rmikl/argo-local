@@ -14,7 +14,7 @@ spec:
           kubernetes.io/hostname: lap-dell # Head node on lap-dell
         containers:
         - name: ray-head
-          image: rayproject/ray:nightly-py311-cpu
+          image: rayproject/ray:2.42.1-py311-cpu
           resources:
             limits:
               cpu: "2" 
@@ -37,7 +37,7 @@ spec:
           env:
           - name: RAY_RESOURCES
             value: '{"lap-dell-node": 1}'
-          image: rayproject/ray:nightly-py311-cpu
+          image: rayproject/ray:2.42.1-py311-cpu
           ports:
           - containerPort: 8000
             name: http
@@ -70,7 +70,7 @@ spec:
           kubernetes.io/hostname: lap-msi
         containers:
         - name: ray-worker
-          image: rayproject/ray:nightly-py311-cpu
+          image: rayproject/ray:2.42.1-py311-cpu
           resources:
             limits:
               cpu: "7"
@@ -91,7 +91,7 @@ spec:
           kubernetes.io/hostname: pc-1
         containers:
         - name: ray-worker
-          image: rayproject/ray:nightly-py311-cpu
+          image: rayproject/ray:2.42.1-py311-cpu
           resources:
             limits:
               cpu: "3"
