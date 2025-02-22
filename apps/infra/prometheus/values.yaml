@@ -1,0 +1,20 @@
+alertmanager:
+  enabled: true
+  persistentVolume:
+    enabled: false
+
+server:
+  global:
+    scrape_interval: 60s
+  resources:
+    limits:
+      cpu: 1500m
+      memory: 2500Mi
+    requests:
+      cpu: 750m
+      memory: 2000Mi
+  retention: 24h
+  persistentVolume:
+    enabled: false
+  nodeSelector: {}
+  tolerations: []

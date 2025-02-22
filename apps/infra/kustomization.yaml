@@ -14,3 +14,4 @@ resources:
 - node-feature-discovery/node-feature-discovery.yaml
 - nvidia-gpu-operator/nvidia-gpu-operator.yaml
 - device-plugins/device-plugins.yaml
+- prometheus/prometheus.yaml
