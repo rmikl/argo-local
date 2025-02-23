@@ -28,6 +28,7 @@ data:
     aca() {
       git add -A;git commit --amend --no-edit ;git push origin HEAD --force
     }
+
     alias lapdell="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.33"
     alias lapmsi="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.36"
     alias lapsamsung="sshpass -p $LOCAL_NODES_PWD ssh -o  StrictHostKeyChecking=no robert@192.168.1.27"
@@ -40,6 +41,12 @@ data:
     alias ctr="sudo ctr -n k8s.io"
     alias k=kubectl
     cd /mnt/qnap/repos/
+    cleann() {
+      lapdell "sudo systemctl restart containerd && sudo systemctl restart kubelet"
+      lapmsi "sudo systemctl restart containerd && sudo systemctl restart kubelet"
+      lapsamsung "sudo systemctl restart containerd && sudo systemctl restart kubelet"
+      pc1 "sudo systemctl restart containerd && sudo systemctl restart kubelet"
+    }
 
   .gitconfig: |
     [user]
