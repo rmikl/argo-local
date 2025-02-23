@@ -1,7 +1,7 @@
 alertmanager:
   enabled: true
-  persistentVolume:
-    enabled: false
+  persistence:
+    size: 2Gi
 
 server:
   global:
