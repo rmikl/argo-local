@@ -26,9 +26,10 @@ spec:
       dashboard-host: '0.0.0.0'
       block: 'true'
       metrics-export-port: '8080'
-      resources: '"{\"lap-dell-node\": 1}"' #Add this
+      resources: '"{\"lap-dell-node\": 1}"'
     replicas: 1
     template:
+
       spec:
         nodeSelector:
           kubernetes.io/hostname: lap-dell
@@ -54,30 +55,27 @@ spec:
           persistentVolumeClaim:
             claimName: repos
 
-
-
-
   # Existing worker groups
-  - groupName: msi-group
-    rayStartParams:
-      dashboard-host: '0.0.0.0'
-      block: 'true'
-      metrics-export-port: '8080'
-    replicas: 1
-    template:
-      spec:
-        nodeSelector:
-          kubernetes.io/hostname: lap-msi
-        containers:
-        - name: ray-worker
-          image: rayproject/ray:2.42.1-py311-cpu
-          resources:
-            limits:
-              cpu: "7"
-              memory: "12Gi"
-            requests:
-              cpu: "7"
-              memory: "12Gi"
+#  - groupName: msi-group
+#    rayStartParams:
+#      dashboard-host: '0.0.0.0'
+#      block: 'true'
+#      metrics-export-port: '8080'
+#    replicas: 1
+#    template:
+#      spec:
+#        nodeSelector:
+#          kubernetes.io/hostname: lap-msi
+#        containers:
+#        - name: ray-worker
+#          image: rayproject/ray:2.42.1-py311-cpu
+#          resources:
+#            limits:
+#              cpu: "7"
+#              memory: "12Gi"
+#            requests:
+#              cpu: "7"
+#              memory: "12Gi"
 
   - groupName: pc1-group
     rayStartParams:
