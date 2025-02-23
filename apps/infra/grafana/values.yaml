@@ -10,8 +10,8 @@ resources:
 
 admin:
   existingSecret: grafana-admin-credentials
-  userKey: admin-user
-  passwordKey: admin-password
+  userKey: grafana-admin-user
+  passwordKey: grafana-admin-password
 
 persistence:
   enabled: false
