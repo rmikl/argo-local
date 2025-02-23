@@ -4,8 +4,8 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  name: argocd
-  namespace: argocd
+  name: grafana
+  namespace: infra
 spec:
   ingressClassName: nginx
   rules:
