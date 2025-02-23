@@ -1,8 +1,7 @@
 alertmanager:
   enabled: true
   persistence:
-    size: 2Gi
-
+    enabled: false
 server:
   global:
     scrape_interval: 60s
