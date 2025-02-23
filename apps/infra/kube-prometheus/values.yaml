@@ -1,0 +1,20 @@
+# Disable persistence for Prometheus
+prometheus:
+  prometheusSpec:
+    storageSpec: {}  # No persistent storage
+
+# Disable persistence for Alertmanager
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate: {}  # No persistent storage
+
+# Enable Loki (installed as a dependency)
+loki:
+  enabled: true
+  persistence:
+    enabled: false  # Disable Loki storage
+
+# Enable Grafana for visualization
+grafana:
+  enabled: true
