@@ -15,3 +15,4 @@ resources:
 - nvidia-gpu-operator/nvidia-gpu-operator.yaml
 - device-plugins/device-plugins.yaml
 - prometheus/prometheus.yaml
+- grafana/grafana.yaml

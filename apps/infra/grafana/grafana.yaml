@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  #- repoURL: https://grafana.github.io/helm-charts
+  #  chart: grafana
+  #  targetRevision: 8.5.11
+  #  helm:
+  #    valueFiles:
+  #    - $values/apps/infra/values/grafana.yaml
+  #- repoURL: https://github.com/rmikl/argo-local
+  #  targetRevision: HEAD
+  #  ref: values
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/grafana/k8s-manifests/
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
