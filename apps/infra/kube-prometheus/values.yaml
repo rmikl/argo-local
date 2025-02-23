@@ -18,3 +18,7 @@ loki:
 # Enable Grafana for visualization
 grafana:
   enabled: true
+  admin:
+    existingSecret: grafana-admin-credentials  # Reference the Secret name
+    userKey: grafana-admin-user                        # Key for username in the Secret
+    passwordKey: grafana-admin-password  

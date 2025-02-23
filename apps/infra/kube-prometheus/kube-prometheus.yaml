@@ -15,6 +15,9 @@ spec:
   - repoURL: https://github.com/rmikl/argo-local
     targetRevision: HEAD
     ref: values
+  - repoURL: https://github.com/rmikl/argo-local.git
+    targetRevision: HEAD
+    path: apps/infra/kube-prometheus/k8s-manifests/
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: infra
