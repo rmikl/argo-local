@@ -7,7 +7,7 @@ spec:
   project: infra
   sources:
   - repoURL: https://prometheus-community.github.io/helm-charts
-    chart: prometheus-community/kube-prometheus-stack
+    chart: kube-prometheus-stack
     targetRevision: 69.4.1
     helm:
       valueFiles:
