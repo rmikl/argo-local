@@ -1,23 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana
+  name: kube-prometheus
   namespace: argocd
 spec:
   project: infra
   sources:
-  - repoURL: https://grafana.github.io/helm-charts
-    chart: grafana
-    targetRevision: 8.10.1
+  - repoURL: https://prometheus-community.github.io/helm-charts
+    chart: prometheus-comunity
+    targetRevision: 69.4.1
     helm:
       valueFiles:
-      - $values/apps/infra/grafana/values.yaml
+      - $values/apps/infra/kube-prometheus/values.yaml
   - repoURL: https://github.com/rmikl/argo-local
     targetRevision: HEAD
     ref: values
-  - repoURL: https://github.com/rmikl/argo-local.git
-    targetRevision: HEAD
-    path: apps/infra/grafana/k8s-manifests/
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: infra
