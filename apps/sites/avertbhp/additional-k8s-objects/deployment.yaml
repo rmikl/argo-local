@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: avertbhp:apps/Deployment:sites/avertbhp
+  name: avertbhp
+  namespace: sites
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: avertbhp
+  template:
+    metadata:
+      labels:
+        app: avertbhp
+    spec:
+      containers:
+      - env:
+        - name: GITPULLER_REPO_URL
+          value: https://github.com/rmikl/frontapp_card.git
+        - name: GITPULLER_BRANCH
+          value: master
+        - name: GITPULLER_REPO_PATH
+          value: /app/repo
+        - name: SLEEP_TIME
+          value: "10"
+        image: rmikl/github_puller:1.0.627
+        imagePullPolicy: IfNotPresent
+        name: git-sync
+        resources: {}
+        volumeMounts:
+        - mountPath: /app
+          name: git-volume
+      - image: nginx:alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx-server
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: git-volume
+          subPath: repo
+        - mountPath: /etc/nginx/conf.d
+          name: nginx-config
+      volumes:
+      - emptyDir: {}
+        name: git-volume
+      - configMap:
+          name: nginx-config
+          items:
+          - key: default.conf
+            path: default.conf
+        name: nginx-config
+---
+

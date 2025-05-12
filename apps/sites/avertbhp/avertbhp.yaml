@@ -6,15 +6,6 @@ metadata:
 spec:
   project: sites
   sources:
-  - repoURL: https://github.com/rmikl/helm_predeploy.git
-    targetRevision: HEAD
-    path: custom-charts/chadcn-frontend-app
-    helm:
-      valueFiles:
-      - $values/apps/sites/avertbhp/values.yaml
-  - repoURL: https://github.com/rmikl/argo-local.git
-    targetRevision: HEAD
-    ref: values
   - repoURL: https://github.com/rmikl/argo-local.git
     targetRevision: HEAD
     path: apps/sites/avertbhp/additional-k8s-objects
