@@ -20,7 +20,7 @@ spec:
         - name: GITPULLER_REPO_URL
           value: https://github.com/rmikl/frontapp_card.git
         - name: GITPULLER_BRANCH
-          value: master
+          value: avert
         - name: GITPULLER_REPO_PATH
           value: /app/repo
         - name: SLEEP_TIME
