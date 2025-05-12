@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - miklas-psycholog/miklas-psycholog.yaml
+- avertbhp/avertbhp.yaml
