@@ -1,0 +1,28 @@
+replicaCount: 1
+
+deployment:
+  name: avertbhp
+
+image:
+  gitSync:
+    repository: rmikl/github_puller
+    tag: 1.0.627
+  frontApp:
+    repository: rmikl/node_shadcn
+    tag: 1.0.627
+
+gitSync:
+  repoUrl: "https://github.com/rmikl/frontapp_card.git"
+  branch: "master"
+  repoPath: repo
+  sleepTime: "10"
+
+frontApp:
+  workingDir: /app
+  containerPort: 3000
+service:
+  name: avertbhp
+  port: 80
+  targetPort: 3000
+  type: ClusterIP
+  namespace: sites
