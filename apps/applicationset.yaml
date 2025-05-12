@@ -10,7 +10,7 @@ spec:
       - name: infra
       - name: media
       - name: sites
-      - name: ai
+   #   - name: ai
   template:
     metadata:
       name: '{{name}}'
