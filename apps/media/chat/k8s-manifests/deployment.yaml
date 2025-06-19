@@ -1,0 +1,196 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openwebui-bedrock
+  labels:
+    app: openwebui-bedrock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openwebui-bedrock
+  template:
+    metadata:
+      labels:
+        app: openwebui-bedrock
+    spec:
+      containers:
+      - name: bedrock-api-gateway
+        image: docker.io/rmikl/bedrock_api_gateway:1.0.728
+        ports:
+        - containerPort: 80
+          name: gateway-port
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: access_key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: secret_key
+        - name: AWS_REGION
+          value: "eu-south-2"
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openwebui-access
+              key: secret_key
+        - name: PORT
+          value: "80"  
+        workingDir: /app
+        command: ["sh", "-c", "uvicorn api.app:app --host 0.0.0.0 --port 80"]
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+          limits:
+            memory: "6Gi"
+            cpu: "1"
+
+      - name: openwebui
+        image: ghcr.io/open-webui/open-webui:0.6.15  # Match StatefulSet version
+        ports:
+        - containerPort: 8080
+          name: webui-port
+        env:
+        # Copy all working env vars from StatefulSet
+        - name: ENABLE_OLLAMA_API
+          value: "False"
+        - name: GLOBAL_LOG_LEVEL
+          value: info
+        - name: MAIN_LOG_LEVEL
+          value: info
+        - name: MODELS_LOG_LEVEL
+          value: info
+        - name: OLLAMA_LOG_LEVEL
+          value: debug
+        - name: OPENAI_LOG_LEVEL
+          value: debug
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: access_key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: secret_key
+        - name: AWS_DEFAULT_REGION
+          value: "eu-south-2"
+        - name: DEFAULT_USER_ROLE
+          value: admin
+        - name: ENABLE_SIGNUP
+          value: "false"
+        - name: ENABLE_LOGIN_FORM
+          value: "true"
+        - name: WEBUI_AUTH
+          value: "true"
+        - name: DEFAULT_MODELS
+          value: "anthropic.claude-3-5-sonnet-20241022-v2:0"
+        - name: ENABLE_MODEL_FILTER
+          value: "true"
+        - name: MODEL_FILTER_LIST
+          value: "anthropic.claude-3.*"
+        - name: WEBUI_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openwebui-access
+              key: secret_key
+        - name: ENABLE_ADMIN_EXPORT
+          value: "true"
+        - name: ENABLE_ADMIN_CHAT_ACCESS
+          value: "true"
+        - name: CORS_ALLOW_ORIGIN
+          value: "*"
+        # RAG disabling settings from StatefulSet
+        - name: RAG_EMBEDDING_ENGINE
+          value: ""
+        - name: RAG_EMBEDDING_MODEL
+          value: ""
+        - name: ENABLE_RAG_WEB_SEARCH
+          value: "false"
+        - name: ENABLE_RAG_LOCAL_WEB_SEARCH
+          value: "false"
+        - name: RAG_TOP_K
+          value: "0"
+        - name: CHUNK_SIZE
+          value: "0"
+        - name: CHUNK_OVERLAP
+          value: "0"
+        - name: ENABLE_RAG_HYBRID_SEARCH
+          value: "false"
+        - name: ENABLE_RAG_UPLOAD
+          value: "false"
+        # Gateway connection settings
+        - name: OPENAI_API_BASE_URL
+          value: "http://localhost:80/api/v1"
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openwebui-access
+              key: secret_key
+        volumeMounts:
+        - name: openwebui-data
+          mountPath: /app/backend/data
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        # Add security context from StatefulSet
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+          runAsGroup: 0
+          runAsNonRoot: false
+          runAsUser: 0
+        # Add health checks from StatefulSet
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 1
+          failureThreshold: 20
+
+      volumes:
+      - name: openwebui-data
+        persistentVolumeClaim:
+          claimName: openwebui-pvc
+      
+      # Add security context from StatefulSet
+      securityContext:
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: false
+        runAsUser: 0
+
+---

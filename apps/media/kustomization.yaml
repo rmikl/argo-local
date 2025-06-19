@@ -5,3 +5,4 @@ resources:
 - vnc/vnc.yaml
 - seba/seba.yaml
 - torrent/torrent.yaml
+- chat/chat.yaml
