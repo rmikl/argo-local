@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openvpn
+  namespace: infra
+  labels:
+    app: openvpn
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate  # PVC nie wspiera ReadWriteMany
+  selector:
+    matchLabels:
+      app: openvpn
+  template:
+    metadata:
+      labels:
+        app: openvpn
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: openvpn
+        image: openvpn/openvpn-as:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: admin
+          containerPort: 943
+          protocol: TCP
+        - name: vpn-tcp
+          containerPort: 1194
+          protocol: TCP
+        - name: vpn-udp
+          containerPort: 1194
+          protocol: UDP
+        env:
+        - name: INTERFACE
+          value: "eth0"
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Warsaw"
+        volumeMounts:
+        - name: openvpn-data
+          mountPath: /openvpn
+        - name: openvpn-config
+          mountPath: /etc/openvpn/server  
+          readOnly: true
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_TIME
+          allowPrivilegeEscalation: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 943
+            scheme: HTTPS
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 943
+            scheme: HTTPS
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: openvpn-data
+        persistentVolumeClaim:
+          claimName: openvpn-data
+      - name: openvpn-config
+        configMap:
+          name: openvpn-config
+      restartPolicy: Always

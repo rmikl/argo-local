@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openvpn
+  namespace: infra
+  labels:
+    app: openvpn
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: vpn.rmikl.pl
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - vpn.rmikl.pl
+    secretName: rmikl.pl
+  rules:
+  - host: vpn.rmikl.pl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: openvpn-service 
+            port:
+              number: 943  

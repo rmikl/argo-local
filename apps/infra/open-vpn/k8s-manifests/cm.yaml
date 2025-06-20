@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openvpn-config
+  namespace: infra
+  labels:
+    app: openvpn
+data:
+  # Optional: Custom OpenVPN configuration
+  custom.conf: |
+    # Push DNS servers to clients
+    push "dhcp-option DNS 10.96.0.10"  # CoreDNS
+    push "dhcp-option DNS 8.8.8.8"     # Fallback
+    
+    # Push routes to k8s networks
+    push "route 10.96.0.0 255.240.0.0"    # Services
+    push "route 10.244.0.0 255.255.0.0"   # Pods
+    
+    # Security settings
+    cipher AES-256-GCM
+    auth SHA256
+    tls-version-min 1.2
+    
+    # Performance
+    fast-io
+    sndbuf 0
+    rcvbuf 0
