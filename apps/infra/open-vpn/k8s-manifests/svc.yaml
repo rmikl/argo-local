@@ -6,15 +6,15 @@ metadata:
   labels:
     app: openvpn
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: openvpn
   ports:
   - name: admin
     port: 943
     targetPort: 943
-    protocol: TCP
+    nodePort: 30943     # Admin UI
   - name: vpn-tcp
     port: 1194
     targetPort: 1194
-    protocol: TCP
+    nodePort: 31194     # VPN connection

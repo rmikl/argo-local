@@ -25,3 +25,35 @@ data:
     fast-io
     sndbuf 0
     rcvbuf 0
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openvpn-init-script  
+  namespace: infra
+  labels:
+    app: openvpn
+data:
+  01-set-admin-password.sh: |
+    #!/bin/bash
+    set -e
+    
+    echo "Setting admin password from secret..."
+    
+    # Wait for OpenVPN AS to be ready
+    until [ -f /usr/local/openvpn_as/scripts/sacli ]; do
+      echo "Waiting for OpenVPN AS to initialize..."
+      sleep 2
+    done
+    
+    # Wait for service to be running
+    sleep 10
+    
+    # Set admin password if ADMIN_PASSWORD env var exists
+    if [ ! -z "$ADMIN_PASSWORD" ]; then
+      echo "Setting custom admin password..."
+      /usr/local/openvpn_as/scripts/sacli --user openvpn --new_pass "$ADMIN_PASSWORD" SetLocalPassword
+      echo "Admin password set successfully"
+    else
+      echo "No ADMIN_PASSWORD environment variable found"
+    fi
