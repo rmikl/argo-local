@@ -10,13 +10,13 @@ spec:
   selector:
     app: openvpn
   ports:
-  - name: admin
-    port: 943
-    targetPort: 943
-    nodePort: 30943
-    protocol: TCP       
-  - name: vpn-udp
-    port: 1194
-    targetPort: 1194
-    nodePort: 31194
-    protocol: UDP        
+    - name: admin
+      port: 943
+      targetPort: 943
+      nodePort: 30943
+      protocol: TCP       
+    - name: vpn-udp
+      port: 1194
+      targetPort: 926  # Zmień z 1194 na 926
+      nodePort: 31194
+      protocol: UDP
