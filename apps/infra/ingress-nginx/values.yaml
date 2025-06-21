@@ -13,11 +13,7 @@ controller:
     ports:
       http: 80
       https: 443
-      openvpn: 1194  # Add OpenVPN port
   # Enable TCP streams support
-  extraArgs:
-    tcp-services-configmap: "$(POD_NAMESPACE)/tcp-services"
-  # Add OpenVPN port to container
   containerPorts:
     - name: http
       containerPort: 80
@@ -25,13 +21,8 @@ controller:
     - name: https  
       containerPort: 443
       protocol: TCP
-    - name: openvpn
-      containerPort: 1194
-      protocol: TCP
 
-# TCP services configuration
-tcp:
-  1194: "infra/openvpn-service:1194"  # Point to future OpenVPN service
+
 
 allowSnippetAnnotations: true
 rbac:
