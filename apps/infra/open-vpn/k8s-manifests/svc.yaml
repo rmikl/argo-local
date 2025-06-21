@@ -13,8 +13,10 @@ spec:
   - name: admin
     port: 943
     targetPort: 943
-    nodePort: 30943     # Admin UI
-  - name: vpn-tcp
+    nodePort: 30943
+    protocol: TCP       
+  - name: vpn-udp
     port: 1194
     targetPort: 1194
-    nodePort: 31194     # VPN connection
+    nodePort: 31194
+    protocol: UDP        
