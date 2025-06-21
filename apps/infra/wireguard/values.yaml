@@ -19,7 +19,7 @@ securityContext:
 
 # Service configuration - NodePort
 service: 
-  enabled: false
+  type: NodePort
 
 # Workload configuration z sidecar
 workload:
