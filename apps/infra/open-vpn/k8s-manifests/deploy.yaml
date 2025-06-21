@@ -21,30 +21,6 @@ spec:
         kubernetes.io/hostname: pc-1
       securityContext:
         fsGroup: 1000
-      initContainers:
-        - name: openvpn-init-config
-          image: openvpn/openvpn-as:latest
-          command: ["/bin/bash", "/scripts/init-config.sh"]
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Europe/Warsaw"
-          volumeMounts:
-            - name: openvpn-data
-              mountPath: /openvpn
-            - name: openvpn-config
-              mountPath: /scripts
-              readOnly: true
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
-                - SYS_TIME
-            privileged: true
-            allowPrivilegeEscalation: true
       containers:
         - name: openvpn
           image: openvpn/openvpn-as:latest
@@ -66,6 +42,57 @@ spec:
               value: "1000"
             - name: TZ
               value: "Europe/Warsaw"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - "/bin/bash"
+                  - "-c"
+                  - |
+                    echo "Waiting for OpenVPN AS to fully start..."
+                    
+                    # Czekaj aż serwis będzie gotowy (sprawdź czy socket istnieje)
+                    for i in {1..120}; do
+                        if [ -S /usr/local/openvpn_as/etc/sock/sagent.localroot ] || [ -S /usr/local/openvpn_as/etc/sock/sagent ]; then
+                            echo "OpenVPN AS socket ready after ${i} seconds"
+                            break
+                        fi
+                        if [ $i -eq 120 ]; then
+                            echo "Timeout waiting for OpenVPN AS socket"
+                            exit 0  # Don't fail the container startup
+                        fi
+                        sleep 2
+                    done
+                    
+                    # Dodatkowe oczekiwanie dla stabilności
+                    sleep 10
+                    
+                    # Konfiguruj OpenVPN AS
+                    echo "Configuring OpenVPN AS..."
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 1194 ConfigPut || true
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol --value udp ConfigPut || true
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.ip_address --value all ConfigPut || true
+                    
+                    # DNS settings
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.0 --value 10.96.0.10 ConfigPut || true
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.1 --value 8.8.8.8 ConfigPut || true
+                    
+                    # Network routing
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.0 --value 10.244.0.0/16 ConfigPut || true
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.1 --value 10.96.0.0/12 ConfigPut || true
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.client.routing.reroute_dns --value true ConfigPut || true
+                    
+                    # Host configuration
+                    /usr/local/openvpn_as/scripts/sacli --key host.name --value vpn.rmikl.pl ConfigPut || true
+                    
+                    # Enable VPN daemon
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.daemon.enable --value true ConfigPut || true
+                    
+                    # Restart to apply config
+                    echo "Restarting OpenVPN AS to apply configuration..."
+                    /usr/local/openvpn_as/scripts/sacli start || true
+                    
+                    echo "Configuration completed"
           volumeMounts:
             - name: openvpn-data
               mountPath: /openvpn
@@ -91,7 +118,7 @@ spec:
               path: /
               port: 943
               scheme: HTTPS
-            initialDelaySeconds: 120
+            initialDelaySeconds: 180  # Zwiększ delay ze względu na konfigurację
             periodSeconds: 30
             timeoutSeconds: 10
           readinessProbe:
@@ -99,7 +126,7 @@ spec:
               path: /
               port: 943
               scheme: HTTPS
-            initialDelaySeconds: 90
+            initialDelaySeconds: 120  # Zwiększ delay
             periodSeconds: 10
       volumes:
         - name: openvpn-data
@@ -108,5 +135,5 @@ spec:
         - name: openvpn-config
           configMap:
             name: openvpn-config
-            defaultMode: 0755  # Uprawnienia wykonywania dla skryptu
+            defaultMode: 0755
       restartPolicy: Always
