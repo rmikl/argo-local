@@ -165,9 +165,9 @@ workload:
 
 # Persistence configuration
 persistence:
+  storageClass: "qnap-wg"
   config:
     enabled: true
-    storageClass: "qnap-wg"
     size: 2Gi
     accessMode: ReadWriteOnce
     mountPath: "/etc/wireguard"
