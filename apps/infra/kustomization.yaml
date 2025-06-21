@@ -15,4 +15,4 @@ resources:
 - nvidia-gpu-operator/nvidia-gpu-operator.yaml
 - device-plugins/device-plugins.yaml
 - kube-prometheus/kube-prometheus.yaml
-#- open-vpn/open-vpn.yaml
+- wireguard/wireguard.yaml

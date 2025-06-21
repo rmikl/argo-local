@@ -1,0 +1,221 @@
+# values.yaml dla wg-easy chart (hansehe/wg-easy-helm) z NodePort
+image:
+  repository: ghcr.io/wg-easy/wg-easy
+  pullPolicy: IfNotPresent
+  tag: "15.0.0"
+
+# Security Context
+securityContext:
+  container:
+    PUID: 0
+    runAsUser: 0
+    runAsGroup: 0
+    readOnlyRootFilesystem: false
+    runAsNonRoot: false
+    privileged: true
+    capabilities:
+      add:
+        - NET_ADMIN
+        - NET_RAW
+        - SYS_MODULE
+
+# Service configuration - NodePort
+service:
+  main:
+    type: NodePort
+    ports:
+      main:
+        port: 51821
+        nodePort: 31821  # Web UI dostępne na node:31821
+  vpn:
+    enabled: true
+    type: NodePort
+    ports:
+      vpn:
+        enabled: true
+        protocol: udp
+        port: 51820
+        nodePort: 31820  # WireGuard VPN dostępne na node:31820
+
+# Workload configuration z sidecar
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          probes:
+            liveness:
+              type: tcp
+            readiness:
+              type: tcp
+            startup:
+              type: tcp
+          env:
+            HOST: "0.0.0.0"
+            PORT: "{{ .Values.service.main.ports.main.port }}"
+            INSECURE: false
+            # WireGuard specific env vars
+            WG_HOST: ""  # Będzie updatowany przez sidecar
+            WG_DEFAULT_DNS: "1.1.1.1, 8.8.8.8"
+            WG_ALLOWED_IPS: "0.0.0.0/0, ::/0"
+            WG_PERSISTENT_KEEPALIVE: "25"
+            WG_DEFAULT_ADDRESS: "10.8.0.x"
+            WG_MTU: "1420"
+            UI_TRAFFIC_STATS: "true"
+            UI_CHART_TYPE: "0"
+            # Password z Secret
+            PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-admin-credentials
+                  key: grafana-admin-password
+        
+        # Sidecar dla IP detection
+        ip-updater:
+          enabled: true
+          image:
+            repository: alpine
+            tag: latest
+            pullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              # Zainstaluj kubectl i curl
+              apk add --no-cache curl
+              
+              # Pobierz kubectl
+              curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+              chmod +x kubectl
+              mv kubectl /usr/local/bin/
+              
+              echo "Starting IP monitor for NodePort setup..."
+              LAST_IP=""
+              
+              while true; do
+                # Dla NodePort - sprawdź bezpośrednio external IP
+                echo "Checking external IP..."
+                CURRENT_IP=$(curl -s --connect-timeout 10 --max-time 10 http://ipecho.net/plain 2>/dev/null || \
+                             curl -s --connect-timeout 10 --max-time 10 http://api.ipify.org 2>/dev/null || \
+                             echo "")
+                
+                if [ -n "$CURRENT_IP" ] && [ "$CURRENT_IP" != "$LAST_IP" ] && [ "$CURRENT_IP" != "null" ]; then
+                  echo "$(date): IP changed from '$LAST_IP' to '$CURRENT_IP'"
+                  
+                  # Update environment variable via shared file
+                  echo "$CURRENT_IP" > /shared/current_ip
+                  echo "export WG_HOST=$CURRENT_IP" > /shared/env_update
+                  
+                  # Signal main container if not first run
+                  if [ -n "$LAST_IP" ]; then
+                    echo "Notifying main container about IP change..."
+                    touch /shared/ip_changed
+                  fi
+                  
+                  LAST_IP="$CURRENT_IP"
+                  echo "Updated WG_HOST to: $CURRENT_IP (NodePort 31820)"
+                else
+                  echo "$(date): IP unchanged: $CURRENT_IP"
+                fi
+                
+                sleep 300  # Check co 5 minut
+              done
+          
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared
+          
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          
+          securityContext:
+            runAsUser: 0
+            allowPrivilegeEscalation: true
+
+      # Init container
+      initContainers:
+        ip-init:
+          image:
+            repository: alpine
+            tag: latest
+          command:
+            - sh
+            - -c
+            - |
+              apk add --no-cache curl
+              echo "Getting initial IP for NodePort setup..."
+              
+              # Pobierz external IP dla NodePort
+              INITIAL_IP=$(curl -s --connect-timeout 10 --max-time 10 http://ipecho.net/plain 2>/dev/null || \
+                           curl -s --connect-timeout 10 --max-time 10 http://api.ipify.org 2>/dev/null || \
+                           curl -s --connect-timeout 10 --max-time 10 http://checkip.amazonaws.com 2>/dev/null || \
+                           echo "auto-detect")
+              
+              echo "$INITIAL_IP" > /shared/current_ip
+              echo "export WG_HOST=$INITIAL_IP" > /shared/env_update
+              echo "Initial IP set to: $INITIAL_IP (NodePort will use :31820)"
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared
+          securityContext:
+            runAsUser: 0
+
+# Persistence configuration
+persistence:
+  config:
+    enabled: true
+    storageClass: "qnap-wg"
+    size: 2Gi
+    accessMode: ReadWriteOnce
+    mountPath: "/etc/wireguard"
+  
+  modules:
+    enabled: true
+    hostPath: "/lib/modules"
+    mountPath: "/lib/modules"
+    readOnly: true
+    type: hostPath
+  
+  # Shared data volume dla sidecar
+  shared-data:
+    enabled: true
+    type: emptyDir
+    mountPath: /shared
+  
+  # Opcjonalnie logs
+  logs:
+    enabled: true
+    storageClass: "qnap-wg"
+    size: 1Gi
+    accessMode: ReadWriteOnce
+    mountPath: "/var/log/wireguard"
+
+# Service Account i RBAC
+serviceAccount:
+  create: true
+  name: "wireguard-sa"
+
+# RBAC
+rbac:
+  create: true
+  rules:
+    - apiGroups: [""]
+      resources: ["services"]
+      verbs: ["get", "list", "watch"]
+    - apiGroups: [""]
+      resources: ["pods"]
+      verbs: ["get", "list"]
+
+# Resources
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

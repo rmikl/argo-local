@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wireguard
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+    - repoURL: https://raw.githubusercontent.com/hansehe/wg-easy-helm/master/helm/charts
+      chart: wg-easy
+      targetRevision: "*"
+      helm:
+        valueFiles:
+          - $values/apps/infra/wireguard/values.yaml
+    - repoURL: https://github.com/rmikl/argo-local
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://github.com/rmikl/argo-local.git
+      targetRevision: HEAD
+      path: apps/infra/wireguard/k8s-manifests/
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: wireguard
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

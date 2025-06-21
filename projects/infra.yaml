@@ -27,6 +27,7 @@ spec:
   - registry-1.docker.io/bitnamicharts
   - https://kubernetes-sigs.github.io/node-feature-discovery
   - https://prometheus-community.github.io/helm-charts
+  - https://raw.githubusercontent.com/hansehe/wg-easy-helm/master/helm/charts
   destinations:
   - server: https://kubernetes.default.svc
     namespace: 'cluster-operators'
