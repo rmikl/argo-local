@@ -8,7 +8,7 @@ metadata:
 spec:
   replicas: 1
   strategy:
-    type: Recreate  # PVC nie wspiera ReadWriteMany
+    type: Recreate
   selector:
     matchLabels:
       app: openvpn
@@ -21,123 +21,146 @@ spec:
         kubernetes.io/hostname: pc-1
       securityContext:
         fsGroup: 1000
-      containers:
-        - name: openvpn
-          image: openvpn/openvpn-as:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: admin
-              containerPort: 943
-              protocol: TCP
-            - name: vpn-udp
-              containerPort: 926
-              protocol: UDP
-            - name: vpn-tcp
-              containerPort: 443
-              protocol: TCP
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Europe/Warsaw"
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                  - "/bin/bash"
-                  - "-c"
-                  - |
-                    echo "Waiting for OpenVPN AS to fully start..."
-                    
-                    # Czekaj aż serwis będzie gotowy (sprawdź czy socket istnieje)
-                    for i in {1..120}; do
-                        if [ -S /usr/local/openvpn_as/etc/sock/sagent.localroot ] || [ -S /usr/local/openvpn_as/etc/sock/sagent ]; then
-                            echo "OpenVPN AS socket ready after ${i} seconds"
-                            break
-                        fi
-                        if [ $i -eq 120 ]; then
-                            echo "Timeout waiting for OpenVPN AS socket"
-                            exit 0  # Don't fail the container startup
-                        fi
-                        sleep 2
-                    done
-                    
-                    # Dodatkowe oczekiwanie dla stabilności
-                    sleep 10
-                    
-                    # Konfiguruj OpenVPN AS
-                    echo "Configuring OpenVPN AS..."
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 926 ConfigPut || true
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol --value udp ConfigPut || true
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.ip_address --value all ConfigPut || true
-                    
-                    # DNS settings
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.0 --value 10.96.0.10 ConfigPut || true
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.1 --value 8.8.8.8 ConfigPut || true
-                    
-                    # Network routing
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.0 --value 10.244.0.0/16 ConfigPut || true
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.1 --value 10.96.0.0/12 ConfigPut || true
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.client.routing.reroute_dns --value true ConfigPut || true
-                    
-                    # Host configuration
-                    /usr/local/openvpn_as/scripts/sacli --key host.name --value vpn.rmikl.pl ConfigPut || true
-                    
-                    # Enable VPN daemon
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.server.daemon.enable --value true ConfigPut || true
-                    
-                    # Restart to apply config
-                    echo "Restarting OpenVPN AS to apply configuration..."
-                    /usr/local/openvpn_as/scripts/sacli start || true
-                    
-                    echo "Configuration completed"
-                    /usr/local/openvpn_as/scripts/sacli stop
-                    sleep 5
-                    /usr/local/openvpn_as/scripts/sacli start
-
-          volumeMounts:
-            - name: openvpn-data
-              mountPath: /openvpn
-            - name: openvpn-config
-              mountPath: /etc/openvpn/server  
-              readOnly: true
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
-                - SYS_TIME
-            allowPrivilegeEscalation: true
-            privileged: true
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 943
-              scheme: HTTPS
-            initialDelaySeconds: 60  # Zwiększ delay ze względu na konfigurację
-            periodSeconds: 30
-            timeoutSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 943
-              scheme: HTTPS
-            initialDelaySeconds: 45  # Zwiększ delay
-            periodSeconds: 10
-      volumes:
+      initContainers:
+      - name: openvpn-preconfig
+        image: openvpn/openvpn-as:latest
+        command:
+        - "/bin/bash"
+        - "-c"
+        - |
+          echo "Pre-configuring OpenVPN AS for port 926..."
+          # Sprawdź czy konfiguracja już istnieje
+          if [ -f /openvpn/etc/as.conf ]; then
+            echo "Existing config found, modifying..."
+            # Backup original config
+            cp /openvpn/etc/as.conf /openvpn/etc/as.conf.backup.$(date +%s)
+            # Modify port configuration
+            sed -i 's/^vpn\.daemon\.0\.listen\.port=.*/vpn.daemon.0.listen.port=926/' /openvpn/etc/as.conf
+            sed -i 's/^vpn\.daemon\.0\.listen\.protocol=.*/vpn.daemon.0.listen.protocol=udp/' /openvpn/etc/as.conf
+            echo "Config pre-modified for port 926"
+          else
+            echo "No existing config found, will be created on first run"
+          fi
+          # Tworzymy marker że initContainer się wykonał
+          touch /openvpn/INIT_COMPLETED
+        volumeMounts:
         - name: openvpn-data
-          persistentVolumeClaim:
-            claimName: openvpn-data
+          mountPath: /openvpn
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+      containers:
+      - name: openvpn
+        image: openvpn/openvpn-as:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: admin
+          containerPort: 943
+          protocol: TCP
+        - name: vpn-udp
+          containerPort: 926
+          protocol: UDP
+        - name: vpn-tcp
+          containerPort: 443
+          protocol: TCP
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Warsaw"
+        lifecycle:
+          postStart:
+            exec:
+              command:
+              - "/bin/bash"
+              - "-c"
+              - |
+                echo "PostStart: Waiting for OpenVPN AS to start..."
+                # Czekaj na socket
+                for i in {1..90}; do
+                    if [ -S /usr/local/openvpn_as/etc/sock/sagent.localroot ] || [ -S /usr/local/openvpn_as/etc/sock/sagent ]; then
+                        echo "OpenVPN AS socket ready after ${i} seconds"
+                        break
+                    fi
+                    if [ $i -eq 90 ]; then
+                        echo "Timeout waiting for socket, proceeding anyway..."
+                        break
+                    fi
+                    sleep 2
+                done
+                
+                # Dodatkowe oczekiwanie
+                sleep 15
+                
+                echo "Applying configuration for port 926..."
+                # Konfiguruj kolejno z większymi opóźnieniami
+                /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 926 ConfigPut
+                sleep 2
+                /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol --value udp ConfigPut
+                sleep 2
+                /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.ip_address --value all ConfigPut
+                sleep 2
+                
+                # DNS i routing
+                /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.0 --value 10.96.0.10 ConfigPut
+                /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.1 --value 8.8.8.8 ConfigPut
+                /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.0 --value 10.244.0.0/16 ConfigPut
+                /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.1 --value 10.96.0.0/12 ConfigPut
+                /usr/local/openvpn_as/scripts/sacli --key vpn.client.routing.reroute_dns --value true ConfigPut
+                /usr/local/openvpn_as/scripts/sacli --key host.name --value vpn.rmikl.pl ConfigPut
+                /usr/local/openvpn_as/scripts/sacli --key vpn.server.daemon.enable --value true ConfigPut
+                
+                echo "Configuration applied, restarting daemon..."
+                # Restart daemon aby zastosować port 926
+                /usr/local/openvpn_as/scripts/sacli stop
+                sleep 8
+                /usr/local/openvpn_as/scripts/sacli start
+                
+                echo "OpenVPN AS configured for port 926 - PostStart completed"
+        volumeMounts:
+        - name: openvpn-data
+          mountPath: /openvpn
         - name: openvpn-config
-          configMap:
-            name: openvpn-config
-            defaultMode: 0755
+          mountPath: /etc/openvpn/server
+          readOnly: true
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_TIME
+          allowPrivilegeEscalation: true
+          privileged: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 943
+            scheme: HTTPS
+          initialDelaySeconds: 120  # Zwiększone ze względu na restart w postStart
+          periodSeconds: 30
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 943
+            scheme: HTTPS
+          initialDelaySeconds: 90   # Zwiększone ze względu na restart
+          periodSeconds: 10
+          timeoutSeconds: 5
+      volumes:
+      - name: openvpn-data
+        persistentVolumeClaim:
+          claimName: openvpn-data
+      - name: openvpn-config
+        configMap:
+          name: openvpn-config
+          defaultMode: 0755
       restartPolicy: Always
