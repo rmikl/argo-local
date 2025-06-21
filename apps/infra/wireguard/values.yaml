@@ -18,22 +18,8 @@ securityContext:
       - SYS_MODULE
 
 # Service configuration - NodePort
-service:
-  main:
-    type: NodePort
-    ports:
-      main:
-        port: 51821
-        nodePort: 31821  # Web UI dostępne na node:31821
-  vpn:
-    enabled: true
-    type: NodePort
-    ports:
-      vpn:
-        enabled: true
-        protocol: udp
-        port: 51820
-        nodePort: 31820  # WireGuard VPN dostępne na node:31820
+service: 
+  enabled: false
 
 # Workload configuration z sidecar
 workload:
@@ -50,7 +36,7 @@ workload:
               type: tcp
           env:
             HOST: "0.0.0.0"
-            PORT: "{{ .Values.service.main.ports.main.port }}"
+            PORT: "51820"
             INSECURE: false
             # WireGuard specific env vars
             WG_HOST: ""  # Będzie updatowany przez sidecar
