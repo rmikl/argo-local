@@ -17,6 +17,8 @@ spec:
       labels:
         app: openvpn
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: pc-1 
       securityContext:
         fsGroup: 1000
       containers:
