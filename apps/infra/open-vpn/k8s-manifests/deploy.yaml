@@ -36,8 +36,6 @@ spec:
           containerPort: 1194
           protocol: UDP
         env:
-        - name: INTERFACE
-          value: "eth0"
         - name: PUID
           value: "1000"
         - name: PGID
