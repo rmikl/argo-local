@@ -69,7 +69,7 @@ spec:
                     
                     # Konfiguruj OpenVPN AS
                     echo "Configuring OpenVPN AS..."
-                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 1194 ConfigPut || true
+                    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 926 ConfigPut || true
                     /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol --value udp ConfigPut || true
                     /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.ip_address --value all ConfigPut || true
                     
