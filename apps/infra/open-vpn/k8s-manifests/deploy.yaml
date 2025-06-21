@@ -93,6 +93,10 @@ spec:
                     /usr/local/openvpn_as/scripts/sacli start || true
                     
                     echo "Configuration completed"
+                    /usr/local/openvpn_as/scripts/sacli stop
+                    sleep 5
+                    /usr/local/openvpn_as/scripts/sacli start
+
           volumeMounts:
             - name: openvpn-data
               mountPath: /openvpn
@@ -118,7 +122,7 @@ spec:
               path: /
               port: 943
               scheme: HTTPS
-            initialDelaySeconds: 180  # Zwiększ delay ze względu na konfigurację
+            initialDelaySeconds: 60  # Zwiększ delay ze względu na konfigurację
             periodSeconds: 30
             timeoutSeconds: 10
           readinessProbe:
@@ -126,7 +130,7 @@ spec:
               path: /
               port: 943
               scheme: HTTPS
-            initialDelaySeconds: 120  # Zwiększ delay
+            initialDelaySeconds: 45  # Zwiększ delay
             periodSeconds: 10
       volumes:
         - name: openvpn-data
