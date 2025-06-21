@@ -164,34 +164,7 @@ workload:
             runAsUser: 0
 
 # Persistence configuration
-persistence:
-  storageClass: "qnap-wg"
-  config:
-    enabled: true
-    size: 2Gi
-    accessMode: ReadWriteOnce
-    mountPath: "/etc/wireguard"
-  
-  modules:
-    enabled: true
-    hostPath: "/lib/modules"
-    mountPath: "/lib/modules"
-    readOnly: true
-    type: hostPath
-  
-  # Shared data volume dla sidecar
-  shared-data:
-    enabled: true
-    type: emptyDir
-    mountPath: /shared
-  
-  # Opcjonalnie logs
-  logs:
-    enabled: true
-    storageClass: "qnap-wg"
-    size: 1Gi
-    accessMode: ReadWriteOnce
-    mountPath: "/var/log/wireguard"
+persistence: {}
 
 # Service Account i RBAC
 serviceAccount:
