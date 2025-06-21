@@ -6,7 +6,6 @@ image:
 
 # Security Context
 securityContext:
-  PUID: 0
   runAsUser: 0
   runAsGroup: 0
   readOnlyRootFilesystem: false
