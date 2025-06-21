@@ -5,7 +5,7 @@ metadata:
   name: qnap-wg
 provisioner: smb.csi.k8s.io
 parameters:
-  source: "//192.168.1.48/smb/k8s-tools-config/vnc/.mozilla"
+  source: "//192.168.1.48/smb/k8s-tools-config/wg"
   csi.storage.k8s.io/node-stage-secret-name: qnap-credentials
   csi.storage.k8s.io/node-stage-secret-namespace: infra
   csi.storage.k8s.io/node-publish-secret-name: qnap-credentials
