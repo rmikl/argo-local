@@ -30,7 +30,7 @@ spec:
               containerPort: 943
               protocol: TCP
             - name: vpn-udp
-              containerPort: 1194
+              containerPort: 926
               protocol: UDP
             - name: vpn-tcp
               containerPort: 443
