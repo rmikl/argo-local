@@ -21,6 +21,30 @@ spec:
         kubernetes.io/hostname: pc-1
       securityContext:
         fsGroup: 1000
+      initContainers:
+        - name: openvpn-init-config
+          image: openvpn/openvpn-as:latest
+          command: ["/bin/bash", "/scripts/init-config.sh"]
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Warsaw"
+          volumeMounts:
+            - name: openvpn-data
+              mountPath: /openvpn
+            - name: openvpn-config
+              mountPath: /scripts
+              readOnly: true
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_TIME
+            privileged: true
+            allowPrivilegeEscalation: true
       containers:
         - name: openvpn
           image: openvpn/openvpn-as:latest
@@ -42,26 +66,19 @@ spec:
               value: "1000"
             - name: TZ
               value: "Europe/Warsaw"
-            # Konfiguracja dla OpenVPN Access Server
-            - name: OPENVPN_SERVER_URL
-              value: "udp://vpn.rmikl.pl:31194"
-            - name: AS_WEB_DISABLE
-              value: "false"
-            - name: AS_USER_PASS_AUTH
-              value: "true"
           volumeMounts:
             - name: openvpn-data
               mountPath: /openvpn
-            - name: openvpn-config-customization
-              mountPath: /etc/openvpn/as
+            - name: openvpn-config
+              mountPath: /etc/openvpn/server  
               readOnly: true
           securityContext:
             capabilities:
               add:
                 - NET_ADMIN
                 - SYS_TIME
-            privileged: true  # OpenVPN AS wymaga uprawnień privileged
             allowPrivilegeEscalation: true
+            privileged: true
           resources:
             requests:
               cpu: 100m
@@ -74,7 +91,7 @@ spec:
               path: /
               port: 943
               scheme: HTTPS
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
           readinessProbe:
@@ -82,13 +99,14 @@ spec:
               path: /
               port: 943
               scheme: HTTPS
-            initialDelaySeconds: 30
+            initialDelaySeconds: 90
             periodSeconds: 10
       volumes:
         - name: openvpn-data
           persistentVolumeClaim:
             claimName: openvpn-data
-        - name: openvpn-config-customization
+        - name: openvpn-config
           configMap:
             name: openvpn-config
+            defaultMode: 0755  # Uprawnienia wykonywania dla skryptu
       restartPolicy: Always

@@ -29,24 +29,61 @@ data:
     
     # Performance
     vpn.server.port_share=943
-    
+
   # Init script for initial setup
   init-config.sh: |
     #!/bin/bash
-    # Initial configuration for OpenVPN AS
+    set -e
     
-    # Wait for OpenVPN AS to start
-    sleep 30
+    echo "Starting OpenVPN AS initial configuration..."
     
-    # Configure via sacli (OpenVPN AS CLI)
+    # Start OpenVPN AS in background first
+    echo "Starting OpenVPN AS services..."
+    /usr/local/openvpn_as/scripts/openvpnas --daemon
+    
+    # Wait for OpenVPN AS to be ready (check for sacli availability)
+    echo "Waiting for OpenVPN AS to be ready..."
+    for i in {1..60}; do
+        if /usr/local/openvpn_as/scripts/sacli --help >/dev/null 2>&1; then
+            echo "OpenVPN AS is ready after ${i} seconds"
+            break
+        fi
+        if [ $i -eq 60 ]; then
+            echo "Timeout waiting for OpenVPN AS to be ready"
+            exit 1
+        fi
+        sleep 2
+    done
+    
+    # Apply configuration
+    echo "Configuring OpenVPN AS..."
     /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 1194 ConfigPut
     /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol --value udp ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.ip_address --value all ConfigPut
+    
+    # DNS settings
     /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.0 --value 10.96.0.10 ConfigPut
     /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.1 --value 8.8.8.8 ConfigPut
     
-    # Add routes
-    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.0 --value 10.96.0.0/12 ConfigPut
-    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.1 --value 10.244.0.0/16 ConfigPut
+    # Network routing
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.0 --value 10.244.0.0/16 ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.1 --value 10.96.0.0/12 ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.client.routing.reroute_dns --value true ConfigPut
     
-    # Restart to apply changes
+    # Host configuration
+    /usr/local/openvpn_as/scripts/sacli --key host.name --value vpn.rmikl.pl ConfigPut
+    
+    # Enable VPN daemon
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.daemon.enable --value true ConfigPut
+    
+    # Apply and restart to load new config
+    echo "Applying configuration and restarting services..."
     /usr/local/openvpn_as/scripts/sacli start
+    
+    # Verify configuration
+    echo "Verifying configuration..."
+    PORT=$(/usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port ConfigQuery | tr -d '"')
+    PROTO=$(/usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol ConfigQuery | tr -d '"')
+    
+    echo "Configuration complete:"
+    echo "- Port: $PORT"
