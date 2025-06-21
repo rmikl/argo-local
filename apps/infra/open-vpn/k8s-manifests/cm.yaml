@@ -6,54 +6,47 @@ metadata:
   labels:
     app: openvpn
 data:
-  # Optional: Custom OpenVPN configuration
-  custom.conf: |
-    # Push DNS servers to clients
-    push "dhcp-option DNS 10.96.0.10"  # CoreDNS
-    push "dhcp-option DNS 8.8.8.8"     # Fallback
+  # OpenVPN AS configuration template
+  as.conf: |
+    # Basic server configuration
+    port=1194
+    proto=udp
+    dev=tun
     
-    # Push routes to k8s networks
-    push "route 10.96.0.0 255.240.0.0"    # Services
-    push "route 10.244.0.0 255.255.0.0"   # Pods
+    # Network settings
+    vpn.client.routing.reroute_gw=true
+    vpn.server.dhcp_option.dns.0=10.96.0.10
+    vpn.server.dhcp_option.dns.1=8.8.8.8
     
-    # Security settings
-    cipher AES-256-GCM
-    auth SHA256
-    tls-version-min 1.2
+    # Routes for Kubernetes networks
+    vpn.client.routing.reroute_dns=true
+    vpn.server.routing.private_network.0=10.96.0.0/12
+    vpn.server.routing.private_network.1=10.244.0.0/16
+    
+    # Security
+    vpn.tls_version_min=1.2
+    vpn.server.cipher=AES-256-GCM
     
     # Performance
-    fast-io
-    sndbuf 0
-    rcvbuf 0
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openvpn-init-script  
-  namespace: infra
-  labels:
-    app: openvpn
-data:
-  01-set-admin-password.sh: |
+    vpn.server.port_share=943
+    
+  # Init script for initial setup
+  init-config.sh: |
     #!/bin/bash
-    set -e
+    # Initial configuration for OpenVPN AS
     
-    echo "Setting admin password from secret..."
+    # Wait for OpenVPN AS to start
+    sleep 30
     
-    # Wait for OpenVPN AS to be ready
-    until [ -f /usr/local/openvpn_as/scripts/sacli ]; do
-      echo "Waiting for OpenVPN AS to initialize..."
-      sleep 2
-    done
+    # Configure via sacli (OpenVPN AS CLI)
+    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.port --value 1194 ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.daemon.0.listen.protocol --value udp ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.0 --value 10.96.0.10 ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.dhcp_option.dns.1 --value 8.8.8.8 ConfigPut
     
-    # Wait for service to be running
-    sleep 10
+    # Add routes
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.0 --value 10.96.0.0/12 ConfigPut
+    /usr/local/openvpn_as/scripts/sacli --key vpn.server.routing.private_network.1 --value 10.244.0.0/16 ConfigPut
     
-    # Set admin password if ADMIN_PASSWORD env var exists
-    if [ ! -z "$ADMIN_PASSWORD" ]; then
-      echo "Setting custom admin password..."
-      /usr/local/openvpn_as/scripts/sacli --user openvpn --new_pass "$ADMIN_PASSWORD" SetLocalPassword
-      echo "Admin password set successfully"
-    else
-      echo "No ADMIN_PASSWORD environment variable found"
-    fi
+    # Restart to apply changes
+    /usr/local/openvpn_as/scripts/sacli start

@@ -18,69 +18,77 @@ spec:
         app: openvpn
     spec:
       nodeSelector:
-        kubernetes.io/hostname: pc-1 
+        kubernetes.io/hostname: pc-1
       securityContext:
         fsGroup: 1000
       containers:
-      - name: openvpn
-        image: openvpn/openvpn-as:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: admin
-          containerPort: 943
-          protocol: TCP
-        - name: vpn-tcp
-          containerPort: 1194
-          protocol: TCP
-        - name: vpn-udp
-          containerPort: 1194
-          protocol: UDP
-        env:
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-        - name: TZ
-          value: "Europe/Warsaw"
-        volumeMounts:
-        - name: openvpn-data
-          mountPath: /openvpn
-        - name: openvpn-config
-          mountPath: /etc/openvpn/server  
-          readOnly: true
-        securityContext:
-          capabilities:
-            add:
-              - NET_ADMIN
-              - SYS_TIME
-          allowPrivilegeEscalation: true
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 943
-            scheme: HTTPS
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          timeoutSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 943
-            scheme: HTTPS
-          initialDelaySeconds: 30
-          periodSeconds: 10
+        - name: openvpn
+          image: openvpn/openvpn-as:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: admin
+              containerPort: 943
+              protocol: TCP
+            - name: vpn-udp
+              containerPort: 1194
+              protocol: UDP
+            - name: vpn-tcp
+              containerPort: 443
+              protocol: TCP
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Warsaw"
+            # Konfiguracja dla OpenVPN Access Server
+            - name: OPENVPN_SERVER_URL
+              value: "udp://vpn.rmikl.pl:31194"
+            - name: AS_WEB_DISABLE
+              value: "false"
+            - name: AS_USER_PASS_AUTH
+              value: "true"
+          volumeMounts:
+            - name: openvpn-data
+              mountPath: /openvpn
+            - name: openvpn-config-customization
+              mountPath: /etc/openvpn/as
+              readOnly: true
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_TIME
+            privileged: true  # OpenVPN AS wymaga uprawnień privileged
+            allowPrivilegeEscalation: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 943
+              scheme: HTTPS
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 943
+              scheme: HTTPS
+            initialDelaySeconds: 30
+            periodSeconds: 10
       volumes:
-      - name: openvpn-data
-        persistentVolumeClaim:
-          claimName: openvpn-data
-      - name: openvpn-config
-        configMap:
-          name: openvpn-config
+        - name: openvpn-data
+          persistentVolumeClaim:
+            claimName: openvpn-data
+        - name: openvpn-config-customization
+          configMap:
+            name: openvpn-config
       restartPolicy: Always
